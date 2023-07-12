@@ -1,11 +1,14 @@
 :root {
-  --a200: "clamp(0.5rem, 3.0vw + 0.1rem, 0.9rem)";
-  --a300: "clamp(0.6rem, 3.2vw + 0.1rem, 1.0rem)";
-  --a400: "clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem)";
-  --a500: "clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem)";
-  --a600: "clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem)";
-  --a700: "clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem)";
-  --a800: "clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem)";
+  --breakpoint-sm: 28rem;
+  --breakpoint-md: 59.5rem;
+
+  --a200: clamp(0.5rem, 3vw + 0.1rem, 0.9rem);
+  --a300: clamp(0.6rem, 3.2vw + 0.1rem, 1rem);
+  --a400: clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem);
+  --a500: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem);
+  --a600: clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem);
+  --a700: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  --a800: clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem);
 
   --color-primary-bright: hsl(155, 100%, 60%);
   --color-primary-dark: hsl(155, 70%, 30%);
@@ -24,4 +27,15 @@
   --color-background: hsl(0, 0%, 2%);
 
   --color-text: rgba(255, 255, 255, 1);
+}
+
+body {
+  font-family: "Courier New", sans-serif;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page
+  Prevent repositioning because of the scrollbar disappearing */
+  padding-left: calc(100vw - 100%);
 }
