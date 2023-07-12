@@ -30,7 +30,7 @@
 }
 
 body {
-  font-family: "Courier New", sans-serif;
+  font-family: 'Courier New', sans-serif;
   letter-spacing: -0.5px;
   color: var(--color-text);
   background-color: var(--color-background);
