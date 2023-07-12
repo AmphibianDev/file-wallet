@@ -1,0 +1,27 @@
+:root {
+  --a200: "clamp(0.5rem, 3.0vw + 0.1rem, 0.9rem)";
+  --a300: "clamp(0.6rem, 3.2vw + 0.1rem, 1.0rem)";
+  --a400: "clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem)";
+  --a500: "clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem)";
+  --a600: "clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem)";
+  --a700: "clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem)";
+  --a800: "clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem)";
+
+  --color-primary-bright: hsl(155, 100%, 60%);
+  --color-primary-dark: hsl(155, 70%, 30%);
+
+  --color-error-bright: hsl(0, 100%, 50%);
+  --color-error-dark: hsl(0, 100%, 20%);
+
+  --color-info-light: hsl(0, 0%, 45%);
+  --color-info-medium: hsl(0, 0%, 35%);
+  --color-info-dark: hsl(0, 0%, 10%);
+
+  --color-transparent-light: rgba(255, 255, 255, 0.1);
+  --color-transparent-medium: rgba(255, 255, 255, 0.15);
+
+  --color-border: hsl(0, 0%, 25%);
+  --color-background: hsl(0, 0%, 2%);
+
+  --color-text: rgba(255, 255, 255, 1);
+}
