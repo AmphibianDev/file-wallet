@@ -1,3 +1,6 @@
+@custom-media --breakpoint-sm (width > 28rem);
+@custom-media --breakpoint-md (width > 59.5rem);
+
 :root {
   --breakpoint-sm: 28rem;
   --breakpoint-md: 59.5rem;
