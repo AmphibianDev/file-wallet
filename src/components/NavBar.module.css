@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
 
+  margin-top: 0.5rem;
   margin-bottom: 2rem;
 
   @media (--breakpoint-md) {
@@ -21,13 +22,12 @@
   font-weight: bold;
 
   line-height: 1.2;
-  padding: 0 0.5rem;
-
   margin-bottom: 0.5rem;
 
   &:hover {
     background: var(--color-transparent-low);
     border-radius: 12px;
+    padding: 0 0.5rem;
   }
 
   @media (--breakpoint-md) {

@@ -35,11 +35,10 @@
   text-decoration: none;
   cursor: pointer;
 
-  padding: 0 0.5rem;
-
   &:hover {
     background: var(--color-transparent-low);
     border-radius: 12px;
+    padding: 0 0.5rem;
   }
 }
 

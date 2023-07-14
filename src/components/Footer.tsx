@@ -7,11 +7,11 @@ const Footer = () => {
     <footer className={FooterCSS.container}>
       <div className={FooterCSS.text}>
         <p>
-          Donate <u>Monero</u>:
+          Donate <u>Monero</u>:{' '}
           <button className={FooterCSS.clickText}>446zMq...kMYfx</button>
         </p>
         <p>
-          App version:
+          App Version:{' '}
           <a href="" className={FooterCSS.clickText}>
             0.1.1V
           </a>
