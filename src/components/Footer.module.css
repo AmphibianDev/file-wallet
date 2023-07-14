@@ -1,0 +1,70 @@
+@import '/src/index.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+
+  margin-top: 2rem;
+
+  font-size: var(--a200);
+  line-height: var(--a400);
+  text-align: center;
+
+  @media (--breakpoint-md) {
+    flex-direction: row;
+  }
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+
+  @media (--breakpoint-md) {
+    flex-direction: column-reverse;
+    align-items: start;
+  }
+}
+
+.clickText {
+  color: var(--color-primary-bright);
+  text-decoration: none;
+  cursor: pointer;
+
+  padding: 0 0.5rem;
+
+  &:hover {
+    background: var(--color-transparent-low);
+    border-radius: 12px;
+  }
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  gap: var(--a200);
+
+  & a {
+    box-sizing: border-box;
+    position: relative;
+    width: var(--a700);
+    height: var(--a700);
+
+    & > svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--color-border);
+    }
+
+    &:hover,
+    &:focus {
+      & > svg {
+        fill: var(--color-primary-bright);
+      }
+    }
+  }
+}
