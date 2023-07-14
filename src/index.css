@@ -23,8 +23,9 @@
   --color-info-medium: hsl(0, 0%, 35%);
   --color-info-dark: hsl(0, 0%, 10%);
 
-  --color-transparent-light: rgba(255, 255, 255, 0.1);
-  --color-transparent-medium: rgba(255, 255, 255, 0.15);
+  --color-transparent-low: rgba(255, 255, 255, 0.06);
+  --color-transparent-medium: rgba(255, 255, 255, 0.1);
+  --color-transparent-high: rgba(255, 255, 255, 0.15);
 
   --color-border: hsl(0, 0%, 25%);
   --color-background: hsl(0, 0%, 2%);
