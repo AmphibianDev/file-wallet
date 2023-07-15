@@ -1,0 +1,12 @@
+@import '/src/index.css';
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  @media (--breakpoint-md) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
