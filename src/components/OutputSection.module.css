@@ -1,0 +1,11 @@
+@import '/src/index.css';
+
+.container {
+  min-height: clamp(21rem, 80vw + 1rem, 24rem);
+  padding: 1rem;
+  border: 1px solid var(--color-primary-dark);
+
+  @media (--breakpoint-md) {
+    overflow-y: scroll;
+  }
+}
