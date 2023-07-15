@@ -64,6 +64,7 @@ select {
 }
 
 button {
+  color: inherit;
   background: none;
   border: none;
   padding: 0;
