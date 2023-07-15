@@ -1,0 +1,113 @@
+.container {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+.leftSide {
+  display: flex;
+  align-items: center;
+}
+
+.iconContainer {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+
+  padding: 0.5rem 0rem;
+
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    transform: skewX(25deg);
+    background-color: var(--color-info-dark);
+    border-right: 1px solid var(--color-border);
+    top: -1px;
+    bottom: -1px;
+    border-top-right-radius: 2px;
+    left: -50%;
+    right: -0.2rem;
+  }
+
+  svg {
+    width: 3.5rem;
+    height: 1.6rem;
+    fill: var(--color-info-light);
+    z-index: 1;
+  }
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  text-align: center;
+  font-size: var(--a300);
+  line-height: 1.2rem;
+  column-gap: 0.4rem;
+
+  padding: 0.6rem 1rem;
+  padding-right: 0rem;
+
+  a {
+    display: grid;
+    place-items: center;
+
+    svg {
+      width: 1.4rem;
+      height: 1.4rem;
+      fill: var(--color-info-light);
+
+      &:hover {
+        fill: var(--color-primary-bright);
+      }
+    }
+  }
+}
+
+.btn {
+  border: 0;
+  background-color: transparent;
+
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+
+  position: relative;
+  &::after,
+  &::before {
+    background-color: var(--color-info-medium);
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    transform-origin: center center;
+  }
+
+  &::after {
+    height: 18px;
+    width: 1px;
+  }
+
+  &::before {
+    height: 1px;
+    width: 18px;
+  }
+
+  cursor: pointer;
+  &:hover {
+    &::after,
+    &::before {
+      background-color: var(--color-primary-bright);
+    }
+  }
+}
