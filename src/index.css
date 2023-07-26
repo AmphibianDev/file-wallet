@@ -1,4 +1,4 @@
-@custom-media --breakpoint-sm (width > 28rem);
+@custom-media --breakpoint-sm (width > 28.5rem);
 @custom-media --breakpoint-md (width > 59.5rem);
 
 :root {

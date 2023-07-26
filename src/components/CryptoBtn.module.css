@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 2.25rem;
+  border-radius: 6px;
+  background-color: var(--color-transparent-medium);
+
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-transparent-high);
+    & .image {
+      border-color: var(--color-primary-bright);
+    }
+  }
+}
+
+.image {
+  box-sizing: content-box;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0.5rem;
+
+  border: 1px solid var(--color-primary-dark);
+  border-radius: 6px;
+  background-color: var(--color-background);
+}
+
+.text {
+  font-size: var(--a400);
+  padding: 0 1rem;
+}

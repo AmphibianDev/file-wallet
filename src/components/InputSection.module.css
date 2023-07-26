@@ -1,3 +1,5 @@
+@import '/src/index.css';
+
 .tabs {
   display: flex;
   justify-content: space-between;
@@ -98,7 +100,19 @@
   padding: 1rem;
   border: 1px solid var(--color-primary-bright);
 
+  display: grid;
+  grid-template-areas: 'top-left' 'top-right' 'bottom';
+  grid-auto-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+  gap: 1rem;
+
   /* for tab pseudo */
   position: relative;
   z-index: 1;
+
+  @media (--breakpoint-sm) {
+    grid-template-areas: 'top-left top-right' 'bottom bottom';
+    grid-auto-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+  }
 }

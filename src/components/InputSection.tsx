@@ -2,6 +2,7 @@ import { Tab } from '@headlessui/react';
 import classNames from 'classnames';
 
 import InputField from './InputField';
+import CryptoBtn from './CryptoBtn';
 
 import InputSectionCSS from './InputSection.module.css';
 
@@ -30,6 +31,7 @@ const InputSection = ({ className }: { className?: string }) => {
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel className={InputSectionCSS.container}>
+          <CryptoBtn cryptoName="Ethereum" />
           <InputField type="password" placeholder="Optional password.." />
         </Tab.Panel>
         <Tab.Panel className={InputSectionCSS.container}>Content 2</Tab.Panel>
