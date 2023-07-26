@@ -1,4 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
+
+import CryptoIcon from './CryptoIcon';
+
 import CryptoBtnCSS from './CryptoBtn.module.css';
 
 type CryptoBtnProps = Omit<
@@ -11,10 +14,11 @@ type CryptoBtnProps = Omit<
 const CryptoBtn = ({ cryptoName, ...props }: CryptoBtnProps) => {
   return (
     <button {...props} className={CryptoBtnCSS.container}>
-      <img
+      <CryptoIcon
+        iconName="eth"
+        resolution="128"
+        color="white"
         className={CryptoBtnCSS.image}
-        src={`https://cdn.jsdelivr.net/npm/cryptocurrency-icons/128/white/eth.png`}
-        alt={cryptoName}
       />
       <span className={CryptoBtnCSS.text}>{cryptoName}</span>
     </button>
