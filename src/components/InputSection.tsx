@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import InputField from './InputField';
 import CryptoBtn from './CryptoBtn';
+import DropZone from './DropZone';
 
 import InputSectionCSS from './InputSection.module.css';
 
@@ -33,6 +34,7 @@ const InputSection = ({ className }: { className?: string }) => {
         <Tab.Panel className={InputSectionCSS.container}>
           <CryptoBtn cryptoName="Ethereum" />
           <InputField type="password" placeholder="Optional password.." />
+          <DropZone />
         </Tab.Panel>
         <Tab.Panel className={InputSectionCSS.container}>Content 2</Tab.Panel>
       </Tab.Panels>

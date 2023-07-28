@@ -110,6 +110,10 @@
   position: relative;
   z-index: 1;
 
+  & :last-child {
+    grid-area: bottom;
+  }
+
   @media (--breakpoint-sm) {
     grid-template-areas: 'top-left top-right' 'bottom bottom';
     grid-auto-columns: auto 1fr;
