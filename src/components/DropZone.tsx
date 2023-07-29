@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useDropzone, FileRejection } from 'react-dropzone';
 import classNames from 'classnames';
 
 import useInfoPopupStore from './InfoPopup.store';
@@ -30,9 +30,40 @@ const DropZone = () => {
     [openPopup]
   );
 
+  const onDropRejected = (fileRejections: FileRejection[]) => {
+    const getErrorMessage = (errors: FileRejection['errors']) => {
+      const messages: string[] = [];
+
+      errors.forEach(error => {
+        switch (error.code) {
+          case 'file-too-large':
+            messages.push('File was over 500mb');
+            break;
+          case 'file-too-small':
+            messages.push('File was too small');
+            break;
+          case 'file-invalid-type':
+            messages.push('File type was not supported');
+            break;
+          case 'too-many-files':
+            messages.push('Only one file allowed');
+            break;
+          default:
+            messages.push('Unknown error');
+        }
+      });
+
+      return messages.join(' and ');
+    };
+
+    if (fileRejections[0])
+      openPopup(getErrorMessage(fileRejections[0].errors), 'error', 2000);
+  };
+
   const { getRootProps, getInputProps, isDragAccept, isDragReject } =
     useDropzone({
       onDrop,
+      onDropRejected,
       multiple: false,
       maxSize: 5e8,
     });
