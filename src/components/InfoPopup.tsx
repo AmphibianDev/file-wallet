@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 
 import useInfoPopupStore from './InfoPopup.store';
@@ -13,29 +13,38 @@ const InfoPopup = () => {
     iconColor,
     closeDelay,
     closePopup,
+    toggleFlag, //for forced re-render
   } = useInfoPopupStore();
 
+  const [closing, setClosing] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (isOpen) {
       if (timerRef.current) clearTimeout(timerRef.current);
+      setClosing(false);
 
       timerRef.current = setTimeout(() => {
-        closePopup();
+        setClosing(true);
+
+        setTimeout(() => {
+          closePopup();
+        }, 300);
       }, closeDelay);
 
       return () => {
         if (timerRef.current) clearTimeout(timerRef.current);
       };
     }
-  }, [isOpen, closeDelay, closePopup]);
+  }, [isOpen, closeDelay, closePopup, toggleFlag]);
+
+  if (!isOpen && !closing) return null;
 
   return (
     <div
-      className={classNames({
-        [InfoPopupCSS.popupContainer || '']: true,
-        [InfoPopupCSS.popupVisible || '']: isOpen,
+      key={Number(toggleFlag)}
+      className={classNames(InfoPopupCSS.popupContainer, {
+        [InfoPopupCSS.popupClose || '']: closing,
       })}
     >
       {Icon && <Icon style={{ fill: iconColor }} />}

@@ -21,6 +21,7 @@ const ICON_SET: Record<IconKey, IconSetting> = {
 };
 
 type PopupState = {
+  toggleFlag: boolean; //For forced re-render
   isOpen: boolean;
   message: string;
   icon?: IconType;
@@ -31,6 +32,7 @@ type PopupState = {
 };
 
 const useInfoPopupStore = create<PopupState>(set => ({
+  toggleFlag: true,
   isOpen: false,
   message: '',
   icon: undefined,
@@ -38,13 +40,15 @@ const useInfoPopupStore = create<PopupState>(set => ({
   closeDelay: 1000,
   openPopup: (message, type, closeDelay = 1000) => {
     const selectedIcon = ICON_SET[type] || {};
-    set({
+    set(currentState => ({
+      ...currentState,
       isOpen: true,
       message,
       icon: selectedIcon.icon,
       iconColor: selectedIcon.color,
       closeDelay,
-    });
+      toggleFlag: !currentState.toggleFlag,
+    }));
   },
   closePopup: () => set({ isOpen: false }),
 }));
