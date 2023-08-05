@@ -29,7 +29,7 @@ export const WarningAside = () => {
           for more info.
         </p>
       </div>
-      <button className={WarningAsideCSS.btn} onClick={closeWarning} />
+      <button className="x-btn" onClick={closeWarning} />
     </aside>
   ) : null;
 };

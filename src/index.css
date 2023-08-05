@@ -55,3 +55,43 @@ body {
   white-space: nowrap;
   border-width: 0;
 }
+
+.x-btn {
+  border: 0;
+  background-color: transparent;
+
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+
+  position: relative;
+  &::after,
+  &::before {
+    background-color: var(--color-info-medium);
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    transform-origin: center center;
+  }
+
+  &::after {
+    height: 18px;
+    width: 1px;
+  }
+
+  &::before {
+    height: 1px;
+    width: 18px;
+  }
+
+  cursor: pointer;
+  &:hover {
+    &::after,
+    &::before {
+      background-color: var(--color-primary-bright);
+    }
+  }
+}

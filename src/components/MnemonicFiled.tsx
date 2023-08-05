@@ -3,6 +3,8 @@ import { MdContentCopy, MdQrCode } from 'react-icons/md';
 import { Switch } from '@headlessui/react';
 
 import useInfoPopupStore from './InfoPopup.store';
+import useQRCodeModalStore from './QRCodeModal.store';
+
 import MnemonicFiledCSS from './MnemonicFiled.module.css';
 
 type Props = {
@@ -46,11 +48,12 @@ const MnemonicFiled = ({ bip39, xmr }: Props) => {
     };
   }, [handleCopy]);
 
+  const { openQRCodeModal } = useQRCodeModalStore();
   const handleQR = () => {
     const value = isXMR ? xmr : bip39;
     if (!value) return;
 
-    //...
+    openQRCodeModal(value);
   };
 
   return (
