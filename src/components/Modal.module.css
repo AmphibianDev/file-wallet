@@ -10,6 +10,11 @@
 
   display: grid;
   place-items: center;
+
+  animation: fadeIn 0.3s forwards;
+  &.closing {
+    animation: fadeOut 0.3s forwards;
+  }
 }
 
 .panel {
@@ -24,6 +29,11 @@
   & canvas {
     display: block;
   }
+
+  animation: slideIn 0.3s forwards;
+  &.closing {
+    animation: slideOut 0.3s forwards;
+  }
 }
 
 #btn {
@@ -35,20 +45,6 @@
   background-color: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: 6px;
-}
-
-.overlay {
-  animation: fadeIn 0.3s forwards;
-  &.closing {
-    animation: fadeOut 0.3s forwards;
-  }
-}
-
-.panel {
-  animation: slideIn 0.3s forwards;
-  &.closing {
-    animation: slideOut 0.3s forwards;
-  }
 }
 
 @keyframes fadeIn {

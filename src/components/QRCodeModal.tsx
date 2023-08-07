@@ -1,46 +1,26 @@
-import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { QRCodeCanvas } from 'qrcode.react';
-import classNames from 'classnames';
 
+import Modal from './Modal';
 import useQRCodeModalStore from './QRCodeModal.store';
-
-import QRCodeModalCSS from './QRCodeModal.module.css';
 
 const QRCodeModal = () => {
   const { isOpen, message, closeQRCodeModal } = useQRCodeModalStore();
-  const [closing, setClosing] = useState(false);
 
-  const close = () => {
-    setClosing(true);
-    setTimeout(() => {
-      setClosing(false);
-      closeQRCodeModal();
-    }, 300);
-  };
+  const rootStyle = getComputedStyle(document.documentElement);
+  const fgColor = rootStyle.getPropertyValue('--color-text').trim();
+  const bgColor = rootStyle.getPropertyValue('--color-background').trim();
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={close}
-      className={classNames(QRCodeModalCSS.overlay, {
-        [QRCodeModalCSS.closing || '']: closing,
-      })}
-    >
-      <Dialog.Panel
-        className={classNames(QRCodeModalCSS.panel, {
-          [QRCodeModalCSS.closing || '']: closing,
-        })}
-      >
-        <Dialog.Title className="sr-only">QR Code Modal</Dialog.Title>
-        <QRCodeCanvas value={message} size={256} level="M" />
-        <button
-          onClick={close}
-          className="x-btn"
-          id={QRCodeModalCSS.btn}
-        ></button>
-      </Dialog.Panel>
-    </Dialog>
+    <Modal open={isOpen} onClose={closeQRCodeModal}>
+      <Dialog.Title className="sr-only">QR Code Modal</Dialog.Title>
+      <QRCodeCanvas
+        value={message}
+        size={256}
+        fgColor={fgColor}
+        bgColor={bgColor}
+      />
+    </Modal>
   );
 };
 
