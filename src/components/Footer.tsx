@@ -1,5 +1,7 @@
 import { AiFillGithub, AiOutlineTwitter } from 'react-icons/ai';
 
+import MiddleTruncate from './MiddleTruncate';
+
 import FooterCSS from './Footer.module.css';
 
 const Footer = () => {
@@ -8,7 +10,12 @@ const Footer = () => {
       <div className={FooterCSS.text}>
         <p>
           Donate <u>Monero</u>:{' '}
-          <button className={FooterCSS.clickText}>446zMq...kMYfx</button>
+          <button className={FooterCSS.clickText}>
+            <MiddleTruncate
+              maxChars={7}
+              text="49FuwMjQZBHjnvdpk2hxYWNyufQ9Js5RrAwqq6qs8muaZima8iZzQuuC3jNfjCcYsbSPETdfPubVoZQcbPpgPPbN3QqamV4"
+            />
+          </button>
         </p>
         <p>
           App Version:{' '}
