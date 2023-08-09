@@ -58,7 +58,7 @@ const MnemonicFiled = ({ bip39, xmr }: Props) => {
 
   return (
     <div className={MnemonicFiledCSS.container}>
-      <header>
+      <header style={xmr ? { marginBottom: '0.4rem' } : {}}>
         <label className={MnemonicFiledCSS.label}>Mnemonic Seed</label>
         {xmr && (
           <Switch
