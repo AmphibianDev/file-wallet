@@ -4,14 +4,22 @@ type MiddleTruncateProps = {
   text: string;
   minChars?: number;
   maxChars?: number;
-};
+} & React.HTMLProps<HTMLSpanElement>;
 
 const MiddleTruncate = ({
   text,
   minChars = 4,
   maxChars = Infinity,
+  ...spanProps
 }: MiddleTruncateProps) => {
-  const [displayedText, setDisplayedText] = useState(text);
+  let initDisplayedText = text;
+  if (text.length > maxChars * 2 + 4) {
+    const left = text.substring(0, maxChars);
+    const right = text.substring(text.length - maxChars);
+    initDisplayedText = left + '...' + right;
+  }
+
+  const [displayedText, setDisplayedText] = useState(initDisplayedText);
   const containerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -48,7 +56,7 @@ const MiddleTruncate = ({
   }, [text, minChars, maxChars]);
 
   return (
-    <span style={{ display: 'block' }} ref={containerRef}>
+    <span ref={containerRef} style={{ display: 'block' }} {...spanProps}>
       {displayedText}
     </span>
   );

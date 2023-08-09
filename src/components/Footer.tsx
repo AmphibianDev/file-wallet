@@ -12,6 +12,7 @@ const Footer = () => {
           Donate <u>Monero</u>:{' '}
           <button className={FooterCSS.clickText}>
             <MiddleTruncate
+              minChars={7}
               maxChars={7}
               text="49FuwMjQZBHjnvdpk2hxYWNyufQ9Js5RrAwqq6qs8muaZima8iZzQuuC3jNfjCcYsbSPETdfPubVoZQcbPpgPPbN3QqamV4"
             />
