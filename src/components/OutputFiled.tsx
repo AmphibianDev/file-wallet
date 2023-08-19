@@ -1,3 +1,4 @@
+import { useEffect, useRef, useCallback } from 'react';
 import { MdContentCopy, MdQrCode } from 'react-icons/md';
 
 import MiddleTruncate from './MiddleTruncate';
@@ -13,10 +14,17 @@ type Props = {
 };
 
 const OutputFiled = ({ text, label }: Props) => {
+  const divRef = useRef<HTMLDivElement>(null);
   const { openPopup } = useInfoPopupStore();
   const { openQRCodeModal } = useQRCodeModalStore();
 
-  const handelCopy = () => {
+  const handleQR = () => {
+    if (!text) return;
+
+    openQRCodeModal(text);
+  };
+
+  const handleCopy = useCallback(() => {
     if (!text) return;
 
     navigator.clipboard
@@ -28,18 +36,25 @@ const OutputFiled = ({ text, label }: Props) => {
         console.error('Failed to copy text: ', error);
         openPopup('failed to copy', 'error', 1000);
       });
-  };
+  }, [text, openPopup]);
 
-  const handleQR = () => {
-    if (!text) return;
+  useEffect(() => {
+    const currentSpan = divRef.current;
+    const copy = (e: ClipboardEvent) => {
+      e.preventDefault();
+      handleCopy();
+    };
 
-    openQRCodeModal(text);
-  };
+    currentSpan?.addEventListener('copy', copy);
+    return () => {
+      currentSpan?.removeEventListener('copy', copy);
+    };
+  }, [handleCopy]);
 
   return (
     <div className={OutputFiledCSS.container}>
       {label && <label className={OutputFiledCSS.label}>{label}</label>}
-      <div className={OutputFiledCSS.box}>
+      <div ref={divRef} className={OutputFiledCSS.box}>
         <MiddleTruncate
           className={OutputFiledCSS.text}
           maxChars={14}
@@ -49,7 +64,7 @@ const OutputFiled = ({ text, label }: Props) => {
           <button aria-label="show QR code" onClick={handleQR}>
             <MdQrCode />
           </button>
-          <button aria-label="Copy text" onClick={handelCopy}>
+          <button aria-label="Copy text" onClick={handleCopy}>
             <MdContentCopy />
           </button>
         </div>
