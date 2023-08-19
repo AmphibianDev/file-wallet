@@ -26,6 +26,7 @@
   --color-transparent-low: rgba(255, 255, 255, 0.06);
   --color-transparent-medium: rgba(255, 255, 255, 0.1);
   --color-transparent-high: rgba(255, 255, 255, 0.15);
+  --color-transparent-veryHigh: rgba(255, 255, 255, 0.3);
 
   --color-border: hsl(0, 0%, 25%);
   --color-background: hsl(0, 0%, 2%);
@@ -42,6 +43,24 @@ body {
   /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page
   Prevent repositioning because of the scrollbar disappearing */
   padding-left: calc(100vw - 100%);
+}
+
+* {
+  scrollbar-color: var(--color-transparent-veryHigh) transparent;
+}
+
+::-webkit-scrollbar {
+  scroll-margin-right: 1rem;
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-transparent-high);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-transparent-veryHigh);
 }
 
 .sr-only {
