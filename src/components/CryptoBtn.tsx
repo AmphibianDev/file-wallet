@@ -18,6 +18,7 @@ const CryptoBtn = ({ cryptoName, ...props }: CryptoBtnProps) => {
         iconName="eth"
         resolution="128"
         color="white"
+        alwaysVisible={true}
         className={CryptoBtnCSS.image}
       />
       <span className={CryptoBtnCSS.text}>{cryptoName}</span>

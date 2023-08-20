@@ -6,6 +6,7 @@ type Props = {
   iconName: string;
   resolution: '32' | '128';
   color: 'black' | 'white';
+  alwaysVisible?: boolean;
   className?: string;
 };
 
@@ -13,10 +14,11 @@ const CryptoIcon = ({
   iconName,
   resolution,
   color,
+  alwaysVisible,
   className,
   ...rest
 }: Props) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(alwaysVisible);
   const availableIcons = useCryptoIconStore(state => state.availableIcons);
   const fetchAvailableIcons = useCryptoIconStore(
     state => state.fetchAvailableIcons
