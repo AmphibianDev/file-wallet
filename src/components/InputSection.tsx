@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import InputField from './InputField';
 import CryptoBtn from './CryptoBtn';
 import DropZone from './DropZone';
+import TextZone from './TextZone';
 
 import InputSectionCSS from './InputSection.module.css';
 
@@ -39,6 +40,7 @@ const InputSection = ({ className }: { className?: string }) => {
         <Tab.Panel className={InputSectionCSS.container}>
           <CryptoBtn cryptoName="Ethereum" />
           <button className={InputSectionCSS.randomBtn}>Random</button>
+          <TextZone />
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
