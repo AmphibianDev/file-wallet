@@ -36,7 +36,10 @@ const InputSection = ({ className }: { className?: string }) => {
           <InputField type="password" placeholder="Optional password.." />
           <DropZone />
         </Tab.Panel>
-        <Tab.Panel className={InputSectionCSS.container}>Content 2</Tab.Panel>
+        <Tab.Panel className={InputSectionCSS.container}>
+          <CryptoBtn cryptoName="Ethereum" />
+          <button className={InputSectionCSS.randomBtn}>Random</button>
+        </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
   );

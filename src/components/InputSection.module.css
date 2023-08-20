@@ -120,3 +120,23 @@
     grid-template-rows: auto 1fr;
   }
 }
+
+.randomBtn {
+  height: 2.25rem;
+  width: 100%;
+
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  color: inherit;
+  font-size: var(--a400);
+  font-weight: bold;
+  line-height: 1rem;
+
+  cursor: pointer;
+  &:hover {
+    border-color: var(--color-primary-bright);
+    outline: none;
+  }
+}
