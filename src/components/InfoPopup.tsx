@@ -29,6 +29,7 @@ const InfoPopup = () => {
 
         setTimeout(() => {
           closePopup();
+          setClosing(false);
         }, 300);
       }, closeDelay);
 
