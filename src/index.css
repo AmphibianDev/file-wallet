@@ -78,22 +78,30 @@ body {
 .x-btn {
   border: 0;
   background-color: transparent;
+  --color: var(--color-info-medium);
+  --angle: 45deg;
+  --transition-timing: none;
 
   width: 2rem;
   min-width: 2rem;
   height: 2rem;
 
+  transition: background-color var(--transition-timing);
+
   position: relative;
   &::after,
   &::before {
-    background-color: var(--color-info-medium);
+    background-color: var(--color);
     content: '';
     display: block;
     left: 50%;
     position: absolute;
     top: 50%;
-    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    transform: translateX(-50%) translateY(-50%) rotate(var(--angle));
     transform-origin: center center;
+
+    transition: transform var(--transition-timing),
+      background-color var(--transition-timing);
   }
 
   &::after {
@@ -108,9 +116,6 @@ body {
 
   cursor: pointer;
   &:hover {
-    &::after,
-    &::before {
-      background-color: var(--color-primary-bright);
-    }
+    --color: var(--color-primary-bright);
   }
 }
