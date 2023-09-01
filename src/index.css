@@ -45,6 +45,10 @@ body {
   padding-left: calc(100vw - 100%);
 }
 
+a {
+  color: var(--color-primary-bright);
+}
+
 * {
   scrollbar-color: var(--color-transparent-veryHigh) transparent;
 }

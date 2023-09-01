@@ -1,0 +1,11 @@
+.container {
+  font-size: var(--a300);
+
+  & div > p:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  & strong {
+    font-size: calc(var(--a300) + 0.05rem);
+  }
+}
