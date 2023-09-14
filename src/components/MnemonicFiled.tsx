@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { MdContentCopy, MdQrCode } from 'react-icons/md';
-import { Switch } from '@headlessui/react';
 
 import useInfoPopupStore from './InfoPopup.store';
 import useQRCodeModalStore from './QRCodeModal.store';
@@ -61,17 +60,15 @@ const MnemonicFiled = ({ bip39, xmr }: Props) => {
       <header style={xmr ? { marginBottom: '0.4rem' } : {}}>
         <label className={MnemonicFiledCSS.label}>Mnemonic Seed</label>
         {xmr && (
-          <Switch
+          <button
             className={MnemonicFiledCSS.switch}
-            checked={isXMR}
-            onChange={setIsXMR}
+            aria-pressed={isXMR}
+            aria-label={isXMR ? 'show bip39 mnemonic' : 'show xmr mnemonic'}
+            onClick={() => setIsXMR(!isXMR)}
           >
-            <span className="sr-only">
-              {isXMR ? 'show bip39 mnemonic' : 'show xmr mnemonic'}
-            </span>
             <span className={MnemonicFiledCSS.xmr}>XMR</span>
             <span className={MnemonicFiledCSS.bip}>BIP</span>
-          </Switch>
+          </button>
         )}
       </header>
       <section className={MnemonicFiledCSS.box}>

@@ -25,7 +25,7 @@
 
   cursor: pointer;
 
-  &[aria-checked='false'] {
+  &[aria-pressed='false'] {
     .xmr {
       border-color: var(--color-primary-dark);
       color: var(--color-primary-bright);

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { Switch } from '@headlessui/react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 import InputFieldCSS from './InputField.module.css';
@@ -20,16 +19,14 @@ const InputField = ({
             type={showText ? 'text' : 'password'}
             {...props}
           />
-          <Switch
+          <button
             className={InputFieldCSS.switchIcon}
-            checked={showText}
-            onChange={setShowText}
+            aria-pressed={showText}
+            aria-label={showText ? 'hide password' : 'show password'}
+            onClick={() => setShowText(!showText)}
           >
-            <span className="sr-only">
-              {showText ? 'hide password, switch' : 'show password, switch'}
-            </span>
             {showText ? <AiFillEyeInvisible /> : <AiFillEye />}
-          </Switch>
+          </button>
         </div>
       ) : (
         <input className={InputFieldCSS.input} type={type} {...props} />
