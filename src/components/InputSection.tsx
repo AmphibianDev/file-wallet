@@ -1,4 +1,4 @@
-import { Tab } from '@headlessui/react';
+import { useState } from 'react';
 import classNames from 'classnames';
 
 import InputField from './InputField';
@@ -9,10 +9,35 @@ import TextZone from './TextZone';
 import InputSectionCSS from './InputSection.module.css';
 
 const InputSection = ({ className }: { className?: string }) => {
+  const [activeTab, setActiveTab] = useState<'file' | 'seed'>('file');
+
+  // for WAI-ARIA convention
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    switch (event.key) {
+      case 'ArrowLeft':
+        setActiveTab('file');
+        break;
+      case 'ArrowRight':
+        setActiveTab('seed');
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
-    <Tab.Group as="section" className={className}>
-      <Tab.List className={InputSectionCSS.tabs}>
-        <Tab
+    <section className={className}>
+      <div
+        role="tablist"
+        className={InputSectionCSS.tabs}
+        onKeyDown={handleKeyDown}
+      >
+        <button
+          role="tab"
+          id="file-tab"
+          aria-controls="file-panel"
+          aria-selected={activeTab === 'file'}
+          onClick={() => setActiveTab('file')}
           className={classNames(
             InputSectionCSS.tab,
             InputSectionCSS.leftTab,
@@ -20,8 +45,13 @@ const InputSection = ({ className }: { className?: string }) => {
           )}
         >
           <h2>File</h2>
-        </Tab>
-        <Tab
+        </button>
+        <button
+          role="tab"
+          id="seed-tab"
+          aria-controls="seed-panel"
+          aria-selected={activeTab === 'seed'}
+          onClick={() => setActiveTab('seed')}
           className={classNames(
             InputSectionCSS.tab,
             InputSectionCSS.rightTab,
@@ -29,21 +59,33 @@ const InputSection = ({ className }: { className?: string }) => {
           )}
         >
           <h2>Seed</h2>
-        </Tab>
-      </Tab.List>
-      <Tab.Panels>
-        <Tab.Panel className={InputSectionCSS.container}>
+        </button>
+      </div>
+      <div>
+        <div
+          role="tabpanel"
+          id="file-panel"
+          aria-labelledby="file-tab"
+          hidden={activeTab !== 'file'}
+          className={InputSectionCSS.container}
+        >
           <CryptoBtn cryptoName="Ethereum" />
           <InputField type="password" placeholder="Optional password.." />
           <DropZone />
-        </Tab.Panel>
-        <Tab.Panel className={InputSectionCSS.container}>
+        </div>
+        <div
+          role="tabpanel"
+          id="seed-panel"
+          aria-labelledby="seed-tab"
+          hidden={activeTab !== 'seed'}
+          className={InputSectionCSS.container}
+        >
           <CryptoBtn cryptoName="Ethereum" />
           <button className={InputSectionCSS.randomBtn}>Random</button>
           <TextZone />
-        </Tab.Panel>
-      </Tab.Panels>
-    </Tab.Group>
+        </div>
+      </div>
+    </section>
   );
 };
 

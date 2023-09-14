@@ -21,6 +21,7 @@
     resize: none;
     overflow: hidden;
 
+    min-height: 2.5rem;
     width: 100%;
     text-align: center;
 

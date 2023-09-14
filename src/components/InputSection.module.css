@@ -32,12 +32,16 @@
     bottom: 0;
     background-color: var(--color-background);
     transform-origin: bottom left;
+
+    /* same as tab height + 1px to resolve a display bug */
+    height: calc(var(--a700) + 1rem + 1px);
+
     width: 1.6rem;
     border: 1px solid var(--color-primary-dark);
     border-bottom: none;
   }
 
-  &[data-headlessui-state='selected'] {
+  &[aria-selected='true'] {
     position: relative;
     z-index: 2;
 
@@ -118,6 +122,10 @@
     grid-template-areas: 'top-left top-right' 'bottom bottom';
     grid-auto-columns: auto 1fr;
     grid-template-rows: auto 1fr;
+  }
+
+  &[hidden] {
+    display: none;
   }
 }
 
