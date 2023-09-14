@@ -21,7 +21,7 @@
     --angle: 0deg;
     --transition-timing: 200ms ease-in-out;
   }
-  &[data-headlessui-state='open'] {
+  &[aria-expanded='true'] {
     & > div {
       --angle: 45deg;
     }
@@ -29,18 +29,19 @@
 }
 
 .content {
-  display: grid !important;
+  display: grid;
 
-  grid-template-rows: 0fr;
-  opacity: 0;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  padding-top: 1rem;
 
   transition: grid-template-rows 200ms ease-in-out, padding 200ms ease-in-out,
     opacity 150ms ease-in-out;
 
-  &[data-headlessui-state='open'] {
-    grid-template-rows: 1fr;
-    opacity: 1;
-    padding-top: 1rem;
+  &[hidden] {
+    grid-template-rows: 0fr;
+    opacity: 0;
+    padding: 0;
   }
 
   & > div {
