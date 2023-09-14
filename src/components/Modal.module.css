@@ -1,26 +1,8 @@
-.overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  z-index: 100;
-  background-color: rgba(0, 0, 0, 0.5);
-
-  display: grid;
-  place-items: center;
-
-  animation: fadeIn 0.3s forwards;
-  &.closing {
-    animation: fadeOut 0.3s forwards;
-  }
-}
-
 .panel {
   background-color: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: 6px;
+  overflow: visible;
 
   padding: 1rem;
 
@@ -28,6 +10,12 @@
 
   & canvas {
     display: block;
+  }
+
+  /* using box-shadow instead of backdrop for opacity control */
+  box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.4);
+  &::backdrop {
+    background: transparent;
   }
 
   animation: slideIn 0.3s forwards;
@@ -47,38 +35,24 @@
   border-radius: 6px;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
 @keyframes slideIn {
   from {
+    opacity: 0;
     transform: translateY(-50px);
   }
   to {
+    opacity: 1;
     transform: translateY(0);
   }
 }
 
 @keyframes slideOut {
   from {
+    opacity: 1;
     transform: translateY(0);
   }
   to {
+    opacity: 0;
     transform: translateY(-50px);
   }
 }

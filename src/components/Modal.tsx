@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Dialog } from '@headlessui/react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 
 import ModalCSS from './Modal.module.css';
@@ -10,28 +9,26 @@ type Props = {
   children: React.ReactNode;
 };
 
-interface CustomPopStateEvent extends PopStateEvent {
-  state: {
-    isModalOpen?: boolean;
-  };
-}
-
 const Modal = ({ children, open, onClose }: Props) => {
   const [closing, setClosing] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
 
+  useEffect(() => {
+    if (open) dialogRef.current?.showModal();
+    else dialogRef.current?.close();
+  }, [open]);
+
+  // close modal with animation
   const close = useCallback(() => {
     setClosing(true);
     setTimeout(() => {
       setClosing(false);
 
-      const currentState = window.history.state as CustomPopStateEvent['state'];
-      if (currentState.isModalOpen) window.history.back();
-
       onClose();
     }, 300);
   }, [onClose]);
 
-  //make the back arrow to close the modal
+  // close the modal when clicking the back arrow
   useEffect(() => {
     const onPopState = () => {
       if (open) {
@@ -49,28 +46,41 @@ const Modal = ({ children, open, onClose }: Props) => {
     };
   }, [open, close]);
 
+  // close modal when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (e.target === dialogRef.current) close();
+    };
+
+    const dialogElement = dialogRef.current;
+    if (dialogElement)
+      dialogElement.addEventListener('click', handleClickOutside);
+
+    return () => {
+      if (dialogElement)
+        dialogElement.removeEventListener('click', handleClickOutside);
+    };
+  }, [close]);
+
   return (
-    <Dialog
-      open={open}
-      onClose={close}
-      className={classNames(ModalCSS.overlay, {
+    <dialog
+      ref={dialogRef}
+      onCancel={(event: React.SyntheticEvent<HTMLDialogElement>) => {
+        event.preventDefault();
+        close();
+      }}
+      className={classNames(ModalCSS.panel, {
         [ModalCSS.closing || '']: closing,
       })}
     >
-      <Dialog.Panel
-        className={classNames(ModalCSS.panel, {
-          [ModalCSS.closing || '']: closing,
-        })}
-      >
-        {children}
-        <button
-          onClick={close}
-          className="x-btn"
-          id={ModalCSS.btn}
-          aria-label="Close modal"
-        ></button>
-      </Dialog.Panel>
-    </Dialog>
+      <button
+        onClick={close}
+        className="x-btn"
+        id={ModalCSS.btn}
+        aria-label="Close modal"
+      ></button>
+      {children}
+    </dialog>
   );
 };
 

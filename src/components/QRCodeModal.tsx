@@ -1,4 +1,3 @@
-import { Dialog } from '@headlessui/react';
 import { QRCodeCanvas } from 'qrcode.react';
 
 import Modal from './Modal';
@@ -13,7 +12,7 @@ const QRCodeModal = () => {
 
   return (
     <Modal open={isOpen} onClose={closeQRCodeModal}>
-      <Dialog.Title className="sr-only">QR Code Modal</Dialog.Title>
+      <h2 className="sr-only">QR Code Modal</h2>
       <QRCodeCanvas
         value={message}
         size={256}
