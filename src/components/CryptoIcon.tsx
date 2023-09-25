@@ -5,7 +5,7 @@ import { useCryptoIconStore } from './CryptoIcon.store';
 type Props = {
   iconName: string;
   resolution: '32' | '128';
-  color: 'black' | 'white';
+  color: 'black' | 'white' | 'color';
   alwaysVisible?: boolean;
   className?: string;
 };

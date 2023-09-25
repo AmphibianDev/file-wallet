@@ -6,9 +6,13 @@ import CryptoBtn from './CryptoBtn';
 import DropZone from './DropZone';
 import TextZone from './TextZone';
 
+import useCryptoStore from './Crypto.store';
+
 import InputSectionCSS from './InputSection.module.css';
 
 const InputSection = ({ className }: { className?: string }) => {
+  const { cryptoName } = useCryptoStore();
+
   const [activeTab, setActiveTab] = useState<'file' | 'seed'>('file');
 
   // for WAI-ARIA convention
@@ -69,7 +73,7 @@ const InputSection = ({ className }: { className?: string }) => {
           hidden={activeTab !== 'file'}
           className={InputSectionCSS.container}
         >
-          <CryptoBtn cryptoName="Ethereum" />
+          <CryptoBtn cryptoName={cryptoName} />
           <InputField type="password" placeholder="Optional password.." />
           <DropZone />
         </div>
@@ -80,7 +84,7 @@ const InputSection = ({ className }: { className?: string }) => {
           hidden={activeTab !== 'seed'}
           className={InputSectionCSS.container}
         >
-          <CryptoBtn cryptoName="Ethereum" />
+          <CryptoBtn cryptoName={cryptoName} />
           <button className={InputSectionCSS.randomBtn}>Random</button>
           <TextZone />
         </div>

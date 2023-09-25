@@ -24,6 +24,7 @@ module.exports = {
     ],
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
+    '@typescript-eslint/unbound-method': 'off',
     'no-constant-condition': ['error', { checkLoops: false }],
   },
 };

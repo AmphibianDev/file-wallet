@@ -51,6 +51,7 @@ a {
 
 * {
   scrollbar-color: var(--color-transparent-veryHigh) transparent;
+  color: inherit;
 }
 
 ::-webkit-scrollbar {

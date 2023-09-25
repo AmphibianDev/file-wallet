@@ -1,6 +1,7 @@
-import { ButtonHTMLAttributes } from 'react';
+import { useState, ButtonHTMLAttributes } from 'react';
 
 import CryptoIcon from './CryptoIcon';
+import CryptoListModal from './CryptoListModal';
 
 import CryptoBtnCSS from './CryptoBtn.module.css';
 
@@ -12,17 +13,30 @@ type CryptoBtnProps = Omit<
 };
 
 const CryptoBtn = ({ cryptoName, ...props }: CryptoBtnProps) => {
+  const [cryptoTicker, cryptoFullName] = cryptoName.split(' - ');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <button {...props} className={CryptoBtnCSS.container}>
-      <CryptoIcon
-        iconName="eth"
-        resolution="128"
-        color="white"
-        alwaysVisible={true}
-        className={CryptoBtnCSS.image}
+    <>
+      <CryptoListModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
-      <span className={CryptoBtnCSS.text}>{cryptoName}</span>
-    </button>
+      <button
+        {...props}
+        className={CryptoBtnCSS.container}
+        onClick={() => setIsModalOpen(true)}
+      >
+        <CryptoIcon
+          iconName={cryptoTicker?.toLowerCase() ?? ''}
+          resolution="128"
+          color="white"
+          alwaysVisible={true}
+          className={CryptoBtnCSS.image}
+        />
+        <span className={CryptoBtnCSS.text}>{cryptoFullName}</span>
+      </button>
+    </>
   );
 };
 
