@@ -66,6 +66,7 @@ const CryptoListModal = ({ open, onClose }: Props) => {
           {items.map(item => (
             <ListItem
               key={item}
+              parentRef={ulRef}
               label={item}
               selected={cryptoName === item}
               onClick={() => {
@@ -83,12 +84,13 @@ const CryptoListModal = ({ open, onClose }: Props) => {
 export default CryptoListModal;
 
 type ListItemProps = {
+  parentRef?: React.RefObject<HTMLElement>;
   label: string;
   selected: boolean;
   onClick: () => void;
 };
 
-const ListItem = ({ label, selected, onClick }: ListItemProps) => {
+const ListItem = ({ parentRef, label, selected, onClick }: ListItemProps) => {
   const [cryptoTicker, cryptoFullName] = label.split(' - ');
 
   return (
@@ -109,6 +111,7 @@ const ListItem = ({ label, selected, onClick }: ListItemProps) => {
         iconName={cryptoTicker ?? ''}
         resolution="128"
         color="color"
+        scrollParentRef={parentRef}
         className={CryptoListCSS.icon}
         aria-hidden="true" // Hide from screen readers as it is decorative
       />
