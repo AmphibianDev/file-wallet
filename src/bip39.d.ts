@@ -13,8 +13,9 @@ interface AddressInfo {
 interface Bip39Info {
   errorMessage: string;
   bip39Mnemonic: string;
+  entropy: string;
   bip39Seed: string;
-  bip39RootKey: string;
+  bip32RootKey: string;
   accountExtendedPrvKey: string;
   accountExtendedPubKey: string;
   derivationPath: string;

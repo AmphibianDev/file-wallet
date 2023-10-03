@@ -1,12 +1,64 @@
 import classNames from 'classnames';
+import { AiFillCaretDown } from 'react-icons/ai';
 
 import MnemonicFiled from './MnemonicFiled';
 import OutputFiled from './OutputFiled';
+
+import useCryptoStore from './Crypto.store';
 
 import InputSectionCSS from './InputSection.module.css';
 import OutputSectionCSS from './OutputSection.module.css';
 
 const OutputSection = ({ className }: { className?: string }) => {
+  const { bip39Info } = useCryptoStore();
+
+  const waitingJSX = (
+    <div className={OutputSectionCSS.middle}>
+      <p>
+        Waiting For
+        <br />
+        Input
+      </p>
+    </div>
+  );
+
+  const errorJSX = (errorMessage: string) => {
+    return (
+      <div className={OutputSectionCSS.middle}>
+        <p>{errorMessage}</p>
+      </div>
+    );
+  };
+
+  const outJSX = (bip39Info: Bip39Info) => {
+    if (!bip39Info.wallets[0]) return null;
+
+    return (
+      <>
+        <MnemonicFiled bip39={bip39Info.bip39Mnemonic} />
+        <OutputFiled label="Address" text={bip39Info.wallets[0].address} />
+        <OutputFiled label="Public Key" text={bip39Info.wallets[0].pubkey} />
+        <OutputFiled label="Private Key" text={bip39Info.wallets[0].privkey} />
+        <div className={OutputSectionCSS.downArrow}>
+          <AiFillCaretDown />
+        </div>
+        <div className={OutputSectionCSS.advanceContainer}>
+          <OutputFiled
+            label="Master Public Key"
+            text={bip39Info.accountExtendedPubKey}
+          />
+          <OutputFiled
+            label="Master Private Key"
+            text={bip39Info.accountExtendedPrvKey}
+          />
+          <OutputFiled label="Entropy" text={bip39Info.entropy} />
+          <OutputFiled label="Bip39 Seed" text={bip39Info.bip39Seed} />
+          <OutputFiled label="Bip32 Root Key" text={bip39Info.bip32RootKey} />
+        </div>
+      </>
+    );
+  };
+
   return (
     <section className={className}>
       <div
@@ -19,11 +71,11 @@ const OutputSection = ({ className }: { className?: string }) => {
         <h2>Output</h2>
       </div>
       <div className={OutputSectionCSS.container}>
-        <MnemonicFiled bip39="alcohol tattoo ancient ocean olympic nothing expect bind small message sugar charge ankle mango swift drink pink shrug evolve rare record flat okay medal" />
-        <OutputFiled
-          label="Address"
-          text="454702e26c64d928a489deb6f8df944c92b7d51d6b632c774547acfa190c540d"
-        />
+        {bip39Info === null
+          ? waitingJSX
+          : bip39Info.errorMessage
+          ? errorJSX(bip39Info.errorMessage)
+          : outJSX(bip39Info)}
       </div>
     </section>
   );

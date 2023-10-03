@@ -89,33 +89,34 @@ function getMnemonicFromEntropy(entropyStr) {
   return mnemonic.toMnemonic(entropyArr);
 }
 
-function generateFromMnemonic(mnemonic, numberOfWallets = 10) {
+function generateFromMnemonic(mnemonicString, numberOfWallets = 10) {
   // old name: phraseChanged()
 
   const out = {
     errorMessage: '',
-    bip39Mnemonic: mnemonic,
+    bip39Mnemonic: mnemonicString,
+    entropy: mnemonic.toRawEntropyHex(mnemonicString),
     bip39Seed: '',
-    bip39RootKey: '',
+    bip32RootKey: '',
     accountExtendedPrvKey: '',
     accountExtendedPubKey: '',
     derivationPath: '',
     wallets: [],
   };
 
-  globalPhrase = mnemonic;
+  globalPhrase = mnemonicString;
 
   setMnemonicLanguage();
-  var errorText = findPhraseErrors(mnemonic);
+  var errorText = findPhraseErrors(mnemonicString);
   if (errorText) {
     out.errorMessage = errorText;
     return out;
   }
 
   const passphrase = '';
-  calcBip32RootKeyFromSeed(mnemonic, passphrase);
+  calcBip32RootKeyFromSeed(mnemonicString, passphrase);
   out.bip39Seed = seed;
-  out.bip39RootKey = bip32RootKey.toBase58();
+  out.bip32RootKey = bip32RootKey.toBase58();
 
   calcForDerivationPath();
   var path = `m/${globalPurpose}'/${globalCoin}'/${globalAccount}'/`;
