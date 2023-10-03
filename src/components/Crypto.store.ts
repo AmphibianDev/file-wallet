@@ -27,7 +27,9 @@ const useCryptoStore = create<CryptoState>(set => ({
   },
 
   bipFromFile: (fileDataURL, password) => {
-    // TODO: Decide if I want remove the file type from the dataUrl
+    // TODO: Decide if I want remove the file type (data:image/png;base64,)
+    // const urlWithoutFileType = fileDataURL.slice(fileDataURL.indexOf(',') + 1);
+
     generateFromString(fileDataURL + password)
       .then(bip39Info => {
         set({ bip39Info });
@@ -44,15 +46,15 @@ const useCryptoStore = create<CryptoState>(set => ({
 
   bipRandom: () => {
     // TODO: Add more randomness
-    const array = new Uint32Array(10);
+    const array = new Uint32Array(100);
     crypto.getRandomValues(array);
 
-    let str = '';
+    let randomStr = Math.random().toString().slice(2);
     for (const num of array) {
-      str += num;
+      randomStr += num;
     }
 
-    generateFromString(str)
+    generateFromString(randomStr)
       .then(bip39Info => {
         set({ bip39Info });
       })
