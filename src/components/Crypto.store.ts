@@ -1,24 +1,14 @@
 import { create } from 'zustand';
 
-type FileData = {
-  dataUrl: string;
-  name: string;
-};
-
 type CryptoState = {
   cryptoName: string;
   bip39Info: Bip39Info | null;
   setCrypto(cryptoName: string): void;
 
-  fileData: FileData | null;
-  password: string;
-  mnemonic: string;
-
-  setFileData(fileData: FileData): void;
-  setPassword(password: string): void;
-  setMnemonic(mnemonic: string): void;
-
-  setRandom(): void;
+  bipFromFile(fileDataURL: string, password: string): void;
+  bipFromMnemonic(mnemonic: string): void;
+  bipRandom(): void;
+  bipReset(): void;
 };
 
 async function generateFromString(str: string) {
@@ -27,56 +17,32 @@ async function generateFromString(str: string) {
   return window.generateFromMnemonic(mnemonic);
 }
 
-const useCryptoStore = create<CryptoState>((set, get) => ({
+const useCryptoStore = create<CryptoState>(set => ({
   cryptoName: 'BTC - Bitcoin',
   bip39Info: null,
 
-  fileData: null,
-  password: '',
-  mnemonic: '',
-
   setCrypto: cryptoName => {
     window.setCrypto(cryptoName);
-
-    // Regenerate bip39Info if inputFileData or inputMnemonic is set
-    const inputFileData = get().fileData;
-    const inputMnemonic = get().mnemonic;
-    if (inputFileData) get().setFileData(inputFileData);
-    else if (inputMnemonic) get().setMnemonic(inputMnemonic);
-
-    set({ cryptoName });
+    set({ cryptoName, bip39Info: null });
   },
 
-  setFileData: fileData => {
+  bipFromFile: (fileDataURL, password) => {
     // TODO: Decide if I want remove the file type from the dataUrl
-    generateFromString(fileData.dataUrl + get().password)
+    generateFromString(fileDataURL + password)
       .then(bip39Info => {
-        set({ mnemonic: '', bip39Info, fileData: fileData });
+        set({ bip39Info });
       })
       .catch(err => {
         console.log(err);
       });
   },
 
-  setPassword: password => {
-    const { fileData: inputFileData } = get();
-    if (!inputFileData) return;
-
-    generateFromString(inputFileData.dataUrl + get().password)
-      .then(bip39Info => {
-        set({ mnemonic: '', bip39Info, password: password });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
-
-  setMnemonic: mnemonic => {
+  bipFromMnemonic: (mnemonic: string) => {
     const bip39Info = window.generateFromMnemonic(mnemonic);
-    set({ fileData: null, password: '', bip39Info, mnemonic: mnemonic });
+    set({ bip39Info });
   },
 
-  setRandom: () => {
+  bipRandom: () => {
     // TODO: Add more randomness
     const array = new Uint32Array(10);
     crypto.getRandomValues(array);
@@ -88,11 +54,15 @@ const useCryptoStore = create<CryptoState>((set, get) => ({
 
     generateFromString(str)
       .then(bip39Info => {
-        set({ fileData: null, password: '', bip39Info, mnemonic: '' });
+        set({ bip39Info });
       })
       .catch(err => {
         console.log(err);
       });
+  },
+
+  bipReset: () => {
+    set({ bip39Info: null });
   },
 }));
 

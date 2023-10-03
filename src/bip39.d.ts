@@ -1,3 +1,8 @@
+type FileData = {
+  dataUrl: string;
+  name: string;
+};
+
 interface AddressInfo {
   derivationPath: string;
   address: string;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 
 import InputField from './InputField';
@@ -11,9 +11,49 @@ import useCryptoStore from './Crypto.store';
 import InputSectionCSS from './InputSection.module.css';
 
 const InputSection = ({ className }: { className?: string }) => {
-  const { cryptoName } = useCryptoStore();
+  const { cryptoName, bipFromFile, bipFromMnemonic, bipRandom, bipReset } =
+    useCryptoStore();
 
   const [activeTab, setActiveTab] = useState<'file' | 'seed'>('file');
+  const [fileData, setFileData] = useState<FileData | null>(null);
+  const [password, setPassword] = useState('');
+  const [mnemonic, setMnemonic] = useState('');
+
+  // reset when switching tabs
+  useEffect(() => {
+    setFileData(null);
+    setPassword('');
+    setMnemonic('');
+
+    bipReset();
+  }, [activeTab, bipReset]);
+
+  // memoize and use ref to avoid missing dependencies for useEffect below
+  const memoGenerateBip = useCallback(() => {
+    if (fileData) bipFromFile(fileData.dataUrl, password);
+    if (mnemonic) bipFromMnemonic(mnemonic);
+  }, [fileData, password, mnemonic, bipFromFile, bipFromMnemonic]);
+
+  const memoGenerateRef = useRef(memoGenerateBip);
+  useEffect(() => {
+    memoGenerateRef.current = memoGenerateBip;
+  }, [memoGenerateBip]);
+
+  // instant for fileData and cryptoName
+  useEffect(() => {
+    memoGenerateRef.current();
+  }, [fileData, cryptoName]);
+
+  // debounce for mnemonic and password input
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      memoGenerateRef.current();
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [mnemonic, password]);
 
   // for WAI-ARIA convention
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -74,8 +114,13 @@ const InputSection = ({ className }: { className?: string }) => {
           className={InputSectionCSS.container}
         >
           <CryptoBtn cryptoName={cryptoName} />
-          <InputField type="password" placeholder="Optional password.." />
-          <DropZone />
+          <InputField
+            type="password"
+            placeholder="Optional password.."
+            value={password}
+            onChange={event => setPassword(event.target.value)}
+          />
+          <DropZone file={fileData} onChange={setFileData} />
         </div>
         <div
           role="tabpanel"
@@ -85,8 +130,10 @@ const InputSection = ({ className }: { className?: string }) => {
           className={InputSectionCSS.container}
         >
           <CryptoBtn cryptoName={cryptoName} />
-          <button className={InputSectionCSS.randomBtn}>Random</button>
-          <TextZone />
+          <button className={InputSectionCSS.randomBtn} onClick={bipRandom}>
+            Random
+          </button>
+          <TextZone value={mnemonic} onChange={setMnemonic} />
         </div>
       </div>
     </section>

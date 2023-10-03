@@ -1,17 +1,20 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import TextZoneCSS from './TextZone.module.css';
 
-const TextZone = () => {
-  const [selfValue, setSelfValue] = useState('');
+type Props = {
+  value: string;
+  onChange: (value: string) => void;
+};
 
+const TextZone = ({ value, onChange }: Props) => {
   const ref = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     if (ref && ref.current) {
       ref.current.style.height = '0px';
       ref.current.style.height = ref.current.scrollHeight.toString() + 'px';
     }
-  }, [selfValue]);
+  }, [value]);
 
   return (
     <div className={TextZoneCSS.container}>
@@ -19,8 +22,8 @@ const TextZone = () => {
         placeholder="Seed here.."
         spellCheck={false}
         ref={ref}
-        value={selfValue}
-        onChange={e => setSelfValue(cleanString(e.target.value))}
+        value={value}
+        onChange={e => onChange(cleanString(e.target.value))}
       ></textarea>
     </div>
   );

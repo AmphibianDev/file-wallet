@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDropzone, FileRejection } from 'react-dropzone';
 import classNames from 'classnames';
 
@@ -6,10 +6,13 @@ import useInfoPopupStore from './InfoPopup.store';
 
 import DropZoneCSS from './DropZone.module.css';
 
-const DropZone = () => {
-  const { openPopup } = useInfoPopupStore();
+type Props = {
+  file: FileData | null;
+  onChange: (file: FileData | null) => void;
+};
 
-  const [file, setFile] = useState<{ url: string; name: string } | null>(null);
+const DropZone = ({ file, onChange }: Props) => {
+  const { openPopup } = useInfoPopupStore();
 
   const onDrop = useCallback(
     <T extends File>(files: T[]) => {
@@ -23,11 +26,11 @@ const DropZone = () => {
         openPopup('file reading was failed', 'error', 2000);
       reader.onload = () => {
         const result = reader.result?.toString();
-        if (result) setFile({ name: file.name, url: result });
+        if (result) onChange({ name: file.name, dataUrl: result });
       };
       reader.readAsDataURL(file);
     },
-    [openPopup]
+    [openPopup, onChange]
   );
 
   const onDropRejected = (fileRejections: FileRejection[]) => {
@@ -85,7 +88,7 @@ const DropZone = () => {
       ) : (
         <div
           style={{
-            backgroundImage: `url(${file.url})`,
+            backgroundImage: `url(${file.dataUrl})`,
           }}
           data-label={file.name}
           className={DropZoneCSS.thumb}
