@@ -1,6 +1,10 @@
 @import '/src/index.css';
 
 .container {
+  /* fix the tab removing the border */
+  position: relative;
+  z-index: 10;
+
   min-height: clamp(21rem, 80vw + 1rem, 24rem);
   padding: 1rem;
   border: 1px solid var(--color-primary-dark);
