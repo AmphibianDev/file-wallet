@@ -1,0 +1,34 @@
+.container {
+  z-index: 1000;
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  place-items: center;
+
+  user-select: none;
+  background: var(--color-background);
+
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+  &[data-closing='true'] {
+    opacity: 0;
+  }
+}
+
+.pulsatingCube {
+  height: 4rem;
+  width: 4rem;
+  border: 6px solid var(--color-text);
+
+  animation: pulsate 0.7s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+}
+
+@keyframes pulsate {
+  to {
+    height: 6px;
+    width: 6px;
+  }
+}

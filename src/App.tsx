@@ -8,6 +8,7 @@ import Home from './components/Home';
 import FAQ from './components/FAQ';
 import InfoPopup from './components/InfoPopup';
 import QRCodeModal from './components/QRCodeModal';
+import LoadingScreen from './components/LoadingScreen';
 
 import AppCSS from './App.module.css';
 
@@ -73,20 +74,21 @@ function App() {
     });
   }, []);
 
-  if (!isLoaded) {
-    return <div>Loading...</div>; // Your loading screen here
-  }
-
   return (
-    <div className={AppCSS.container}>
-      <InfoPopup />
-      <QRCodeModal />
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/faq" element={<FAQ />} />
-      </Routes>
-      <Footer />
+    <div>
+      <LoadingScreen isDone={isLoaded} />
+      {isLoaded && (
+        <div className={AppCSS.container}>
+          <InfoPopup />
+          <QRCodeModal />
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/faq" element={<FAQ />} />
+          </Routes>
+          <Footer />
+        </div>
+      )}
     </div>
   );
 }
