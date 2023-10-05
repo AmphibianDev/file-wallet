@@ -22,10 +22,10 @@ export const WarningAside = () => {
           <RiInformationLine />
         </div>
         <p className={WarningAsideCSS.text}>
-          Use it at your own risk. Checkout{' '}
+          Use it at your own risk. <span>Checkout</span>
           <Link to="/faq">
             <RiQuestionnaireFill />
-          </Link>{' '}
+          </Link>
           for more info.
         </p>
       </div>
