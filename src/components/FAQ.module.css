@@ -8,4 +8,10 @@
   & strong {
     font-size: calc(var(--a300) + 0.05rem);
   }
+
+  & code {
+    font-weight: normal;
+    font-size: calc(var(--a300) - 0.15rem);
+    color: inherit;
+  }
 }

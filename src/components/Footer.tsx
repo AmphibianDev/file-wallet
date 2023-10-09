@@ -11,7 +11,7 @@ const Footer = () => {
   const { openPopup } = useInfoPopupStore();
 
   const myMoneroAddress =
-    '49FuwMjQZBHjnvdpk2hxYWNy !! THIS IS A PLACE HOLDER !! YsbSPETdfPubVoZQcbPpgPPbN3QqamV4';
+    '83PVCBCyANzZzBjNtpCkM6bT88DBY5icMNZycyJm93QzLoizCwGvd8zM7ShMNhUac82QQFeAx1TCbh9Ljff423U1Tt585qs';
 
   const handleCopy = () => {
     navigator.clipboard
@@ -37,12 +37,12 @@ const Footer = () => {
         <p>
           App Version:{' '}
           <a
-            href="https://github.com/AmphibianDev/file-wallet"
+            href="https://github.com/AmphibianDev/file-wallet/releases"
             target="_blank"
             rel="noreferrer"
             className={FooterCSS.clickText}
           >
-            0.1.1V
+            v0.1.0-alpha
           </a>
         </p>
       </div>

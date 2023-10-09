@@ -12,6 +12,7 @@ type CryptoState = {
 };
 
 async function generateFromString(str: string) {
+  //TODO: Thinking about adding bcrypt for slower but more secure hashing
   const entropy = await window.sha256(str);
   const mnemonic = window.getMnemonicFromEntropy(entropy);
   return window.generateFromMnemonic(mnemonic);
