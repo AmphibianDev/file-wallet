@@ -42,7 +42,7 @@ const Footer = () => {
             rel="noreferrer"
             className={FooterCSS.clickText}
           >
-            v0.1.0-alpha
+            v0.2.0-alpha
           </a>
         </p>
       </div>

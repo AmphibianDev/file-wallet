@@ -16,7 +16,7 @@ There are several advantages in using a file and a password:
 
 1. The chosen file is transformed into a data URL (a string representation).
 2. If a password is added, it's attached to the end of this string.
-3. The concatenated string is hashed using SHA-256, which then becomes the entropy for the wallet generation. The wallet generation code is sourced from [iancoleman's bip39](https://github.com/iancoleman/bip39).
+3. The concatenated string is hashed using SHA-256, which then becomes the entropy for the wallet generation. The wallet generation code is sourced from [iancoleman's bip39](https://github.com/iancoleman/bip39) and [bip39-coinomi](https://github.com/Coinomi/bip39-coinomi) for Monero.
 
 ```javascript
 // All generated addresses are made with BIP44:
@@ -50,7 +50,7 @@ Currently, there isn't a standalone .html file, so you'll need to compile it.
 - Organize the file structure.
 - Make a standalone `.html` file.
 - Implement a light theme option.
-- Add Monero support based on [bip39-coinomi](https://github.com/Coinomi/bip39-coinomi).
+- ~~Add Monero support based on [bip39-coinomi](https://github.com/Coinomi/bip39-coinomi).~~
 - Add a loading indicator during wallet generation.
 - Enhance accessibility following WAI-ARIA standards.
 - Find a better way to handle the JS code from [iancoleman's bip39](https://github.com/iancoleman/bip39).
