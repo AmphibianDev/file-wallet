@@ -1,5 +1,6 @@
 const topOrder = [
   'BTC - Bitcoin',
+  'XMR - Monero',
   'ETH - Ethereum',
   'XRP - Ripple',
   'DOGE - Dogecoin',
@@ -22,6 +23,7 @@ const topOrder = [
 // Global variables
 var mnemonics = { english: new Mnemonic('english') };
 var mnemonic = mnemonics['english'];
+var xmrMnemonic = '';
 var seed = null;
 var bip32RootKey = null;
 var bip32ExtendedKey = null;
@@ -95,6 +97,7 @@ function generateFromMnemonic(mnemonicString, numberOfWallets = 10) {
   const out = {
     errorMessage: '',
     bip39Mnemonic: mnemonicString,
+    xmrMnemonic: '',
     entropy: mnemonic.toRawEntropyHex(mnemonicString),
     bip39Seed: '',
     bip32RootKey: '',
@@ -126,9 +129,11 @@ function generateFromMnemonic(mnemonicString, numberOfWallets = 10) {
 
   out.derivationPath = getDerivationPath();
 
+  xmrMnemonic = '';
   for (let i = 0; i < numberOfWallets; i++) {
     out.wallets.push(generateKeysAtIndex(i, false));
   }
+  out.xmrMnemonic = xmrMnemonic;
 
   return out;
 }
@@ -140,11 +145,20 @@ function generateKeysAtIndex(index, useHardenedAddresses = false) {
 
   // derive HDkey for this row of the table
   var key = 'NA';
-  if (useHardenedAddresses) {
-    key = bip32ExtendedKey.deriveHardened(index);
+  if (networks[cryptoIndex].name == 'XMR - Monero') {
+    if (useHardenedAddresses) {
+      key = bip32ExtendedKey.deriveHardened(0);
+    } else {
+      key = bip32ExtendedKey.derive(0);
+    }
   } else {
-    key = bip32ExtendedKey.derive(index);
+    if (useHardenedAddresses) {
+      key = bip32ExtendedKey.deriveHardened(index);
+    } else {
+      key = bip32ExtendedKey.derive(index);
+    }
   }
+
   var keyPair = key.keyPair;
   // get address
   var address = keyPair.getAddress().toString();
@@ -352,6 +366,52 @@ function generateKeysAtIndex(index, useHardenedAddresses = false) {
     address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
     pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
     privkey = keyPair.d.toBuffer().toString('base64');
+  }
+
+  if (networks[cryptoIndex].name == 'XMR - Monero') {
+    var rawPrivateKey = keyPair.d.toBuffer(32);
+
+    // Hashing with keccak256 from js-sha3 / sha3.js
+    // keccak256 (not sha3) same as bip39-coinomi "sha3"
+    var hashHex = keccak256(rawPrivateKey);
+
+    // Convert hex string to Uint8Array
+    var rawSecretSpendKey = new Uint8Array(
+      hashHex.match(/.{1,2}/g).map(byte => parseInt(byte, 16))
+    );
+
+    var secretSpendKey = XMRModule.lib.sc_reduce32(rawSecretSpendKey);
+    var secretViewKey = XMRModule.lib.hash_to_scalar(secretSpendKey);
+    var publicSpendKey = XMRModule.lib.secret_key_to_public_key(secretSpendKey);
+    var publicViewKey = XMRModule.lib.secret_key_to_public_key(secretViewKey);
+
+    if (index == 0) {
+      publicSpendKey = XMRModule.lib.secret_key_to_public_key(secretSpendKey);
+      publicViewKey = XMRModule.lib.secret_key_to_public_key(secretViewKey);
+
+      xmrMnemonic = XMRModule.lib.secret_spend_key_to_words(secretSpendKey);
+    } else {
+      var m = XMRModule.lib.get_subaddress_secret_key(secretViewKey, 0, index);
+      secretSpendKey = XMRModule.lib.sc_add(m, secretSpendKey);
+      publicSpendKey = XMRModule.lib.secret_key_to_public_key(secretSpendKey);
+      publicViewKey = XMRModule.lib.scalarmultKey(
+        publicSpendKey,
+        secretViewKey
+      );
+    }
+
+    // secretSpendKey
+    privkey = uint8ArrayToHex(secretSpendKey);
+
+    // secretViewKey
+    pubkey = uint8ArrayToHex(secretViewKey);
+
+    address = XMRModule.lib.pub_keys_to_address(
+      XMRModule.lib.MONERO_MAINNET,
+      index != 0,
+      publicSpendKey,
+      publicViewKey
+    );
   }
 
   return { derivationPath: indexText, address, privkey, pubkey };
@@ -597,6 +657,18 @@ function phraseToWordArray(phrase) {
     }
   }
   return noBlanks;
+}
+
+function uint8ArrayToHex(a) {
+  var s = '';
+  for (var i = 0; i < a.length; i++) {
+    var h = a[i].toString(16);
+    while (h.length < 2) {
+      h = '0' + h;
+    }
+    s = s + h;
+  }
+  return s;
 }
 
 function isGRS() {
@@ -2103,6 +2175,13 @@ var networks = [
     onSelect: function () {
       network = libs.bitcoin.networks.bitcoin;
       setHdCoin(559);
+    },
+  },
+  {
+    name: 'XMR - Monero',
+    onSelect: function () {
+      network = libs.bitcoin.networks.monero;
+      setHdCoin(128);
     },
   },
 ];

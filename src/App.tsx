@@ -56,6 +56,8 @@ function App() {
       'bip39/wordlist_portuguese.js',
       'bip39/jsbip39.js',
       'bip39/entropy.js',
+      'bip39/monero.js',
+      'bip39/sha3.js',
       'bip39/index.js',
     ];
 

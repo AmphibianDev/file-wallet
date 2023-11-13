@@ -13,6 +13,7 @@ interface AddressInfo {
 interface Bip39Info {
   errorMessage: string;
   bip39Mnemonic: string;
+  xmrMnemonic: string;
   entropy: string;
   bip39Seed: string;
   bip32RootKey: string;

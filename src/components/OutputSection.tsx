@@ -35,10 +35,19 @@ const OutputSection = ({ className }: { className?: string }) => {
 
     return (
       <>
-        <MnemonicFiled bip39={bip39Info.bip39Mnemonic} />
+        <MnemonicFiled
+          bip39={bip39Info.bip39Mnemonic}
+          xmr={bip39Info.xmrMnemonic}
+        />
         <OutputFiled label="Address" text={bip39Info.wallets[0].address} />
-        <OutputFiled label="Public Key" text={bip39Info.wallets[0].pubkey} />
-        <OutputFiled label="Private Key" text={bip39Info.wallets[0].privkey} />
+        <OutputFiled
+          label={bip39Info.xmrMnemonic ? 'Secret View Key' : 'Public Key'}
+          text={bip39Info.wallets[0].pubkey}
+        />
+        <OutputFiled
+          label={bip39Info.xmrMnemonic ? 'Secret Spend Key' : 'Private Key '}
+          text={bip39Info.wallets[0].privkey}
+        />
         <div className={OutputSectionCSS.downArrow}>
           <AiFillCaretDown />
         </div>
