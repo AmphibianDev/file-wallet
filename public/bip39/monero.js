@@ -3689,6 +3689,44 @@ secret_spend_key_to_words = function(secret_spend_key) {
 
 Module.lib.secret_spend_key_to_words = secret_spend_key_to_words;
 
+words_to_secret_spend_key = function(seed_phrase) {
+  var words = seed_phrase.trim().split(/\s+/);
+  if (words.length !== 25) {
+      throw new Error("Invalid seed phrase length.");
+  }
+
+  // Recompute checksum
+  var for_checksum = '';
+  for (var i = 0; i < 24; i++) {
+      for_checksum += words[i].substring(0, monero_words_english_prefix_len);
+  }
+  var checksum_index = crc32(for_checksum) % 24;
+  if (words[24] !== words[checksum_index]) {
+      throw new Error("Invalid checksum.");
+  }
+
+  // Convert words back to numbers
+  var secret_spend_key = new Uint8Array(32);
+  for (var i = 0; i < 24; i += 3) {
+      var w1 = monero_words_english.indexOf(words[i]);
+      var w2 = monero_words_english.indexOf(words[i + 1]);
+      var w3 = monero_words_english.indexOf(words[i + 2]);
+
+      var total = w1 + monero_words_english.length 
+              * ((w2 - w1 + monero_words_english.length) % monero_words_english.length) 
+              + monero_words_english.length * monero_words_english.length 
+              * ((w3 - w2 + monero_words_english.length) % monero_words_english.length);
+              
+      for (var j = 0; j < 4; j++) {
+        secret_spend_key[4 * (i / 3) + j] = (total >> (8 * j)) & 0xff;
+    }
+  }
+
+  return secret_spend_key;
+}
+
+Module.lib.words_to_secret_spend_key = words_to_secret_spend_key;
+
 // Copyright 2010 The Emscripten Authors.  All rights reserved.
 // Emscripten is available under two separate licenses, the MIT license and the
 // University of Illinois/NCSA Open Source License.  Both these licenses can be
