@@ -12,7 +12,9 @@
   --a600: clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem);
   --a700: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
   --a800: clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem);
+}
 
+.dark-theme {
   --color-primary-bright: hsl(155, 100%, 60%);
   --color-primary-dark: hsl(155, 70%, 30%);
 
@@ -32,6 +34,28 @@
   --color-background: hsl(0, 0%, 2%);
 
   --color-text: rgba(255, 255, 255, 1);
+}
+
+.light-theme {
+  --color-primary-bright: hsl(155, 100%, 38%);
+  --color-primary-dark: hsl(155, 70%, 25%);
+
+  --color-error-bright: hsl(0, 100%, 70%);
+  --color-error-dark: hsl(0, 100%, 40%);
+
+  --color-info-light: hsl(0, 0%, 50%);
+  --color-info-medium: hsl(0, 0%, 65%);
+  --color-info-dark: hsl(0, 0%, 95%);
+
+  --color-transparent-low: rgba(0, 0, 0, 0.06);
+  --color-transparent-medium: rgba(0, 0, 0, 0.1);
+  --color-transparent-high: rgba(0, 0, 0, 0.15);
+  --color-transparent-veryHigh: rgba(0, 0, 0, 0.3);
+
+  --color-border: hsl(0, 0%, 75%);
+  --color-background: hsl(0, 0%, 98%);
+
+  --color-text: rgba(0, 0, 0, 0.9);
 }
 
 body {

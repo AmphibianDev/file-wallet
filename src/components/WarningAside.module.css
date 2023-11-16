@@ -25,7 +25,7 @@
     content: '';
     position: absolute;
     transform: skewX(25deg);
-    background-color: var(--color-info-dark);
+    background-color: var(--color-transparent-medium);
     border-right: 1px solid var(--color-border);
     top: -1px;
     bottom: -1px;

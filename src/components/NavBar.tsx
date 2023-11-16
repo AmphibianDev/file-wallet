@@ -4,7 +4,11 @@ import { RiQuestionnaireFill } from 'react-icons/ri';
 import { MdLightMode } from 'react-icons/md';
 import NavBarCSS from './NavBar.module.css';
 
+import useThemeStore from './Theme.store';
+
 const NavBar = () => {
+  const { toggleTheme } = useThemeStore();
+
   return (
     <header>
       <nav className={NavBarCSS.container}>
@@ -18,7 +22,7 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <button className={NavBarCSS.btn}>
+            <button className={NavBarCSS.btn} onClick={toggleTheme}>
               <MdLightMode />
             </button>
           </li>

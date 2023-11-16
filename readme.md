@@ -49,7 +49,7 @@ Currently, there isn't a standalone .html file, so you'll need to compile it.
 - Add tests.
 - Organize the file structure.
 - Make a standalone `.html` file.
-- Implement a light theme option.
+- ~~Implement a light theme option.~~
 - ~~Add Monero support based on [bip39-coinomi](https://github.com/Coinomi/bip39-coinomi).~~
 - Add a loading indicator during wallet generation.
 - Enhance accessibility following WAI-ARIA standards.
