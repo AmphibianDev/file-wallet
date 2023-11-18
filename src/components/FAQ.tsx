@@ -65,8 +65,16 @@ const FAQ = () => {
                 rel="noreferrer"
               >
                 iancoleman bip39
-              </a>
-              .
+              </a>{' '}
+              and{' '}
+              <a
+                href="https://github.com/Coinomi/bip39-coinomi"
+                target="_blank"
+                rel="noreferrer"
+              >
+                bip39-coinomi
+              </a>{' '}
+              for Monero.
             </p>
           </li>
         </ol>
@@ -175,7 +183,7 @@ const FAQ = () => {
           >
             GitHub
           </a>
-          . And always be cautious.
+          . And remember the website is still in the alpha stage.
         </p>
       </Accordion>
     </div>
