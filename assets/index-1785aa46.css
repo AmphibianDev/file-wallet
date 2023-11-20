@@ -1,0 +1,2124 @@
+:root {
+  --breakpoint-sm: 28rem;
+  --breakpoint-md: 59.5rem;
+
+  --a200: clamp(0.5rem, 3vw + 0.1rem, 0.9rem);
+  --a300: clamp(0.6rem, 3.2vw + 0.1rem, 1rem);
+  --a400: clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem);
+  --a500: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem);
+  --a600: clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem);
+  --a700: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  --a800: clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem);
+}
+._dark-theme_1o05x_1 {
+  --color-primary-bright: hsl(155, 100%, 60%);
+  --color-primary-dark: hsl(155, 70%, 30%);
+
+  --color-error-bright: hsl(0, 100%, 50%);
+  --color-error-dark: hsl(0, 100%, 20%);
+
+  --color-info-light: hsl(0, 0%, 45%);
+  --color-info-medium: hsl(0, 0%, 35%);
+  --color-info-dark: hsl(0, 0%, 10%);
+
+  --color-transparent-low: rgba(255, 255, 255, 0.06);
+  --color-transparent-medium: rgba(255, 255, 255, 0.1);
+  --color-transparent-high: rgba(255, 255, 255, 0.15);
+  --color-transparent-veryHigh: rgba(255, 255, 255, 0.3);
+
+  --color-border: hsl(0, 0%, 25%);
+  --color-background: hsl(0, 0%, 2%);
+
+  --color-text: rgba(255, 255, 255, 1);
+}
+._light-theme_1o05x_1 {
+  --color-primary-bright: hsl(155, 100%, 38%);
+  --color-primary-dark: hsl(155, 70%, 25%);
+
+  --color-error-bright: hsl(0, 100%, 70%);
+  --color-error-dark: hsl(0, 100%, 40%);
+
+  --color-info-light: hsl(0, 0%, 50%);
+  --color-info-medium: hsl(0, 0%, 65%);
+  --color-info-dark: hsl(0, 0%, 95%);
+
+  --color-transparent-low: rgba(0, 0, 0, 0.06);
+  --color-transparent-medium: rgba(0, 0, 0, 0.1);
+  --color-transparent-high: rgba(0, 0, 0, 0.15);
+  --color-transparent-veryHigh: rgba(0, 0, 0, 0.3);
+
+  --color-border: hsl(0, 0%, 75%);
+  --color-background: hsl(0, 0%, 98%);
+
+  --color-text: rgba(0, 0, 0, 0.9);
+}
+body {
+  font-family: 'Courier New', sans-serif;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page
+  Prevent repositioning because of the scrollbar disappearing */
+  padding-left: calc(100vw - 100%);
+}
+a {
+  color: var(--color-primary-bright);
+}
+* {
+  scrollbar-color: var(--color-transparent-veryHigh) transparent;
+  color: inherit;
+}
+::-webkit-scrollbar {
+  scroll-margin-right: 1rem;
+  width: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-transparent-high);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-transparent-veryHigh);
+}
+._sr-only_1o05x_1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+._x-btn_1o05x_1 {
+  border: 0;
+  background-color: transparent;
+  --color: var(--color-info-medium);
+  --angle: 45deg;
+  --transition-timing: none;
+
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+
+  transition: background-color none;
+
+  transition: background-color var(--transition-timing);
+
+  position: relative;
+
+  cursor: pointer;
+}
+._x-btn_1o05x_1::after,
+  ._x-btn_1o05x_1::before {
+    background-color: var(--color);
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(var(--angle));
+    transform-origin: center center;
+
+    transition: transform var(--transition-timing), background-color var(--transition-timing);
+  }
+._x-btn_1o05x_1::after {
+    height: 18px;
+    width: 1px;
+  }
+._x-btn_1o05x_1::before {
+    height: 1px;
+    width: 18px;
+  }
+._x-btn_1o05x_1:hover {
+    --color: var(--color-primary-bright);
+  }
+._container_1o05x_3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+@media (min-width: 59.501rem) {
+._container_1o05x_3 {
+    flex-direction: row;
+    justify-content: space-between;
+}
+  }
+._title_1o05x_17 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+
+  color: var(--color-primary-bright);
+  font-size: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  font-size: var(--a700);
+  font-weight: bold;
+
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+._title_1o05x_17:hover {
+    background: var(--color-transparent-low);
+    border-radius: 12px;
+    padding: 0 0.5rem;
+  }
+@media (min-width: 59.501rem) {
+._title_1o05x_17 {
+    margin-bottom: 0;
+}
+  }
+._list_1o05x_38 {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+._list_1o05x_38 > li {
+    display: grid;
+  }
+._btn_1o05x_48 {
+  display: grid;
+
+  padding: 0.4rem;
+  height: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  height: var(--a700);
+  width: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  width: var(--a700);
+
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+._btn_1o05x_48 > svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--color-border);
+    z-index: 1;
+  }
+._btn_1o05x_48:hover {
+    --color-border: var(--color-primary-bright);
+  }
+:root {
+  --breakpoint-sm: 28rem;
+  --breakpoint-md: 59.5rem;
+
+  --a200: clamp(0.5rem, 3vw + 0.1rem, 0.9rem);
+  --a300: clamp(0.6rem, 3.2vw + 0.1rem, 1rem);
+  --a400: clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem);
+  --a500: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem);
+  --a600: clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem);
+  --a700: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  --a800: clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem);
+}
+._dark-theme_e9pko_1 {
+  --color-primary-bright: hsl(155, 100%, 60%);
+  --color-primary-dark: hsl(155, 70%, 30%);
+
+  --color-error-bright: hsl(0, 100%, 50%);
+  --color-error-dark: hsl(0, 100%, 20%);
+
+  --color-info-light: hsl(0, 0%, 45%);
+  --color-info-medium: hsl(0, 0%, 35%);
+  --color-info-dark: hsl(0, 0%, 10%);
+
+  --color-transparent-low: rgba(255, 255, 255, 0.06);
+  --color-transparent-medium: rgba(255, 255, 255, 0.1);
+  --color-transparent-high: rgba(255, 255, 255, 0.15);
+  --color-transparent-veryHigh: rgba(255, 255, 255, 0.3);
+
+  --color-border: hsl(0, 0%, 25%);
+  --color-background: hsl(0, 0%, 2%);
+
+  --color-text: rgba(255, 255, 255, 1);
+}
+._light-theme_e9pko_1 {
+  --color-primary-bright: hsl(155, 100%, 38%);
+  --color-primary-dark: hsl(155, 70%, 25%);
+
+  --color-error-bright: hsl(0, 100%, 70%);
+  --color-error-dark: hsl(0, 100%, 40%);
+
+  --color-info-light: hsl(0, 0%, 50%);
+  --color-info-medium: hsl(0, 0%, 65%);
+  --color-info-dark: hsl(0, 0%, 95%);
+
+  --color-transparent-low: rgba(0, 0, 0, 0.06);
+  --color-transparent-medium: rgba(0, 0, 0, 0.1);
+  --color-transparent-high: rgba(0, 0, 0, 0.15);
+  --color-transparent-veryHigh: rgba(0, 0, 0, 0.3);
+
+  --color-border: hsl(0, 0%, 75%);
+  --color-background: hsl(0, 0%, 98%);
+
+  --color-text: rgba(0, 0, 0, 0.9);
+}
+body {
+  font-family: 'Courier New', sans-serif;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page
+  Prevent repositioning because of the scrollbar disappearing */
+  padding-left: calc(100vw - 100%);
+}
+a {
+  color: var(--color-primary-bright);
+}
+* {
+  scrollbar-color: var(--color-transparent-veryHigh) transparent;
+  color: inherit;
+}
+::-webkit-scrollbar {
+  scroll-margin-right: 1rem;
+  width: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-transparent-high);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-transparent-veryHigh);
+}
+._sr-only_e9pko_1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+._x-btn_e9pko_1 {
+  border: 0;
+  background-color: transparent;
+  --color: var(--color-info-medium);
+  --angle: 45deg;
+  --transition-timing: none;
+
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+
+  transition: background-color none;
+
+  transition: background-color var(--transition-timing);
+
+  position: relative;
+
+  cursor: pointer;
+}
+._x-btn_e9pko_1::after,
+  ._x-btn_e9pko_1::before {
+    background-color: var(--color);
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(var(--angle));
+    transform-origin: center center;
+
+    transition: transform var(--transition-timing), background-color var(--transition-timing);
+  }
+._x-btn_e9pko_1::after {
+    height: 18px;
+    width: 1px;
+  }
+._x-btn_e9pko_1::before {
+    height: 1px;
+    width: 18px;
+  }
+._x-btn_e9pko_1:hover {
+    --color: var(--color-primary-bright);
+  }
+._container_e9pko_3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+
+  margin-top: 2rem;
+
+  font-size: clamp(0.5rem, 3vw + 0.1rem, 0.9rem);
+
+  font-size: var(--a200);
+  line-height: clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem);
+  line-height: var(--a400);
+  text-align: center;
+}
+@media (min-width: 59.501rem) {
+._container_e9pko_3 {
+    flex-direction: row;
+}
+  }
+._text_e9pko_21 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+@media (min-width: 59.501rem) {
+._text_e9pko_21 {
+    flex-direction: column-reverse;
+    align-items: start;
+}
+  }
+._clickText_e9pko_33 {
+  color: var(--color-primary-bright);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+._clickText_e9pko_33:hover {
+    background: var(--color-transparent-low);
+    border-radius: 12px;
+    padding: 0 0.5rem;
+  }
+._icons_e9pko_45 {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.5rem, 3vw + 0.1rem, 0.9rem);
+  gap: var(--a200);
+}
+._icons_e9pko_45 a {
+    box-sizing: border-box;
+    position: relative;
+    width: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+    width: var(--a700);
+    height: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+    height: var(--a700);
+  }
+._icons_e9pko_45 a > svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--color-border);
+    }
+._icons_e9pko_45 a:hover > svg, ._icons_e9pko_45 a:focus > svg {
+        fill: var(--color-primary-bright);
+      }
+._container_k6evz_1 {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+._input_k6evz_7 {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  height: 2.25rem;
+  width: 100%;
+  min-height: 2.25rem;
+  padding: 0 0.7rem;
+  overflow: hidden;
+
+  color: inherit;
+  font-size: var(--a200);
+}
+
+._input_k6evz_7:focus-within {
+    border-color: var(--color-primary-bright);
+    outline: none;
+  }
+
+._switchIcon_k6evz_26 {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  place-items: center;
+}
+._panel_15as5_1 {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  overflow: visible;
+
+  padding: 1rem;
+
+  position: relative;
+
+  /* using box-shadow instead of backdrop for opacity control */
+  box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.4);
+
+  animation: _slideIn_15as5_1 0.3s forwards;
+}
+
+._panel_15as5_1 canvas {
+    display: block;
+  }
+
+._panel_15as5_1::backdrop {
+    background: transparent;
+  }
+
+._panel_15as5_1._closing_15as5_22 {
+    animation: _slideOut_15as5_1 0.3s forwards;
+  }
+
+#_btn_15as5_1 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+@keyframes _slideIn_15as5_1 {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes _slideOut_15as5_1 {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+._container_1bhwt_1 {
+  width: 16rem;
+}
+
+._container_1bhwt_1 input {
+    margin-bottom: 1rem;
+  }
+
+._list_1bhwt_9 {
+  height: 16rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+._item_1bhwt_19 {
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+
+  background-color: var(--color-transparent-low);
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+._item_1bhwt_19:hover {
+    background-color: var(--color-transparent-high);
+  }
+
+._item_1bhwt_19[aria-selected='true'] {
+    color: var(--color-primary-bright);
+  }
+
+._itemText_1bhwt_40 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  line-height: 1.4rem;
+}
+
+._icon_1bhwt_48 {
+  width: 3rem;
+  height: 3rem;
+}
+._container_11yl0_1 {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 2.25rem;
+  border-radius: 6px;
+  background-color: var(--color-transparent-medium);
+
+  cursor: pointer;
+}
+
+._container_11yl0_1:hover {
+    background-color: var(--color-transparent-high);
+  }
+
+._container_11yl0_1:hover ._image_11yl0_13 {
+      border-color: var(--color-primary-bright);
+    }
+
+._image_11yl0_13 {
+  box-sizing: content-box;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0.5rem;
+
+  border: 1px solid var(--color-primary-dark);
+  border-radius: 6px;
+  background-color: var(--color-background);
+}
+
+._text_11yl0_30 {
+  font-size: var(--a400);
+  padding: 0 1rem;
+}
+._container_42qo5_1 {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  place-items: center;
+
+  text-align: center;
+  font-weight: bold;
+  font-size: var(--a500);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+
+  height: 100%;
+  padding: 1rem;
+  overflow: hidden;
+
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+._container_42qo5_1:hover {
+    border-color: var(--color-primary-bright);
+  }
+
+._container_42qo5_1._accept_42qo5_22 {
+    background-color: green;
+  }
+
+._container_42qo5_1._reject_42qo5_26 {
+    background-color: red;
+  }
+
+._thumb_42qo5_31 {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+
+  background-color: var(--color-transparent-medium);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+
+  position: relative;
+}
+
+._thumb_42qo5_31:after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    padding: 0.3rem 0;
+    background-color: rgba(0, 0, 0, 0.6);
+
+    color: white;
+    font-size: var(--a200);
+    text-align: center;
+  }
+._container_riskf_1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  overflow: hidden;
+
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 1rem;
+}
+._container_riskf_1:focus-within {
+    border-color: var(--color-primary-bright);
+  }
+._container_riskf_1 > textarea {
+    background: none;
+    outline: none;
+    border: none;
+    resize: none;
+    overflow: hidden;
+
+    min-height: 2.5rem;
+    width: 100%;
+    text-align: center;
+
+    color: inherit;
+    font-weight: bold;
+    font-size: calc(var(--a300) + 0.2rem + 0.2vw);
+  }
+:root {
+  --breakpoint-sm: 28rem;
+  --breakpoint-md: 59.5rem;
+
+  --a200: clamp(0.5rem, 3vw + 0.1rem, 0.9rem);
+  --a300: clamp(0.6rem, 3.2vw + 0.1rem, 1rem);
+  --a400: clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem);
+  --a500: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem);
+  --a600: clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem);
+  --a700: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  --a800: clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem);
+}
+._dark-theme_m7kg9_1 {
+  --color-primary-bright: hsl(155, 100%, 60%);
+  --color-primary-dark: hsl(155, 70%, 30%);
+
+  --color-error-bright: hsl(0, 100%, 50%);
+  --color-error-dark: hsl(0, 100%, 20%);
+
+  --color-info-light: hsl(0, 0%, 45%);
+  --color-info-medium: hsl(0, 0%, 35%);
+  --color-info-dark: hsl(0, 0%, 10%);
+
+  --color-transparent-low: rgba(255, 255, 255, 0.06);
+  --color-transparent-medium: rgba(255, 255, 255, 0.1);
+  --color-transparent-high: rgba(255, 255, 255, 0.15);
+  --color-transparent-veryHigh: rgba(255, 255, 255, 0.3);
+
+  --color-border: hsl(0, 0%, 25%);
+  --color-background: hsl(0, 0%, 2%);
+
+  --color-text: rgba(255, 255, 255, 1);
+}
+._light-theme_m7kg9_1 {
+  --color-primary-bright: hsl(155, 100%, 38%);
+  --color-primary-dark: hsl(155, 70%, 25%);
+
+  --color-error-bright: hsl(0, 100%, 70%);
+  --color-error-dark: hsl(0, 100%, 40%);
+
+  --color-info-light: hsl(0, 0%, 50%);
+  --color-info-medium: hsl(0, 0%, 65%);
+  --color-info-dark: hsl(0, 0%, 95%);
+
+  --color-transparent-low: rgba(0, 0, 0, 0.06);
+  --color-transparent-medium: rgba(0, 0, 0, 0.1);
+  --color-transparent-high: rgba(0, 0, 0, 0.15);
+  --color-transparent-veryHigh: rgba(0, 0, 0, 0.3);
+
+  --color-border: hsl(0, 0%, 75%);
+  --color-background: hsl(0, 0%, 98%);
+
+  --color-text: rgba(0, 0, 0, 0.9);
+}
+body {
+  font-family: 'Courier New', sans-serif;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page
+  Prevent repositioning because of the scrollbar disappearing */
+  padding-left: calc(100vw - 100%);
+}
+a {
+  color: var(--color-primary-bright);
+}
+* {
+  scrollbar-color: var(--color-transparent-veryHigh) transparent;
+  color: inherit;
+}
+::-webkit-scrollbar {
+  scroll-margin-right: 1rem;
+  width: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-transparent-high);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-transparent-veryHigh);
+}
+._sr-only_m7kg9_1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+._x-btn_m7kg9_1 {
+  border: 0;
+  background-color: transparent;
+  --color: var(--color-info-medium);
+  --angle: 45deg;
+  --transition-timing: none;
+
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+
+  transition: background-color none;
+
+  transition: background-color var(--transition-timing);
+
+  position: relative;
+
+  cursor: pointer;
+}
+._x-btn_m7kg9_1::after,
+  ._x-btn_m7kg9_1::before {
+    background-color: var(--color);
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(var(--angle));
+    transform-origin: center center;
+
+    transition: transform var(--transition-timing), background-color var(--transition-timing);
+  }
+._x-btn_m7kg9_1::after {
+    height: 18px;
+    width: 1px;
+  }
+._x-btn_m7kg9_1::before {
+    height: 1px;
+    width: 18px;
+  }
+._x-btn_m7kg9_1:hover {
+    --color: var(--color-primary-bright);
+  }
+._tabs_m7kg9_3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+._tab_m7kg9_3 {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+
+  background-color: var(--color-background);
+  border: 1px solid var(--color-primary-dark);
+  border-bottom: none;
+  height: calc(clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem) + 1rem);
+  height: calc(var(--a700) + 1rem);
+
+  color: var(--color-primary-dark);
+
+  position: relative;
+}
+._tab_m7kg9_3 > h2 {
+    color: inherit;
+    font-weight: bold;
+    font-size: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem);
+    font-size: var(--a500);
+
+    position: relative;
+    z-index: 1;
+  }
+._tab_m7kg9_3::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    bottom: 0;
+    background-color: var(--color-background);
+    transform-origin: bottom left;
+
+    /* same as tab height + 1px to resolve a display bug */
+    height: calc(clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem) + 1rem + 1px);
+    height: calc(var(--a700) + 1rem + 1px);
+
+    width: 1.6rem;
+    border: 1px solid var(--color-primary-dark);
+    border-bottom: none;
+  }
+._tab_m7kg9_3[aria-selected='true'] {
+    position: relative;
+    z-index: 2;
+
+    filter: drop-shadow(0px -4px 12px rgba(255, 255, 255, 0.1));
+
+    --color-primary-dark: var(--color-primary-bright);
+    --color-background: var(--color-primary-bright);
+    color: black;
+  }
+._leftTab_m7kg9_56 {
+  border-right: none;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+}
+._leftTab_m7kg9_56::before {
+    right: -1.6rem;
+    transform: skew(25deg);
+    border-left: none;
+  }
+._rightTab_m7kg9_68 {
+  border-left: none;
+  padding-right: 1rem;
+  padding-left: 0.5rem;
+}
+._rightTab_m7kg9_68::before {
+    left: -1.6rem;
+    transform: skew(-25deg);
+    border-right: none;
+  }
+._interactiveTab_m7kg9_80 {
+  cursor: pointer;
+}
+._interactiveTab_m7kg9_80:hover,
+  ._interactiveTab_m7kg9_80:focus-visible {
+    --color-primary-dark: var(--color-primary-bright);
+  }
+._staticTab_m7kg9_88 {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  width: -moz-fit-content;
+
+  width: fit-content;
+  border-color: var(--color-primary-dark);
+  color: var(--color-text);
+}
+._staticTab_m7kg9_88::before {
+    border-color: var(--color-primary-dark);
+  }
+._container_m7kg9_102 {
+  height: clamp(21rem, 80vw + 1rem, 24rem);
+  padding: 1rem;
+  border: 1px solid var(--color-primary-bright);
+
+  display: grid;
+  grid-template-areas: 'top-left' 'top-right' 'bottom';
+  grid-auto-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+  grid-gap: 1rem;
+  gap: 1rem;
+
+  /* for tab pseudo */
+  position: relative;
+  z-index: 1;
+}
+._container_m7kg9_102 :last-child {
+    grid-area: bottom;
+  }
+@media (min-width: 28.501rem) {
+._container_m7kg9_102 {
+    grid-template-areas: 'top-left top-right' 'bottom bottom';
+    grid-auto-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+}
+  }
+._container_m7kg9_102[hidden] {
+    display: none;
+  }
+._randomBtn_m7kg9_132 {
+  height: 2.25rem;
+  width: 100%;
+
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  color: inherit;
+  font-size: clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem);
+  font-size: var(--a400);
+  font-weight: bold;
+  line-height: 1rem;
+
+  cursor: pointer;
+}
+._randomBtn_m7kg9_132:hover {
+    border-color: var(--color-primary-bright);
+    outline: none;
+  }
+._container_hic01_1 {
+  width: 100%;
+  line-height: 1.2rem;
+}
+
+._container_hic01_1 header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+._label_hic01_13 {
+  font-size: var(--a300);
+  font-weight: bold;
+  margin-left: 0.6rem;
+}
+
+._switch_hic01_19 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--a200);
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+._switch_hic01_19[aria-pressed='false'] ._xmr_hic01_29 {
+      border-color: var(--color-primary-dark);
+      color: var(--color-primary-bright);
+      background-color: transparent;
+    }
+
+._switch_hic01_19[aria-pressed='false'] ._bip_hic01_35 {
+      border-color: var(--color-primary-bright);
+      color: black;
+      background-color: var(--color-primary-bright);
+    }
+
+._bip_hic01_35,
+._xmr_hic01_29 {
+  min-width: 3.5rem;
+  line-height: 1rem;
+}
+
+._xmr_hic01_29 {
+  border: 1px solid var(--color-primary-bright);
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  -webkit-clip-path: polygon(0% 100%, 100% 100%, 85% 0%, 0% 0%);
+          clip-path: polygon(0% 100%, 100% 100%, 85% 0%, 0% 0%);
+  margin-right: -5px;
+  color: black;
+  background-color: var(--color-primary-bright);
+}
+
+._bip_hic01_35 {
+  border: 1px solid var(--color-primary-dark);
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  -webkit-clip-path: polygon(15% 100%, 100% 100%, 100% 0%, 0% 0%);
+          clip-path: polygon(15% 100%, 100% 100%, 100% 0%, 0% 0%);
+  margin-left: -5px;
+  color: var(--color-primary-bright);
+  background-color: transparent;
+}
+
+._box_hic01_69 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 8rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+._text_hic01_79 {
+  width: 100%;
+  overflow: hidden;
+  word-wrap: break-word;
+  text-align: center;
+  font-size: calc(var(--a300) + 0.1rem);
+  line-height: var(--a400);
+}
+
+._buttons_hic01_88 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--color-border);
+  gap: 0.5rem;
+}
+
+._btn_hic01_100 {
+  display: inline-grid;
+  position: relative;
+  box-sizing: border-box;
+  width: var(--a600);
+  height: var(--a500);
+  padding: 0.1rem 0;
+  cursor: pointer;
+}
+
+._btn_hic01_100 > svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--color-primary-dark);
+  }
+
+._btn_hic01_100:hover svg, ._btn_hic01_100:focus svg {
+      fill: var(--color-primary-bright);
+    }
+._container_y4b36_1 {
+  width: 100%;
+  line-height: 1.2rem;
+}
+
+._label_y4b36_6 {
+  font-size: var(--a300);
+  font-weight: bold;
+  margin-left: 0.6rem;
+}
+
+._box_y4b36_12 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 2.25rem;
+  padding: 0 0.5rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+._text_y4b36_24 {
+  width: 100%;
+  overflow: hidden;
+  word-wrap: break-word;
+  font-size: var(--a300);
+  line-height: var(--a400);
+}
+
+._buttons_y4b36_32 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.1rem;
+
+  height: 100%;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--color-border);
+}
+
+._buttons_y4b36_32 button {
+    display: inline-grid;
+    position: relative;
+    box-sizing: border-box;
+    width: var(--a600);
+    height: var(--a500);
+    padding: 0.1rem 0;
+    cursor: pointer;
+  }
+
+._buttons_y4b36_32 button > svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--color-primary-dark);
+    }
+
+._buttons_y4b36_32 button:hover svg, ._buttons_y4b36_32 button:focus svg {
+        fill: var(--color-primary-bright);
+      }
+:root {
+  --breakpoint-sm: 28rem;
+  --breakpoint-md: 59.5rem;
+
+  --a200: clamp(0.5rem, 3vw + 0.1rem, 0.9rem);
+  --a300: clamp(0.6rem, 3.2vw + 0.1rem, 1rem);
+  --a400: clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem);
+  --a500: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem);
+  --a600: clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem);
+  --a700: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  --a800: clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem);
+}
+._dark-theme_18c9r_1 {
+  --color-primary-bright: hsl(155, 100%, 60%);
+  --color-primary-dark: hsl(155, 70%, 30%);
+
+  --color-error-bright: hsl(0, 100%, 50%);
+  --color-error-dark: hsl(0, 100%, 20%);
+
+  --color-info-light: hsl(0, 0%, 45%);
+  --color-info-medium: hsl(0, 0%, 35%);
+  --color-info-dark: hsl(0, 0%, 10%);
+
+  --color-transparent-low: rgba(255, 255, 255, 0.06);
+  --color-transparent-medium: rgba(255, 255, 255, 0.1);
+  --color-transparent-high: rgba(255, 255, 255, 0.15);
+  --color-transparent-veryHigh: rgba(255, 255, 255, 0.3);
+
+  --color-border: hsl(0, 0%, 25%);
+  --color-background: hsl(0, 0%, 2%);
+
+  --color-text: rgba(255, 255, 255, 1);
+}
+._light-theme_18c9r_1 {
+  --color-primary-bright: hsl(155, 100%, 38%);
+  --color-primary-dark: hsl(155, 70%, 25%);
+
+  --color-error-bright: hsl(0, 100%, 70%);
+  --color-error-dark: hsl(0, 100%, 40%);
+
+  --color-info-light: hsl(0, 0%, 50%);
+  --color-info-medium: hsl(0, 0%, 65%);
+  --color-info-dark: hsl(0, 0%, 95%);
+
+  --color-transparent-low: rgba(0, 0, 0, 0.06);
+  --color-transparent-medium: rgba(0, 0, 0, 0.1);
+  --color-transparent-high: rgba(0, 0, 0, 0.15);
+  --color-transparent-veryHigh: rgba(0, 0, 0, 0.3);
+
+  --color-border: hsl(0, 0%, 75%);
+  --color-background: hsl(0, 0%, 98%);
+
+  --color-text: rgba(0, 0, 0, 0.9);
+}
+body {
+  font-family: 'Courier New', sans-serif;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page
+  Prevent repositioning because of the scrollbar disappearing */
+  padding-left: calc(100vw - 100%);
+}
+a {
+  color: var(--color-primary-bright);
+}
+* {
+  scrollbar-color: var(--color-transparent-veryHigh) transparent;
+  color: inherit;
+}
+::-webkit-scrollbar {
+  scroll-margin-right: 1rem;
+  width: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-transparent-high);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-transparent-veryHigh);
+}
+._sr-only_18c9r_1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+._x-btn_18c9r_1 {
+  border: 0;
+  background-color: transparent;
+  --color: var(--color-info-medium);
+  --angle: 45deg;
+  --transition-timing: none;
+
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+
+  transition: background-color none;
+
+  transition: background-color var(--transition-timing);
+
+  position: relative;
+
+  cursor: pointer;
+}
+._x-btn_18c9r_1::after,
+  ._x-btn_18c9r_1::before {
+    background-color: var(--color);
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(var(--angle));
+    transform-origin: center center;
+
+    transition: transform var(--transition-timing), background-color var(--transition-timing);
+  }
+._x-btn_18c9r_1::after {
+    height: 18px;
+    width: 1px;
+  }
+._x-btn_18c9r_1::before {
+    height: 1px;
+    width: 18px;
+  }
+._x-btn_18c9r_1:hover {
+    --color: var(--color-primary-bright);
+  }
+._container_18c9r_3 {
+  /* fix the tab removing the border */
+  position: relative;
+  z-index: 10;
+
+  min-height: clamp(21rem, 80vw + 1rem, 24rem);
+  padding: 1rem;
+  border: 1px solid var(--color-primary-dark);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(clamp(0.6rem, 3.2vw + 0.1rem, 1rem) - 0.47rem);
+  gap: calc(var(--a300) - 0.47rem);
+}
+@media (min-width: 59.501rem) {
+._container_18c9r_3 {
+    max-height: 24rem;
+    overflow-y: scroll;
+}
+  }
+._middle_18c9r_23 {
+  flex-grow: 1;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  place-items: center;
+
+  text-align: center;
+  font-weight: bold;
+  font-size: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem);
+  font-size: var(--a500);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+._downArrow_18c9r_35 {
+  width: 1rem;
+  height: 1rem;
+}
+._advanceContainer_18c9r_40 {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.6rem, 3.2vw + 0.1rem, 1rem);
+  gap: var(--a300);
+}
+._container_1acw6_1 {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+._leftSide_1acw6_11 {
+  display: flex;
+  align-items: center;
+}
+
+._iconContainer_1acw6_16 {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+
+  padding: 0.5rem 0rem;
+
+  position: relative;
+}
+
+._iconContainer_1acw6_16::before {
+    content: '';
+    position: absolute;
+    transform: skewX(25deg);
+    background-color: var(--color-transparent-medium);
+    border-right: 1px solid var(--color-border);
+    top: -1px;
+    bottom: -1px;
+    border-top-right-radius: 2px;
+    left: -50%;
+    right: -0.2rem;
+  }
+
+._iconContainer_1acw6_16 svg {
+    width: 3.5rem;
+    height: 1.6rem;
+    fill: var(--color-info-light);
+    z-index: 1;
+  }
+
+._text_1acw6_45 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  text-align: center;
+  font-size: var(--a300);
+  line-height: 1.2rem;
+  -moz-column-gap: 0.4rem;
+       column-gap: 0.4rem;
+
+  padding: 0.6rem 1rem;
+  padding-right: 0rem;
+}
+
+._text_1acw6_45 a {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    place-items: center;
+  }
+
+._text_1acw6_45 a svg {
+      width: 1.4rem;
+      height: 1.4rem;
+      fill: var(--color-info-light);
+    }
+
+._text_1acw6_45 a svg:hover {
+        fill: var(--color-primary-bright);
+      }
+:root {
+  --breakpoint-sm: 28rem;
+  --breakpoint-md: 59.5rem;
+
+  --a200: clamp(0.5rem, 3vw + 0.1rem, 0.9rem);
+  --a300: clamp(0.6rem, 3.2vw + 0.1rem, 1rem);
+  --a400: clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem);
+  --a500: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem);
+  --a600: clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem);
+  --a700: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  --a800: clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem);
+}
+._dark-theme_l27ya_1 {
+  --color-primary-bright: hsl(155, 100%, 60%);
+  --color-primary-dark: hsl(155, 70%, 30%);
+
+  --color-error-bright: hsl(0, 100%, 50%);
+  --color-error-dark: hsl(0, 100%, 20%);
+
+  --color-info-light: hsl(0, 0%, 45%);
+  --color-info-medium: hsl(0, 0%, 35%);
+  --color-info-dark: hsl(0, 0%, 10%);
+
+  --color-transparent-low: rgba(255, 255, 255, 0.06);
+  --color-transparent-medium: rgba(255, 255, 255, 0.1);
+  --color-transparent-high: rgba(255, 255, 255, 0.15);
+  --color-transparent-veryHigh: rgba(255, 255, 255, 0.3);
+
+  --color-border: hsl(0, 0%, 25%);
+  --color-background: hsl(0, 0%, 2%);
+
+  --color-text: rgba(255, 255, 255, 1);
+}
+._light-theme_l27ya_1 {
+  --color-primary-bright: hsl(155, 100%, 38%);
+  --color-primary-dark: hsl(155, 70%, 25%);
+
+  --color-error-bright: hsl(0, 100%, 70%);
+  --color-error-dark: hsl(0, 100%, 40%);
+
+  --color-info-light: hsl(0, 0%, 50%);
+  --color-info-medium: hsl(0, 0%, 65%);
+  --color-info-dark: hsl(0, 0%, 95%);
+
+  --color-transparent-low: rgba(0, 0, 0, 0.06);
+  --color-transparent-medium: rgba(0, 0, 0, 0.1);
+  --color-transparent-high: rgba(0, 0, 0, 0.15);
+  --color-transparent-veryHigh: rgba(0, 0, 0, 0.3);
+
+  --color-border: hsl(0, 0%, 75%);
+  --color-background: hsl(0, 0%, 98%);
+
+  --color-text: rgba(0, 0, 0, 0.9);
+}
+body {
+  font-family: 'Courier New', sans-serif;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page
+  Prevent repositioning because of the scrollbar disappearing */
+  padding-left: calc(100vw - 100%);
+}
+a {
+  color: var(--color-primary-bright);
+}
+* {
+  scrollbar-color: var(--color-transparent-veryHigh) transparent;
+  color: inherit;
+}
+::-webkit-scrollbar {
+  scroll-margin-right: 1rem;
+  width: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-transparent-high);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-transparent-veryHigh);
+}
+._sr-only_l27ya_1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+._x-btn_l27ya_1 {
+  border: 0;
+  background-color: transparent;
+  --color: var(--color-info-medium);
+  --angle: 45deg;
+  --transition-timing: none;
+
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+
+  transition: background-color none;
+
+  transition: background-color var(--transition-timing);
+
+  position: relative;
+
+  cursor: pointer;
+}
+._x-btn_l27ya_1::after,
+  ._x-btn_l27ya_1::before {
+    background-color: var(--color);
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(var(--angle));
+    transform-origin: center center;
+
+    transition: transform var(--transition-timing), background-color var(--transition-timing);
+  }
+._x-btn_l27ya_1::after {
+    height: 18px;
+    width: 1px;
+  }
+._x-btn_l27ya_1::before {
+    height: 1px;
+    width: 18px;
+  }
+._x-btn_l27ya_1:hover {
+    --color: var(--color-primary-bright);
+  }
+._container_l27ya_3 {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+._mainContainer_l27ya_9 {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@media (min-width: 59.501rem) {
+._mainContainer_l27ya_9 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+  }
+._container_1ylh2_1 {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+._header_1ylh2_6 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+
+  text-align: left;
+  font-size: var(--a200);
+  color: var(--color-primary-bright);
+}
+
+._header_1ylh2_6 > div {
+    margin-left: 0.5rem;
+    --color: var(--color-primary-bright);
+    --angle: 0deg;
+    --transition-timing: 200ms ease-in-out;
+  }
+
+._header_1ylh2_6[aria-expanded='true'] > div {
+      --angle: 45deg;
+    }
+
+._content_1ylh2_31 {
+  display: grid;
+
+  grid-template-rows: 1fr;
+  opacity: 1;
+  padding-top: 1rem;
+
+  transition: grid-template-rows 200ms ease-in-out, padding 200ms ease-in-out, opacity 150ms ease-in-out;
+}
+
+._content_1ylh2_31[hidden] {
+    grid-template-rows: 0fr;
+    opacity: 0;
+    padding: 0;
+  }
+
+._content_1ylh2_31 > div {
+    overflow: hidden;
+  }
+._container_abcbs_1 {
+  font-size: var(--a300);
+}
+._container_abcbs_1 div > p:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+._container_abcbs_1 strong {
+    font-size: calc(var(--a300) + 0.05rem);
+  }
+._container_abcbs_1 code {
+    font-weight: normal;
+    font-size: calc(var(--a300) - 0.15rem);
+    color: inherit;
+  }
+._popupContainer_f9k5w_1 {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -60%) scale(0.1);
+  z-index: 100;
+
+  -webkit-user-select: none;
+
+     -moz-user-select: none;
+
+          user-select: none;
+  pointer-events: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: var(--color-info-dark);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  font-size: var(--a300);
+  line-height: var(--a300);
+
+  animation: _fadeInScale_f9k5w_1 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+._popupContainer_f9k5w_1 > svg {
+    fill: var(--color-text);
+    width: var(--a400);
+    height: var(--a400);
+  }
+
+._popupClose_f9k5w_35 {
+  animation: _fadeOutScale_f9k5w_1 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes _fadeInScale_f9k5w_1 {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.1);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes _fadeOutScale_f9k5w_1 {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.1);
+  }
+}
+._container_q8r4m_1 {
+  z-index: 1000;
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  place-items: center;
+
+  -webkit-user-select: none;
+
+     -moz-user-select: none;
+
+          user-select: none;
+  background: var(--color-background);
+
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+._container_q8r4m_1[data-closing='true'] {
+    opacity: 0;
+  }
+
+._pulsatingCube_q8r4m_21 {
+  height: 4rem;
+  width: 4rem;
+  border: 6px solid var(--color-text);
+
+  animation: _pulsate_q8r4m_1 0.7s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+}
+
+@keyframes _pulsate_q8r4m_1 {
+  to {
+    height: 6px;
+    width: 6px;
+  }
+}
+:root {
+  --breakpoint-sm: 28rem;
+  --breakpoint-md: 59.5rem;
+
+  --a200: clamp(0.5rem, 3vw + 0.1rem, 0.9rem);
+  --a300: clamp(0.6rem, 3.2vw + 0.1rem, 1rem);
+  --a400: clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem);
+  --a500: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem);
+  --a600: clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem);
+  --a700: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  --a800: clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem);
+}
+._dark-theme_1n717_1 {
+  --color-primary-bright: hsl(155, 100%, 60%);
+  --color-primary-dark: hsl(155, 70%, 30%);
+
+  --color-error-bright: hsl(0, 100%, 50%);
+  --color-error-dark: hsl(0, 100%, 20%);
+
+  --color-info-light: hsl(0, 0%, 45%);
+  --color-info-medium: hsl(0, 0%, 35%);
+  --color-info-dark: hsl(0, 0%, 10%);
+
+  --color-transparent-low: rgba(255, 255, 255, 0.06);
+  --color-transparent-medium: rgba(255, 255, 255, 0.1);
+  --color-transparent-high: rgba(255, 255, 255, 0.15);
+  --color-transparent-veryHigh: rgba(255, 255, 255, 0.3);
+
+  --color-border: hsl(0, 0%, 25%);
+  --color-background: hsl(0, 0%, 2%);
+
+  --color-text: rgba(255, 255, 255, 1);
+}
+._light-theme_1n717_1 {
+  --color-primary-bright: hsl(155, 100%, 38%);
+  --color-primary-dark: hsl(155, 70%, 25%);
+
+  --color-error-bright: hsl(0, 100%, 70%);
+  --color-error-dark: hsl(0, 100%, 40%);
+
+  --color-info-light: hsl(0, 0%, 50%);
+  --color-info-medium: hsl(0, 0%, 65%);
+  --color-info-dark: hsl(0, 0%, 95%);
+
+  --color-transparent-low: rgba(0, 0, 0, 0.06);
+  --color-transparent-medium: rgba(0, 0, 0, 0.1);
+  --color-transparent-high: rgba(0, 0, 0, 0.15);
+  --color-transparent-veryHigh: rgba(0, 0, 0, 0.3);
+
+  --color-border: hsl(0, 0%, 75%);
+  --color-background: hsl(0, 0%, 98%);
+
+  --color-text: rgba(0, 0, 0, 0.9);
+}
+body {
+  font-family: 'Courier New', sans-serif;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page
+  Prevent repositioning because of the scrollbar disappearing */
+  padding-left: calc(100vw - 100%);
+}
+a {
+  color: var(--color-primary-bright);
+}
+* {
+  scrollbar-color: var(--color-transparent-veryHigh) transparent;
+  color: inherit;
+}
+::-webkit-scrollbar {
+  scroll-margin-right: 1rem;
+  width: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-transparent-high);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-transparent-veryHigh);
+}
+._sr-only_1n717_1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+._x-btn_1n717_1 {
+  border: 0;
+  background-color: transparent;
+  --color: var(--color-info-medium);
+  --angle: 45deg;
+  --transition-timing: none;
+
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+
+  transition: background-color none;
+
+  transition: background-color var(--transition-timing);
+
+  position: relative;
+
+  cursor: pointer;
+}
+._x-btn_1n717_1::after,
+  ._x-btn_1n717_1::before {
+    background-color: var(--color);
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(var(--angle));
+    transform-origin: center center;
+
+    transition: transform var(--transition-timing), background-color var(--transition-timing);
+  }
+._x-btn_1n717_1::after {
+    height: 18px;
+    width: 1px;
+  }
+._x-btn_1n717_1::before {
+    height: 1px;
+    width: 18px;
+  }
+._x-btn_1n717_1:hover {
+    --color: var(--color-primary-bright);
+  }
+._container_1n717_3 {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  max-width: 28rem;
+  max-width: var(--breakpoint-sm);
+
+  margin: 0 auto;
+  padding: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem) 1rem;
+  padding: var(--a500) 1rem;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  /* fix overflowing https://datacadamia.com/web/css/grid/overflow */
+}
+._container_1n717_3 > * {
+    min-width: 0px;
+  }
+@media (min-width: 59.501rem) {
+._container_1n717_3 {
+    max-width: 59.5rem;
+    max-width: var(--breakpoint-md);
+    gap: 2rem;
+}
+  }
+:root {
+  --breakpoint-sm: 28rem;
+  --breakpoint-md: 59.5rem;
+
+  --a200: clamp(0.5rem, 3vw + 0.1rem, 0.9rem);
+  --a300: clamp(0.6rem, 3.2vw + 0.1rem, 1rem);
+  --a400: clamp(0.6rem, 4.2vw + 0.1rem, 1.25rem);
+  --a500: clamp(0.6rem, 5.2vw + 0.1rem, 1.563rem);
+  --a600: clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem);
+  --a700: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
+  --a800: clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem);
+}
+
+.dark-theme {
+  --color-primary-bright: hsl(155, 100%, 60%);
+  --color-primary-dark: hsl(155, 70%, 30%);
+
+  --color-error-bright: hsl(0, 100%, 50%);
+  --color-error-dark: hsl(0, 100%, 20%);
+
+  --color-info-light: hsl(0, 0%, 45%);
+  --color-info-medium: hsl(0, 0%, 35%);
+  --color-info-dark: hsl(0, 0%, 10%);
+
+  --color-transparent-low: rgba(255, 255, 255, 0.06);
+  --color-transparent-medium: rgba(255, 255, 255, 0.1);
+  --color-transparent-high: rgba(255, 255, 255, 0.15);
+  --color-transparent-veryHigh: rgba(255, 255, 255, 0.3);
+
+  --color-border: hsl(0, 0%, 25%);
+  --color-background: hsl(0, 0%, 2%);
+
+  --color-text: rgba(255, 255, 255, 1);
+}
+
+.light-theme {
+  --color-primary-bright: hsl(155, 100%, 38%);
+  --color-primary-dark: hsl(155, 70%, 25%);
+
+  --color-error-bright: hsl(0, 100%, 70%);
+  --color-error-dark: hsl(0, 100%, 40%);
+
+  --color-info-light: hsl(0, 0%, 50%);
+  --color-info-medium: hsl(0, 0%, 65%);
+  --color-info-dark: hsl(0, 0%, 95%);
+
+  --color-transparent-low: rgba(0, 0, 0, 0.06);
+  --color-transparent-medium: rgba(0, 0, 0, 0.1);
+  --color-transparent-high: rgba(0, 0, 0, 0.15);
+  --color-transparent-veryHigh: rgba(0, 0, 0, 0.3);
+
+  --color-border: hsl(0, 0%, 75%);
+  --color-background: hsl(0, 0%, 98%);
+
+  --color-text: rgba(0, 0, 0, 0.9);
+}
+
+body {
+  font-family: 'Courier New', sans-serif;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page
+  Prevent repositioning because of the scrollbar disappearing */
+  padding-left: calc(100vw - 100%);
+}
+
+a {
+  color: var(--color-primary-bright);
+}
+
+* {
+  scrollbar-color: var(--color-transparent-veryHigh) transparent;
+  color: inherit;
+}
+
+::-webkit-scrollbar {
+  scroll-margin-right: 1rem;
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-transparent-high);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-transparent-veryHigh);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.x-btn {
+  border: 0;
+  background-color: transparent;
+  --color: var(--color-info-medium);
+  --angle: 45deg;
+  --transition-timing: none;
+
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+
+  transition: background-color none;
+
+  transition: background-color var(--transition-timing);
+
+  position: relative;
+
+  cursor: pointer;
+}
+
+.x-btn::after,
+  .x-btn::before {
+    background-color: var(--color);
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(var(--angle));
+    transform-origin: center center;
+
+    transition: transform var(--transition-timing), background-color var(--transition-timing);
+  }
+
+.x-btn::after {
+    height: 18px;
+    width: 1px;
+  }
+
+.x-btn::before {
+    height: 1px;
+    width: 18px;
+  }
+
+.x-btn:hover {
+    --color: var(--color-primary-bright);
+  }
+/* https://piccalil.li/blog/a-modern-css-reset/ */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Set core root defaults */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.6;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
