@@ -15,6 +15,7 @@
   transition: opacity 1s ease-in-out;
   &[data-closing='true'] {
     opacity: 0;
+    pointer-events: none;
   }
 }
 
