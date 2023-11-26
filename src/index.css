@@ -12,6 +12,14 @@
   --a600: clamp(0.6rem, 6.2vw + 0.1rem, 1.953rem);
   --a700: clamp(0.6rem, 7.6vw + 0.2rem, 2.441rem);
   --a800: clamp(0.6rem, 8.2vw + 0.1rem, 3.052rem);
+
+  --color-border-light: hsl(0, 0%, 75%);
+  --color-background-light: hsl(0, 0%, 98%);
+  --color-text-light: rgba(0, 0, 0, 0.9);
+
+  --color-border-dark: hsl(0, 0%, 25%);
+  --color-background-dark: hsl(0, 0%, 2%);
+  --color-text-dark: rgba(255, 255, 255, 1);
 }
 
 .dark-theme {
@@ -30,10 +38,10 @@
   --color-transparent-high: rgba(255, 255, 255, 0.15);
   --color-transparent-veryHigh: rgba(255, 255, 255, 0.3);
 
-  --color-border: hsl(0, 0%, 25%);
-  --color-background: hsl(0, 0%, 2%);
+  --color-border: var(--color-border-dark);
+  --color-background: var(--color-background-dark);
 
-  --color-text: rgba(255, 255, 255, 1);
+  --color-text: var(--color-text-dark);
 }
 
 .light-theme {
@@ -52,10 +60,10 @@
   --color-transparent-high: rgba(0, 0, 0, 0.15);
   --color-transparent-veryHigh: rgba(0, 0, 0, 0.3);
 
-  --color-border: hsl(0, 0%, 75%);
-  --color-background: hsl(0, 0%, 98%);
+  --color-border: var(--color-border-light);
+  --color-background: var(--color-background-light);
 
-  --color-text: rgba(0, 0, 0, 0.9);
+  --color-text: var(--color-text-light);
 }
 
 body {

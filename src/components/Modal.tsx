@@ -7,9 +7,10 @@ type Props = {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  theme?: 'light' | 'dark';
 };
 
-const Modal = ({ children, open, onClose }: Props) => {
+const Modal = ({ children, open, onClose, theme }: Props) => {
   const [closing, setClosing] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
 
@@ -65,20 +66,21 @@ const Modal = ({ children, open, onClose }: Props) => {
   return (
     <dialog
       ref={dialogRef}
-      onCancel={(event: React.SyntheticEvent<HTMLDialogElement>) => {
+      onCancel={(event) => {
         event.preventDefault();
         close();
       }}
       className={classNames(ModalCSS.panel, {
         [ModalCSS.closing || '']: closing,
       })}
+      data-theme={theme}
     >
       <button
         onClick={close}
         className="x-btn"
         id={ModalCSS.btn}
         aria-label="Close modal"
-      ></button>
+      />
       {children}
     </dialog>
   );

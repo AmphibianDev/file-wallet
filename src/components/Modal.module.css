@@ -1,6 +1,17 @@
 .panel {
+  border: 1px solid;
+  border-color: var(--color-border);
   background-color: var(--color-background);
-  border: 1px solid var(--color-border);
+
+  &[data-theme='dark'] {
+    background-color: var(--color-background-dark);
+    border-color: var(--color-border-dark);
+  }
+  &[data-theme='light'] {
+    background-color: var(--color-background-light);
+    border-color: var(--color-border-light);
+  }
+
   border-radius: 6px;
   overflow: visible;
 

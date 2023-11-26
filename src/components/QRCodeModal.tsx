@@ -11,7 +11,7 @@ const QRCodeModal = () => {
   const bgColor = rootStyle.getPropertyValue('--color-background').trim();
 
   return (
-    <Modal open={isOpen} onClose={closeQRCodeModal}>
+    <Modal open={isOpen} onClose={closeQRCodeModal} theme='light'>
       <h2 className="sr-only">QR Code Modal</h2>
       <QRCodeCanvas
         value={message}
