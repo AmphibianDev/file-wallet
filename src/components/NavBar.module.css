@@ -23,11 +23,11 @@
 
   line-height: 1.2;
   margin-bottom: 0.5rem;
+  border-radius: 12px;
+  padding: 0 0.5rem;
 
   &:hover {
     background: var(--color-transparent-low);
-    border-radius: 12px;
-    padding: 0 0.5rem;
   }
 
   @media (--breakpoint-md) {
