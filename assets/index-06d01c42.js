@@ -13345,15 +13345,7 @@ const LoadingScreen = ({ isDone }) => {
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: LoadingScreenCSS.pulsatingCube })
   ] });
 };
-const container = "_container_1n717_3";
-const AppCSS = {
-  "dark-theme": "_dark-theme_1n717_1",
-  "light-theme": "_light-theme_1n717_1",
-  "sr-only": "_sr-only_1n717_1",
-  "x-btn": "_x-btn_1n717_1",
-  container
-};
-function App() {
+function ScriptLoader({ onLoaded }) {
   const [isLoaded, setIsLoaded] = reactExports.useState(false);
   const scriptsLoadedRef = reactExports.useRef(false);
   reactExports.useEffect(() => {
@@ -13369,10 +13361,9 @@ function App() {
         document.body.appendChild(script);
       });
     };
-    const scripts = [
+    const parallelScripts = [
       "bip39/bip39-libs.js",
-      "bip39/bitcoinjs-extensions.js",
-      "bip39/segwit-parameters.js",
+      // This needs to be before sequential scripts
       "bip39/ripple-util.js",
       "bip39/jingtum-util.js",
       "bip39/casinocoin-util.js",
@@ -13394,20 +13385,43 @@ function App() {
       "bip39/jsbip39.js",
       "bip39/entropy.js",
       "bip39/monero.js",
-      "bip39/sha3.js",
+      "bip39/sha3.js"
+    ];
+    const sequentialScripts = [
+      "bip39/bitcoinjs-extensions.js",
+      "bip39/segwit-parameters.js",
       "bip39/index.js"
     ];
     const loadAllScripts = async () => {
-      for (const src of scripts) {
+      await Promise.all(parallelScripts.map((src) => loadScript(src)));
+      for (const src of sequentialScripts) {
         await loadScript(src);
       }
       setIsLoaded(true);
     };
-    loadAllScripts().catch((error) => {
-      console.error("Error loading scripts:", error);
-    });
+    loadAllScripts().catch(
+      (error) => console.error("Error loading scripts:", error)
+    );
   }, []);
+  reactExports.useEffect(() => {
+    if (isLoaded) {
+      onLoaded();
+    }
+  }, [isLoaded, onLoaded]);
+  return null;
+}
+const container = "_container_1n717_3";
+const AppCSS = {
+  "dark-theme": "_dark-theme_1n717_1",
+  "light-theme": "_light-theme_1n717_1",
+  "sr-only": "_sr-only_1n717_1",
+  "x-btn": "_x-btn_1n717_1",
+  container
+};
+function App() {
+  const [isLoaded, setIsLoaded] = reactExports.useState(false);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ScriptLoader, { onLoaded: () => setIsLoaded(true) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingScreen, { isDone: isLoaded }),
     isLoaded && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: AppCSS.container, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(InfoPopup, {}),
