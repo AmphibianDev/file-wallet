@@ -9696,7 +9696,7 @@ const Footer = () => {
             target: "_blank",
             rel: "noreferrer",
             className: FooterCSS.clickText,
-            children: "v0.3.1-alpha"
+            children: "v0.3.2-alpha"
           }
         )
       ] })
@@ -13345,22 +13345,26 @@ const LoadingScreen = ({ isDone }) => {
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: LoadingScreenCSS.pulsatingCube })
   ] });
 };
+const scriptPromises = {};
 function ScriptLoader({ onLoaded }) {
-  const [isLoaded, setIsLoaded] = reactExports.useState(false);
-  const scriptsLoadedRef = reactExports.useRef(false);
+  const loadScript = (src) => {
+    const existingScriptPromise = scriptPromises[src];
+    if (existingScriptPromise) {
+      return existingScriptPromise;
+    }
+    const promise = new Promise((resolve, reject2) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.type = "text/javascript";
+      script.async = true;
+      script.onload = () => resolve(src);
+      script.onerror = () => reject2(new Error(`Failed to load script: ${src}`));
+      document.body.appendChild(script);
+    });
+    scriptPromises[src] = promise;
+    return promise;
+  };
   reactExports.useEffect(() => {
-    if (scriptsLoadedRef.current)
-      return;
-    scriptsLoadedRef.current = true;
-    const loadScript = (src) => {
-      return new Promise((resolve, reject2) => {
-        const script = document.createElement("script");
-        script.src = src;
-        script.onload = resolve;
-        script.onerror = reject2;
-        document.body.appendChild(script);
-      });
-    };
     const parallelScripts = [
       "bip39/bip39-libs.js",
       // This needs to be before sequential scripts
@@ -13397,17 +13401,12 @@ function ScriptLoader({ onLoaded }) {
       for (const src of sequentialScripts) {
         await loadScript(src);
       }
-      setIsLoaded(true);
+      onLoaded();
     };
     loadAllScripts().catch(
       (error) => console.error("Error loading scripts:", error)
     );
   }, []);
-  reactExports.useEffect(() => {
-    if (isLoaded) {
-      onLoaded();
-    }
-  }, [isLoaded, onLoaded]);
   return null;
 }
 const container = "_container_1n717_3";
