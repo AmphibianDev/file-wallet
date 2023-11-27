@@ -40,8 +40,7 @@ Currently, there isn't a standalone .html file, so you'll need to compile it.
 1. Go to [releases](https://github.com/AmphibianDev/file-wallet/releases) and download `Source Code (zip)` from the latest version and extract it.
 2. Open a terminal within the extracted folder and run those in order:
    1. `npm install`
-   2. `npm run build`
-   3. `npm run preview`
+   2. `npm run preview`
 3. Open the localhost link shown in the console.
 
 ## What still needs to be done
