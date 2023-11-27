@@ -1,24 +1,32 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+
+const scriptPromises: {
+  [key: string]: Promise<string>;
+} = {}; // Object to track script promises
 
 function ScriptLoader({ onLoaded }: { onLoaded: () => void }) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const scriptsLoadedRef = useRef(false); // for stopping running twice because of React.StrictMode
+  // function to load a single script
+  const loadScript = (src: string): Promise<string> => {
+    const existingScriptPromise = scriptPromises[src];
+    if (existingScriptPromise) {
+      return existingScriptPromise;
+    }
+
+    const promise = new Promise<string>((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.type = 'text/javascript';
+      script.async = true;
+      script.onload = () => resolve(src);
+      script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+      document.body.appendChild(script);
+    });
+
+    scriptPromises[src] = promise;
+    return promise;
+  };
 
   useEffect(() => {
-    if (scriptsLoadedRef.current) return;
-    scriptsLoadedRef.current = true;
-
-    // function to load a single script
-    const loadScript = (src: string) => {
-      return new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = src;
-        script.onload = resolve;
-        script.onerror = reject;
-        document.body.appendChild(script);
-      });
-    };
-
     const parallelScripts = [
       'bip39/bip39-libs.js', // This needs to be before sequential scripts
       'bip39/ripple-util.js',
@@ -60,19 +68,13 @@ function ScriptLoader({ onLoaded }: { onLoaded: () => void }) {
         await loadScript(src);
       }
 
-      setIsLoaded(true);
+      onLoaded();
     };
 
     loadAllScripts().catch(error =>
       console.error('Error loading scripts:', error)
     );
   }, []);
-
-  useEffect(() => {
-    if (isLoaded) {
-      onLoaded();
-    }
-  }, [isLoaded, onLoaded]);
 
   return null;
 }
