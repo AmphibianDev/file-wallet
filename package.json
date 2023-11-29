@@ -9,7 +9,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "tsc && vite build --mode development && vite preview",
-    "deploy": "gh-pages -d dist"
+    "deploy": "echo 'file-wallet.com' > ./dist/CNAME && gh-pages -d dist --cname file-wallet.com"
   },
   "dependencies": {
     "classnames": "^2.3.2",
