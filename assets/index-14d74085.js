@@ -9524,8 +9524,16 @@ const NavBar = () => {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("header", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("nav", { className: NavBarCSS.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/", className: NavBarCSS.title, children: "File Wallet" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: NavBarCSS.list, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/faq", className: NavBarCSS.btn, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiQuestionnaireFill, {}) }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("button", { className: NavBarCSS.btn, onClick: toggleTheme, children: /* @__PURE__ */ jsxRuntimeExports.jsx(MdLightMode, {}) }) })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/faq", className: NavBarCSS.btn, "aria-label": "FAQ", children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiQuestionnaireFill, {}) }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          className: NavBarCSS.btn,
+          onClick: toggleTheme,
+          "aria-label": "Toggle Theme",
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(MdLightMode, {})
+        }
+      ) })
     ] })
   ] }) });
 };
@@ -9702,13 +9710,23 @@ const Footer = () => {
       ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: FooterCSS.icons, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "https://x.com/AmphibianDev", target: "_blank", rel: "noreferrer", children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiTwitterXLine, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "a",
+        {
+          href: "https://x.com/AmphibianDev",
+          target: "_blank",
+          rel: "noreferrer",
+          "aria-label": "X Social Page",
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiTwitterXLine, {})
+        }
+      ),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         "a",
         {
           href: "https://github.com/AmphibianDev/file-wallet",
           target: "_blank",
           rel: "noreferrer",
+          "aria-label": "Github Repository",
           children: /* @__PURE__ */ jsxRuntimeExports.jsx(AiFillGithub, {})
         }
       )
@@ -11733,7 +11751,7 @@ const DropZone = ({ file, onChange }) => {
     [DropZoneCSS.accept || ""]: isDragAccept,
     [DropZoneCSS.reject || ""]: isDragReject
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { ...getRootProps(), className: dropzoneClasses, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { ...getRootProps(), className: dropzoneClasses, role: "button", children: [
     file === null ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
       "Drop file here or",
       /* @__PURE__ */ jsxRuntimeExports.jsx("wbr", {}),
@@ -12206,11 +12224,18 @@ const WarningAside = () => {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: WarningAsideCSS.text, children: [
         "Use it at your own risk. ",
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Checkout" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/faq", children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiQuestionnaireFill, {}) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/faq", "aria-label": "FAQ", children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiQuestionnaireFill, {}) }),
         "for more info."
       ] })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { className: "x-btn", onClick: closeWarning })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "button",
+      {
+        className: "x-btn",
+        onClick: closeWarning,
+        "aria-label": "Close Warning"
+      }
+    )
   ] }) : null;
 };
 const container$4 = "_container_l27ya_3";
