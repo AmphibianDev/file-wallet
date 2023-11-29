@@ -23,13 +23,17 @@ export const WarningAside = () => {
         </div>
         <p className={WarningAsideCSS.text}>
           Use it at your own risk. <span>Checkout</span>
-          <Link to="/faq">
+          <Link to="/faq" aria-label="FAQ">
             <RiQuestionnaireFill />
           </Link>
           for more info.
         </p>
       </div>
-      <button className="x-btn" onClick={closeWarning} />
+      <button
+        className="x-btn"
+        onClick={closeWarning}
+        aria-label="Close Warning"
+      />
     </aside>
   ) : null;
 };

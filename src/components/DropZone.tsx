@@ -78,7 +78,7 @@ const DropZone = ({ file, onChange }: Props) => {
   });
 
   return (
-    <button {...getRootProps()} className={dropzoneClasses}>
+    <button {...getRootProps()} className={dropzoneClasses} role="button">
       {file === null ? (
         <span>
           Drop&nbsp;file&nbsp;here&nbsp;or

@@ -17,12 +17,16 @@ const NavBar = () => {
         </Link>
         <ul className={NavBarCSS.list}>
           <li>
-            <Link to="/faq" className={NavBarCSS.btn}>
+            <Link to="/faq" className={NavBarCSS.btn} aria-label="FAQ">
               <RiQuestionnaireFill />
             </Link>
           </li>
           <li>
-            <button className={NavBarCSS.btn} onClick={toggleTheme}>
+            <button
+              className={NavBarCSS.btn}
+              onClick={toggleTheme}
+              aria-label="Toggle Theme"
+            >
               <MdLightMode />
             </button>
           </li>

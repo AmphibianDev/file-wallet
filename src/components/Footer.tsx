@@ -47,13 +47,19 @@ const Footer = () => {
         </p>
       </div>
       <div className={FooterCSS.icons}>
-        <a href="https://x.com/AmphibianDev" target="_blank" rel="noreferrer">
+        <a
+          href="https://x.com/AmphibianDev"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="X Social Page"
+        >
           <RiTwitterXLine />
         </a>
         <a
           href="https://github.com/AmphibianDev/file-wallet"
           target="_blank"
           rel="noreferrer"
+          aria-label="Github Repository"
         >
           <AiFillGithub />
         </a>
