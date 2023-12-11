@@ -16,8 +16,7 @@
           return;
         }
 
-        const newPath = '/#/' + BrowserRouterPage + search + hash;
-        window.history.replaceState(null, null, newPath);
+        window.location = '/#/' + BrowserRouterPage + search + hash;
       })();
     </script>
   </head>
