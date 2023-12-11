@@ -26,6 +26,24 @@
       content="Generate cryptocurrency wallets using an image and a optional password. Hidden in plain sight, versatile, and memorable."
     />
     <meta name="twitter:image" content="/preview.png" />
+
+    <!-- 
+      Modify the URL path from BrowserRouter to HashRouter 
+      This needs to be first.
+    -->
+    <script type="text/javascript">
+      (function () {
+        const { pathname, search, hash } = window.location;
+
+        const BrowserRouterPage = pathname.substring(1);
+        if (!BrowserRouterPage) {
+          return;
+        }
+
+        const newPath = '/#/' + BrowserRouterPage + search + hash;
+        window.history.replaceState(null, null, newPath);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
