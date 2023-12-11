@@ -26,8 +26,26 @@
       content="Generate cryptocurrency wallets using an image and a optional password. Hidden in plain sight, versatile, and memorable."
     />
     <meta name="twitter:image" content="/preview.png" />
-    <script type="module" crossorigin src="https://file-wallet.com/assets/index-14d74085.js"></script>
-    <link rel="stylesheet" href="https://file-wallet.com/assets/index-1785aa46.css">
+
+    <!-- 
+      Modify the URL path from BrowserRouter to HashRouter 
+      This needs to be first.
+    -->
+    <script type="text/javascript">
+      (function () {
+        const { pathname, search, hash } = window.location;
+
+        const BrowserRouterPage = pathname.substring(1);
+        if (!BrowserRouterPage) {
+          return;
+        }
+
+        const newPath = '/#/' + BrowserRouterPage + search + hash;
+        window.history.replaceState(null, null, newPath);
+      })();
+    </script>
+    <script type="module" crossorigin src="https://file-wallet.com/assets/index-5670cf25.js"></script>
+    <link rel="stylesheet" href="https://file-wallet.com/assets/index-c22c2598.css">
   </head>
   <body>
     <div id="root"></div>

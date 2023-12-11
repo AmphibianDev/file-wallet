@@ -7638,16 +7638,16 @@ var Action;
   Action2["Replace"] = "REPLACE";
 })(Action || (Action = {}));
 const PopStateEventType = "popstate";
-function createBrowserHistory(options) {
+function createHashHistory(options) {
   if (options === void 0) {
     options = {};
   }
-  function createBrowserLocation(window2, globalHistory) {
+  function createHashLocation(window2, globalHistory) {
     let {
-      pathname,
-      search,
-      hash
-    } = window2.location;
+      pathname = "/",
+      search = "",
+      hash = ""
+    } = parsePath(window2.location.hash.substr(1));
     return createLocation(
       "",
       {
@@ -7660,10 +7660,20 @@ function createBrowserHistory(options) {
       globalHistory.state && globalHistory.state.key || "default"
     );
   }
-  function createBrowserHref(window2, to) {
-    return typeof to === "string" ? to : createPath(to);
+  function createHashHref(window2, to) {
+    let base = window2.document.querySelector("base");
+    let href = "";
+    if (base && base.getAttribute("href")) {
+      let url = window2.location.href;
+      let hashIndex = url.indexOf("#");
+      href = hashIndex === -1 ? url : url.slice(0, hashIndex);
+    }
+    return href + "#" + (typeof to === "string" ? to : createPath(to));
   }
-  return getUrlBasedHistory(createBrowserLocation, createBrowserHref, null, options);
+  function validateHashLocation(location, to) {
+    warning(location.pathname.charAt(0) === "/", "relative pathnames are not supported in hash history.push(" + JSON.stringify(to) + ")");
+  }
+  return getUrlBasedHistory(createHashLocation, createHashHref, validateHashLocation, options);
 }
 function invariant(value, message) {
   if (value === false || value === null || typeof value === "undefined") {
@@ -8760,16 +8770,16 @@ function shouldProcessLinkClick(event, target) {
 const _excluded$1 = ["onClick", "relative", "reloadDocument", "replace", "state", "target", "to", "preventScrollReset"];
 const START_TRANSITION = "startTransition";
 const startTransitionImpl = React$1[START_TRANSITION];
-function BrowserRouter(_ref) {
+function HashRouter(_ref2) {
   let {
     basename,
     children,
     future,
     window: window2
-  } = _ref;
+  } = _ref2;
   let historyRef = reactExports.useRef();
   if (historyRef.current == null) {
-    historyRef.current = createBrowserHistory({
+    historyRef.current = createHashHistory({
       window: window2,
       v5Compat: true
     });
@@ -9524,7 +9534,15 @@ const NavBar = () => {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("header", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("nav", { className: NavBarCSS.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/", className: NavBarCSS.title, children: "File Wallet" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: NavBarCSS.list, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/faq", className: NavBarCSS.btn, "aria-label": "FAQ", children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiQuestionnaireFill, {}) }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Link,
+        {
+          to: "/faq",
+          className: NavBarCSS.btn,
+          "aria-label": "Frequent Ask Questions",
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiQuestionnaireFill, {})
+        }
+      ) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
         {
@@ -9692,7 +9710,15 @@ const Footer = () => {
         /* @__PURE__ */ jsxRuntimeExports.jsx("u", { children: "Monero" }),
         ":",
         " ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { className: FooterCSS.clickText, onClick: handleCopy, children: /* @__PURE__ */ jsxRuntimeExports.jsx(MiddleTruncate, { minChars: 7, maxChars: 7, text: myMoneroAddress }) })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            className: FooterCSS.clickText,
+            onClick: handleCopy,
+            "aria-label": "Copy my Monero address for donation",
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(MiddleTruncate, { minChars: 7, maxChars: 7, text: myMoneroAddress })
+          }
+        )
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
         "App Version:",
@@ -9704,7 +9730,7 @@ const Footer = () => {
             target: "_blank",
             rel: "noreferrer",
             className: FooterCSS.clickText,
-            children: "v0.3.2-alpha"
+            children: "v0.4.0-alpha"
           }
         )
       ] })
@@ -10160,6 +10186,7 @@ const CryptoBtn = ({ cryptoName, ...props }) => {
       "button",
       {
         ...props,
+        "aria-label": `Currently selected ${cryptoFullName}, open crypto selection list`,
         className: CryptoBtnCSS.container,
         onClick: () => setIsModalOpen(true),
         children: [
@@ -11937,7 +11964,15 @@ const InputSection = ({ className }) => {
           className: InputSectionCSS.container,
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(CryptoBtn, { cryptoName }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { className: InputSectionCSS.randomBtn, onClick: bipRandom, children: "Random" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                className: InputSectionCSS.randomBtn,
+                onClick: bipRandom,
+                "aria-label": "Generate random seed",
+                children: "Random"
+              }
+            ),
             /* @__PURE__ */ jsxRuntimeExports.jsx(TextZone, { value: mnemonic, onChange: setMnemonic })
           ]
         }
@@ -12019,7 +12054,7 @@ const MnemonicFiled = ({ bip39, xmr: xmr2 }) => {
         {
           className: MnemonicFiledCSS.switch,
           "aria-pressed": isXMR,
-          "aria-label": isXMR ? "show bip39 mnemonic" : "show xmr mnemonic",
+          "aria-label": "switch between xmr and bip39 mnemonic seed",
           onClick: () => setIsXMR(!isXMR),
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: MnemonicFiledCSS.xmr, children: "XMR" }),
@@ -12035,7 +12070,7 @@ const MnemonicFiled = ({ bip39, xmr: xmr2 }) => {
           "button",
           {
             className: MnemonicFiledCSS.btn,
-            "aria-label": "show QR code",
+            "aria-label": `show ${isXMR ? "xmr" : "bip39"} mnemonic QR code`,
             onClick: handleQR,
             children: /* @__PURE__ */ jsxRuntimeExports.jsx(MdQrCode, {})
           }
@@ -12044,7 +12079,7 @@ const MnemonicFiled = ({ bip39, xmr: xmr2 }) => {
           "button",
           {
             className: MnemonicFiledCSS.btn,
-            "aria-label": "Copy text",
+            "aria-label": `copy ${isXMR ? "xmr" : "bip39"} mnemonic`,
             onClick: handleCopy,
             children: /* @__PURE__ */ jsxRuntimeExports.jsx(MdContentCopy, {})
           }
@@ -12107,8 +12142,8 @@ const OutputFiled = ({ text: text2, label: label2 }) => {
         }
       ),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: OutputFiledCSS.buttons, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { "aria-label": "show QR code", onClick: handleQR, children: /* @__PURE__ */ jsxRuntimeExports.jsx(MdQrCode, {}) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { "aria-label": "Copy text", onClick: handleCopy, children: /* @__PURE__ */ jsxRuntimeExports.jsx(MdContentCopy, {}) })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { "aria-label": `show ${label2} QR code`, onClick: handleQR, children: /* @__PURE__ */ jsxRuntimeExports.jsx(MdQrCode, {}) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { "aria-label": `Copy ${label2}`, onClick: handleCopy, children: /* @__PURE__ */ jsxRuntimeExports.jsx(MdContentCopy, {}) })
       ] })
     ] })
   ] });
@@ -12135,7 +12170,7 @@ const OutputSection = ({ className }) => {
     "Input"
   ] }) });
   const errorJSX = (errorMessage) => {
-    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: OutputSectionCSS.middle, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: errorMessage }) });
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { tabIndex: 0, className: OutputSectionCSS.middle, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: errorMessage }) });
   };
   const outJSX = (bip39Info2) => {
     if (!bip39Info2.wallets[0])
@@ -12197,7 +12232,7 @@ const OutputSection = ({ className }) => {
         children: /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { children: "Output" })
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: OutputSectionCSS.container, children: bip39Info === null ? waitingJSX : bip39Info.errorMessage ? errorJSX(bip39Info.errorMessage) : outJSX(bip39Info) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { tabIndex: -1, className: OutputSectionCSS.container, children: bip39Info === null ? waitingJSX : bip39Info.errorMessage ? errorJSX(bip39Info.errorMessage) : outJSX(bip39Info) })
   ] });
 };
 const container$5 = "_container_1acw6_1";
@@ -12221,10 +12256,10 @@ const WarningAside = () => {
   return showWarning ? /* @__PURE__ */ jsxRuntimeExports.jsxs("aside", { className: WarningAsideCSS.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: WarningAsideCSS.leftSide, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: WarningAsideCSS.iconContainer, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiInformationLine, {}) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: WarningAsideCSS.text, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { tabIndex: 0, "aria-live": "polite", className: WarningAsideCSS.text, children: [
         "Use it at your own risk. ",
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Checkout" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/faq", "aria-label": "FAQ", children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiQuestionnaireFill, {}) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/faq", "aria-label": "Frequent Ask Questions", children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiQuestionnaireFill, {}) }),
         "for more info."
       ] })
     ] }),
@@ -12257,17 +12292,46 @@ const Home = () => {
     ] })
   ] });
 };
-const container$3 = "_container_1ylh2_1";
-const header = "_header_1ylh2_6";
-const content = "_content_1ylh2_31";
+const container$3 = "_container_1jaw4_1";
+const header = "_header_1jaw4_6";
+const content = "_content_1jaw4_31";
 const AccordionCSS = {
   container: container$3,
   header,
   content
 };
+function toId(str) {
+  const id2 = str.toLowerCase().replace(/\s+/g, "_");
+  const cleanedId = id2.replace(/[^\w\s]/gi, "");
+  return cleanedId;
+}
 const Accordion = ({ title: title2, children }) => {
+  const [id2] = reactExports.useState(() => toId(title2));
   const [isOpen, setIsOpen] = reactExports.useState(false);
   const contentRef = reactExports.useRef(null);
+  const headerRef = reactExports.useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const handleClick = () => {
+    const hashId = location.hash.substring(1);
+    if (hashId === id2)
+      navigate("", { replace: true });
+    else
+      navigate("#" + id2, { replace: true });
+  };
+  reactExports.useEffect(() => {
+    const hashId = location.hash.substring(1);
+    if (hashId === id2) {
+      setTimeout(() => {
+        var _a;
+        (_a = contentRef.current) == null ? void 0 : _a.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }, 200);
+    }
+    setIsOpen(hashId === id2);
+  }, [location, id2]);
   reactExports.useEffect(() => {
     var _a;
     const focusableElements = (_a = contentRef.current) == null ? void 0 : _a.querySelectorAll(
@@ -12283,15 +12347,15 @@ const Accordion = ({ title: title2, children }) => {
       });
     }
   }, [isOpen]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: AccordionCSS.container, role: "region", children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { id: id2, className: AccordionCSS.container, role: "region", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "button",
       {
-        role: "button",
-        id: "accordion-header",
-        "aria-controls": "accordion-content",
+        ref: headerRef,
+        id: `${id2}-header`,
+        "aria-owns": `${id2}-content`,
         "aria-expanded": isOpen,
-        onClick: () => setIsOpen(!isOpen),
+        onClick: handleClick,
         className: AccordionCSS.header,
         children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { children: title2 }),
@@ -12303,9 +12367,9 @@ const Accordion = ({ title: title2, children }) => {
       "div",
       {
         ref: contentRef,
-        id: "accordion-content",
-        "aria-labelledby": "accordion-header",
-        hidden: !isOpen,
+        id: `${id2}-content`,
+        "aria-labelledby": `${id2}-header`,
+        "aria-hidden": !isOpen,
         className: AccordionCSS.content,
         children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children })
       }
@@ -13462,5 +13526,5 @@ function App() {
 const index = "";
 const reset = "";
 client.createRoot(document.getElementById("root")).render(
-  /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) })
+  /* @__PURE__ */ jsxRuntimeExports.jsx(HashRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) })
 );
