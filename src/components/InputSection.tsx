@@ -130,7 +130,11 @@ const InputSection = ({ className }: { className?: string }) => {
           className={InputSectionCSS.container}
         >
           <CryptoBtn cryptoName={cryptoName} />
-          <button className={InputSectionCSS.randomBtn} onClick={bipRandom}>
+          <button
+            className={InputSectionCSS.randomBtn}
+            onClick={bipRandom}
+            aria-label="Generate random seed"
+          >
             Random
           </button>
           <TextZone value={mnemonic} onChange={setMnemonic} />

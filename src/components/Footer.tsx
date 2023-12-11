@@ -30,7 +30,11 @@ const Footer = () => {
       <div className={FooterCSS.text}>
         <p>
           Donate <u>Monero</u>:{' '}
-          <button className={FooterCSS.clickText} onClick={handleCopy}>
+          <button
+            className={FooterCSS.clickText}
+            onClick={handleCopy}
+            aria-label="Copy my Monero address for donation"
+          >
             <MiddleTruncate minChars={7} maxChars={7} text={myMoneroAddress} />
           </button>
         </p>

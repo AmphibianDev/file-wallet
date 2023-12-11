@@ -67,7 +67,7 @@ const Accordion = ({ title, children }: Props) => {
       <button
         ref={headerRef}
         id={`${id}-header`}
-        aria-controls={`${id}-content`}
+        aria-owns={`${id}-content`}
         aria-expanded={isOpen}
         onClick={handleClick}
         className={AccordionCSS.header}
@@ -79,7 +79,7 @@ const Accordion = ({ title, children }: Props) => {
         ref={contentRef}
         id={`${id}-content`}
         aria-labelledby={`${id}-header`}
-        hidden={!isOpen}
+        aria-hidden={!isOpen}
         className={AccordionCSS.content}
       >
         <div>{children}</div>

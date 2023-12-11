@@ -24,7 +24,7 @@ const OutputSection = ({ className }: { className?: string }) => {
 
   const errorJSX = (errorMessage: string) => {
     return (
-      <div className={OutputSectionCSS.middle}>
+      <div tabIndex={0} className={OutputSectionCSS.middle}>
         <p>{errorMessage}</p>
       </div>
     );
@@ -79,7 +79,7 @@ const OutputSection = ({ className }: { className?: string }) => {
       >
         <h2>Output</h2>
       </div>
-      <div className={OutputSectionCSS.container}>
+      <div tabIndex={-1} className={OutputSectionCSS.container}>
         {bip39Info === null
           ? waitingJSX
           : bip39Info.errorMessage

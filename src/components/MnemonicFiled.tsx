@@ -63,7 +63,7 @@ const MnemonicFiled = ({ bip39, xmr }: Props) => {
           <button
             className={MnemonicFiledCSS.switch}
             aria-pressed={isXMR}
-            aria-label={isXMR ? 'show bip39 mnemonic' : 'show xmr mnemonic'}
+            aria-label="switch between xmr and bip39 mnemonic seed"
             onClick={() => setIsXMR(!isXMR)}
           >
             <span className={MnemonicFiledCSS.xmr}>XMR</span>
@@ -78,14 +78,14 @@ const MnemonicFiled = ({ bip39, xmr }: Props) => {
         <div className={MnemonicFiledCSS.buttons}>
           <button
             className={MnemonicFiledCSS.btn}
-            aria-label="show QR code"
+            aria-label={`show ${isXMR ? 'xmr' : 'bip39'} mnemonic QR code`}
             onClick={handleQR}
           >
             <MdQrCode />
           </button>
           <button
             className={MnemonicFiledCSS.btn}
-            aria-label="Copy text"
+            aria-label={`copy ${isXMR ? 'xmr' : 'bip39'} mnemonic`}
             onClick={handleCopy}
           >
             <MdContentCopy />

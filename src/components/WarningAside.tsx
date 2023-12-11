@@ -21,9 +21,9 @@ export const WarningAside = () => {
         <div className={WarningAsideCSS.iconContainer}>
           <RiInformationLine />
         </div>
-        <p className={WarningAsideCSS.text}>
+        <p tabIndex={0} aria-live="polite" className={WarningAsideCSS.text}>
           Use it at your own risk. <span>Checkout</span>
-          <Link to="/faq" aria-label="FAQ">
+          <Link to="/faq" aria-label="Frequent Ask Questions">
             <RiQuestionnaireFill />
           </Link>
           for more info.

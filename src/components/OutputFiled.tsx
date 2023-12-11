@@ -61,10 +61,10 @@ const OutputFiled = ({ text, label }: Props) => {
           text={text}
         />
         <div className={OutputFiledCSS.buttons}>
-          <button aria-label="show QR code" onClick={handleQR}>
+          <button aria-label={`show ${label} QR code`} onClick={handleQR}>
             <MdQrCode />
           </button>
-          <button aria-label="Copy text" onClick={handleCopy}>
+          <button aria-label={`Copy ${label}`} onClick={handleCopy}>
             <MdContentCopy />
           </button>
         </div>

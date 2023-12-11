@@ -38,7 +38,7 @@
   transition: grid-template-rows 200ms ease-in-out, padding 200ms ease-in-out,
     opacity 150ms ease-in-out;
 
-  &[hidden] {
+  &[aria-hidden='true'] {
     grid-template-rows: 0fr;
     opacity: 0;
     padding: 0;

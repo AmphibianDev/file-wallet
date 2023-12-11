@@ -17,7 +17,11 @@ const NavBar = () => {
         </Link>
         <ul className={NavBarCSS.list}>
           <li>
-            <Link to="/faq" className={NavBarCSS.btn} aria-label="FAQ">
+            <Link
+              to="/faq"
+              className={NavBarCSS.btn}
+              aria-label="Frequent Ask Questions"
+            >
               <RiQuestionnaireFill />
             </Link>
           </li>

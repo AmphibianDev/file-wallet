@@ -27,6 +27,7 @@ const CryptoBtn = ({ cryptoName, ...props }: CryptoBtnProps) => {
       />
       <button
         {...props}
+        aria-label={`Currently selected ${cryptoFullName}, open crypto selection list`}
         className={CryptoBtnCSS.container}
         onClick={() => setIsModalOpen(true)}
       >
