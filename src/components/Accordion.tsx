@@ -1,5 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import AccordionCSS from './Accordion.module.css';
+
+function toId(str: string) {
+  // Convert to lowercase and replace spaces with underscores
+  const id = str.toLowerCase().replace(/\s+/g, '_');
+  // Remove special characters except underscores
+  const cleanedId = id.replace(/[^\w\s]/gi, '');
+
+  return cleanedId;
+}
 
 type Props = {
   title: string;
@@ -7,8 +17,33 @@ type Props = {
 };
 
 const Accordion = ({ title, children }: Props) => {
+  const [id] = useState(() => toId(title));
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
+  const headerRef = useRef<HTMLButtonElement | null>(null);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    const hashId = location.hash.substring(1);
+    if (hashId === id) navigate('', { replace: true });
+    else navigate('#' + id, { replace: true });
+  };
+
+  useEffect(() => {
+    const hashId = location.hash.substring(1);
+    if (hashId === id) {
+      setTimeout(() => {
+        contentRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }, 200);
+    }
+
+    setIsOpen(hashId === id);
+  }, [location, id]);
 
   // remove tab focus from content when accordion is closed
   useEffect(() => {
@@ -28,13 +63,13 @@ const Accordion = ({ title, children }: Props) => {
   }, [isOpen]);
 
   return (
-    <div className={AccordionCSS.container} role="region">
+    <div id={id} className={AccordionCSS.container} role="region">
       <button
-        role="button"
-        id="accordion-header"
-        aria-controls="accordion-content"
+        ref={headerRef}
+        id={`${id}-header`}
+        aria-controls={`${id}-content`}
         aria-expanded={isOpen}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleClick}
         className={AccordionCSS.header}
       >
         <h2>{title}</h2>
@@ -42,8 +77,8 @@ const Accordion = ({ title, children }: Props) => {
       </button>
       <div
         ref={contentRef}
-        id="accordion-content"
-        aria-labelledby="accordion-header"
+        id={`${id}-content`}
+        aria-labelledby={`${id}-header`}
         hidden={!isOpen}
         className={AccordionCSS.content}
       >
