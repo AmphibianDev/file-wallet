@@ -46,7 +46,6 @@ const useCryptoStore = create<CryptoState>(set => ({
   },
 
   bipRandom: () => {
-    // TODO: Add more randomness
     const array = new Uint32Array(100);
     crypto.getRandomValues(array);
 

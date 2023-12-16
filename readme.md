@@ -48,15 +48,14 @@ Currently, there isn't a standalone .html file, so you'll need to compile it.
 - Add tests.
 - Organize the file structure.
 - Make a standalone `.html` file.
+- Add a loading indicator during wallet generation.
+- Find a better way to handle the JS code from [iancoleman's bip39](https://github.com/iancoleman/bip39).
 - ~~Implement a light theme option.~~
 - ~~Add Monero support based on [bip39-coinomi](https://github.com/Coinomi/bip39-coinomi).~~
-- Add a loading indicator during wallet generation.
-- Enhance accessibility following WAI-ARIA standards.
-- Find a better way to handle the JS code from [iancoleman's bip39](https://github.com/iancoleman/bip39).
+- ~~Enhance accessibility following WAI-ARIA standards.~~
 
-**Task Under Consideration**:
+**Task Under Careful Consideration**:
 
-- Boost randomness for the 'random' button using mouse position.
 - Use bcrypt instead of SHA-256 for hashing. (_breaking change_)
 - Omit the `data:image/png;base64,` prefix from `FileDataUrl`. (_breaking change_)
 
