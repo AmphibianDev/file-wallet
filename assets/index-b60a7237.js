@@ -9730,7 +9730,7 @@ const Footer = () => {
             target: "_blank",
             rel: "noreferrer",
             className: FooterCSS.clickText,
-            children: "v0.4.0-alpha"
+            children: "v0.4.1-alpha"
           }
         )
       ] })
@@ -11750,7 +11750,7 @@ const DropZone = ({ file, onChange }) => {
             messages.push("File was over 500mb");
             break;
           case "file-too-small":
-            messages.push("File was too small");
+            messages.push("File was under 50kb");
             break;
           case "file-invalid-type":
             messages.push("File type was not supported");
@@ -11771,7 +11771,8 @@ const DropZone = ({ file, onChange }) => {
     onDrop,
     onDropRejected,
     multiple: false,
-    maxSize: 5e8
+    maxSize: 5e8,
+    minSize: 5e4
   });
   const dropzoneClasses = classNames({
     [DropZoneCSS.container || ""]: true,
