@@ -1,5 +1,7 @@
 # File-Wallet: Cryptocurrency Wallet Generator
 
+![showcase.gif](https://github.com/AmphibianDev/file-wallet/assets/110111354/a90eede3-f111-460c-86af-dbe9fbbbb385)
+
 Official url: https://file-wallet.com/
 
 This user-friendly website allows you to generate valid cryptocurrency wallets using an image (or any other file) combined with an optional password, rather than the traditional random number generator. Essentially, the wallet seed (24 mnemonic words) is generated from the hash of the file and the password.
