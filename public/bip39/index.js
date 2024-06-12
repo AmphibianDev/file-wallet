@@ -2,9 +2,10 @@ const topOrder = [
   'BTC - Bitcoin',
   'XMR - Monero',
   'ETH - Ethereum',
+  'TRX - Tron',
+  'BTT - BitTorrent',
   'XRP - Ripple',
   'DOGE - Dogecoin',
-  'TRX - Tron',
   'LTC - Litecoin',
   'ATOM - Cosmos Hub',
   'ETC - Ethereum Classic',
@@ -185,6 +186,12 @@ function generateKeysAtIndex(index, useHardenedAddresses = false) {
     pubkey = libs.ethUtil.addHexPrefix(pubkey);
     if (hasPrivkey) {
       privkey = libs.ethUtil.bufferToHex(keyPair.d.toBuffer(32));
+    }
+
+    // Remove the 0x from the public and private key
+    if (networks[cryptoIndex].name === 'BTT - BitTorrent') {
+      pubkey = pubkey.slice(2);
+      privkey = privkey.slice(2);
     }
   }
   //TRX is different
@@ -682,6 +689,7 @@ function networkIsEthereum() {
   var name = networks[cryptoIndex].name;
   return (
     name == 'ETH - Ethereum' ||
+    name == 'BTT - BitTorrent' ||
     name == 'ETC - Ethereum Classic' ||
     name == 'EWT - EnergyWeb' ||
     name == 'PIRL - Pirl' ||
@@ -1212,6 +1220,13 @@ var networks = [
   },
   {
     name: 'ETH - Ethereum',
+    onSelect: function () {
+      network = libs.bitcoin.networks.bitcoin;
+      setHdCoin(60);
+    },
+  },
+  {
+    name: 'BTT - BitTorrent',
     onSelect: function () {
       network = libs.bitcoin.networks.bitcoin;
       setHdCoin(60);
