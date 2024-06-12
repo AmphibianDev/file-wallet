@@ -13,11 +13,15 @@ import ScriptLoader from './components/ScriptLoader';
 import AppCSS from './App.module.css';
 
 function App() {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const isSingleFileBuild = import.meta.env.MODE === 'singleFile';
+
+  const [isLoaded, setIsLoaded] = useState(isSingleFileBuild);
 
   return (
     <div>
-      <ScriptLoader onLoaded={() => setIsLoaded(true)} />
+      {!isSingleFileBuild && (
+        <ScriptLoader onLoaded={() => setIsLoaded(true)} />
+      )}
       <LoadingScreen isDone={isLoaded} />
       {isLoaded && (
         <div className={AppCSS.container}>
