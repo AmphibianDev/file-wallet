@@ -47,7 +47,7 @@ const Footer = () => {
             className={FooterCSS.clickText}
             aria-label="GitHub latest release"
           >
-            v0.4.1-alpha
+            v0.5.0-alpha
           </a>
         </p>
       </div>

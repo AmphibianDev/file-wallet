@@ -124,35 +124,22 @@ const FAQ = () => {
       </Accordion>
       <Accordion title="How to Run It Offline?">
         <p>
-          Currently, there isn't a standalone .html file, so you'll need to
-          compile it.
+          It couldn't be any simpler. Just go to{' '}
+          <a
+            href="https://github.com/AmphibianDev/file-wallet/releases"
+            target="_blank"
+            rel="noopener external"
+            aria-label="GitHub latest release"
+          >
+            releases
+          </a>{' '}
+          and download the file-wallet.html from the latest release. Now, you
+          only need to open it with any browser you like (double click it).
         </p>
-        <ol>
-          <li>
-            1. Go to{' '}
-            <a href="https://github.com/AmphibianDev/file-wallet/releases">
-              releases
-            </a>{' '}
-            and download <code>Source Code (zip)</code> from the latest version
-            and extract it.
-          </li>
-          <li>
-            2. Open a terminal within the extracted folder and run those in
-            order:
-            <ol style={{ marginLeft: '2rem' }}>
-              <li>
-                1. <code>npm install</code>
-              </li>
-              <li>
-                2. <code>npm run build</code>
-              </li>
-              <li>
-                3. <code>npm run preview</code>
-              </li>
-            </ol>
-          </li>
-          <li>3. Open the localhost link shown in the console.</li>
-        </ol>
+        <p>
+          I recommend storing the exact version you used on your PC for
+          safekeeping.
+        </p>
       </Accordion>
       <Accordion title="Is The Code Open-Source?">
         <p>

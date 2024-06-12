@@ -37,19 +37,15 @@ MnemonicSeed = getMnemonicFromEntropy(Entropy);
 
 ## How to Run It Offline?
 
-Currently, there isn't a standalone .html file, so you'll need to compile it.
+It couldn't be any simpler. Just go to [releases](https://github.com/AmphibianDev/file-wallet/releases) and download the file-wallet.html from the latest release. Now, you only need to open it with any browser you like (double click it).
 
-1. Go to [releases](https://github.com/AmphibianDev/file-wallet/releases) and download `Source Code (zip)` from the latest version and extract it.
-2. Open a terminal within the extracted folder and run those in order:
-   1. `npm install`
-   2. `npm run preview`
-3. Open the localhost link shown in the console.
+I recommend storing the exact version you used on your PC for safekeeping.
 
 ## What still needs to be done
 
 - Add tests.
 - Organize the file structure.
-- Make a standalone `.html` file.
+- ~~Make a standalone `.html` file.~~
 - Add a loading indicator during wallet generation.
 - Find a better way to handle the JS code from [iancoleman's bip39](https://github.com/iancoleman/bip39).
 - ~~Implement a light theme option.~~
