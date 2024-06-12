@@ -7693,11 +7693,11 @@ function warning(cond, message) {
 function createKey() {
   return Math.random().toString(36).substr(2, 8);
 }
-function getHistoryState(location, index2) {
+function getHistoryState(location, index) {
   return {
     usr: location.state,
     key: location.key,
-    idx: index2
+    idx: index
   };
 }
 function createLocation(current, to, state, key) {
@@ -7760,11 +7760,11 @@ function getUrlBasedHistory(getLocation, createHref, validateLocation, options) 
   let globalHistory = window2.history;
   let action = Action.Pop;
   let listener = null;
-  let index2 = getIndex();
-  if (index2 == null) {
-    index2 = 0;
+  let index = getIndex();
+  if (index == null) {
+    index = 0;
     globalHistory.replaceState(_extends$2({}, globalHistory.state, {
-      idx: index2
+      idx: index
     }), "");
   }
   function getIndex() {
@@ -7776,8 +7776,8 @@ function getUrlBasedHistory(getLocation, createHref, validateLocation, options) 
   function handlePop() {
     action = Action.Pop;
     let nextIndex = getIndex();
-    let delta = nextIndex == null ? null : nextIndex - index2;
-    index2 = nextIndex;
+    let delta = nextIndex == null ? null : nextIndex - index;
+    index = nextIndex;
     if (listener) {
       listener({
         action,
@@ -7791,8 +7791,8 @@ function getUrlBasedHistory(getLocation, createHref, validateLocation, options) 
     let location = createLocation(history.location, to, state);
     if (validateLocation)
       validateLocation(location, to);
-    index2 = getIndex() + 1;
-    let historyState = getHistoryState(location, index2);
+    index = getIndex() + 1;
+    let historyState = getHistoryState(location, index);
     let url = history.createHref(location);
     try {
       globalHistory.pushState(historyState, "", url);
@@ -7815,8 +7815,8 @@ function getUrlBasedHistory(getLocation, createHref, validateLocation, options) 
     let location = createLocation(history.location, to, state);
     if (validateLocation)
       validateLocation(location, to);
-    index2 = getIndex();
-    let historyState = getHistoryState(location, index2);
+    index = getIndex();
+    let historyState = getHistoryState(location, index);
     let url = history.createHref(location);
     globalHistory.replaceState(historyState, "", url);
     if (v5Compat && listener) {
@@ -7914,11 +7914,11 @@ function flattenRoutes(routes, branches, parentsMeta, parentPath) {
   if (parentPath === void 0) {
     parentPath = "";
   }
-  let flattenRoute = (route, index2, relativePath) => {
+  let flattenRoute = (route, index, relativePath) => {
     let meta = {
       relativePath: relativePath === void 0 ? route.path || "" : relativePath,
       caseSensitive: route.caseSensitive === true,
-      childrenIndex: index2,
+      childrenIndex: index,
       route
     };
     if (meta.relativePath.startsWith("/")) {
@@ -7945,13 +7945,13 @@ function flattenRoutes(routes, branches, parentsMeta, parentPath) {
       routesMeta
     });
   };
-  routes.forEach((route, index2) => {
+  routes.forEach((route, index) => {
     var _route$path;
     if (route.path === "" || !((_route$path = route.path) != null && _route$path.includes("?"))) {
-      flattenRoute(route, index2);
+      flattenRoute(route, index);
     } else {
       for (let exploded of explodeOptionalSegments(route.path)) {
-        flattenRoute(route, index2, exploded);
+        flattenRoute(route, index, exploded);
       }
     }
   });
@@ -7985,13 +7985,13 @@ const emptySegmentValue = 1;
 const staticSegmentValue = 10;
 const splatPenalty = -2;
 const isSplat = (s) => s === "*";
-function computeScore(path, index2) {
+function computeScore(path, index) {
   let segments = path.split("/");
   let initialScore = segments.length;
   if (segments.some(isSplat)) {
     initialScore += splatPenalty;
   }
-  if (index2) {
+  if (index) {
     initialScore += indexRouteValue;
   }
   return segments.filter((s) => !isSplat(s)).reduce((score, segment) => score + (paramRe.test(segment) ? dynamicSegmentValue : segment === "" ? emptySegmentValue : staticSegmentValue), initialScore);
@@ -8058,12 +8058,12 @@ function matchPath(pattern, pathname) {
   let matchedPathname = match[0];
   let pathnameBase = matchedPathname.replace(/(.)\/+$/, "$1");
   let captureGroups = match.slice(1);
-  let params = paramNames.reduce((memo, paramName, index2) => {
+  let params = paramNames.reduce((memo, paramName, index) => {
     if (paramName === "*") {
-      let splatValue = captureGroups[index2] || "";
+      let splatValue = captureGroups[index] || "";
       pathnameBase = matchedPathname.slice(0, matchedPathname.length - splatValue.length).replace(/(.)\/+$/, "$1");
     }
-    memo[paramName] = safelyDecodeURIComponent(captureGroups[index2] || "", paramName);
+    memo[paramName] = safelyDecodeURIComponent(captureGroups[index] || "", paramName);
     return memo;
   }, {});
   return {
@@ -8160,7 +8160,7 @@ function getInvalidPathError(char, field, dest, path) {
   return "Cannot include a '" + char + "' character in a manually specified " + ("`to." + field + "` field [" + JSON.stringify(path) + "].  Please separate it out to the ") + ("`to." + dest + "` field. Alternatively you may provide the full path as ") + 'a string in <Link to="..."> and the router will parse it for you.';
 }
 function getPathContributingMatches(matches) {
-  return matches.filter((match, index2) => index2 === 0 || match.route.path && match.route.path.length > 0);
+  return matches.filter((match, index) => index === 0 || match.route.path && match.route.path.length > 0);
 }
 function resolveTo(toArg, routePathnames, locationPathname, isPathRelative) {
   if (isPathRelative === void 0) {
@@ -8495,13 +8495,13 @@ function _renderMatches(matches, parentMatches, dataRouterState) {
     !(errorIndex >= 0) ? invariant(false) : void 0;
     renderedMatches = renderedMatches.slice(0, Math.min(renderedMatches.length, errorIndex + 1));
   }
-  return renderedMatches.reduceRight((outlet, match, index2) => {
+  return renderedMatches.reduceRight((outlet, match, index) => {
     let error = match.route.id ? errors == null ? void 0 : errors[match.route.id] : null;
     let errorElement = null;
     if (dataRouterState) {
       errorElement = match.route.errorElement || defaultErrorElement;
     }
-    let matches2 = parentMatches.concat(renderedMatches.slice(0, index2 + 1));
+    let matches2 = parentMatches.concat(renderedMatches.slice(0, index + 1));
     let getChildren = () => {
       let children;
       if (error) {
@@ -8523,7 +8523,7 @@ function _renderMatches(matches, parentMatches, dataRouterState) {
         children
       });
     };
-    return dataRouterState && (match.route.ErrorBoundary || match.route.errorElement || index2 === 0) ? /* @__PURE__ */ reactExports.createElement(RenderErrorBoundary, {
+    return dataRouterState && (match.route.ErrorBoundary || match.route.errorElement || index === 0) ? /* @__PURE__ */ reactExports.createElement(RenderErrorBoundary, {
       location: dataRouterState.location,
       revalidation: dataRouterState.revalidation,
       component: errorElement,
@@ -8687,11 +8687,11 @@ function createRoutesFromChildren(children, parentPath) {
     parentPath = [];
   }
   let routes = [];
-  reactExports.Children.forEach(children, (element, index2) => {
+  reactExports.Children.forEach(children, (element, index) => {
     if (!/* @__PURE__ */ reactExports.isValidElement(element)) {
       return;
     }
-    let treePath = [...parentPath, index2];
+    let treePath = [...parentPath, index];
     if (element.type === reactExports.Fragment) {
       routes.push.apply(routes, createRoutesFromChildren(element.props.children, treePath));
       return;
@@ -8911,7 +8911,7 @@ var DefaultContext = {
   attr: void 0
 };
 var IconContext = React.createContext && React.createContext(DefaultContext);
-var __assign = globalThis && globalThis.__assign || function() {
+var __assign = function() {
   __assign = Object.assign || function(t2) {
     for (var s, i = 1, n2 = arguments.length; i < n2; i++) {
       s = arguments[i];
@@ -8923,7 +8923,7 @@ var __assign = globalThis && globalThis.__assign || function() {
   };
   return __assign.apply(this, arguments);
 };
-var __rest = globalThis && globalThis.__rest || function(s, e2) {
+var __rest = function(s, e2) {
   var t2 = {};
   for (var p2 in s)
     if (Object.prototype.hasOwnProperty.call(s, p2) && e2.indexOf(p2) < 0)
@@ -8997,7 +8997,7 @@ function MdContentCopy(props) {
 function MdLightMode(props) {
   return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z" } }] })(props);
 }
-const container$g = "_container_1o05x_3";
+const container$h = "_container_1o05x_3";
 const title = "_title_1o05x_17";
 const list$1 = "_list_1o05x_38";
 const btn$2 = "_btn_1o05x_48";
@@ -9006,11 +9006,12 @@ const NavBarCSS = {
   "light-theme": "_light-theme_1o05x_1",
   "sr-only": "_sr-only_1o05x_1",
   "x-btn": "_x-btn_1o05x_1",
-  container: container$g,
+  container: container$h,
   title,
   list: list$1,
   btn: btn$2
 };
+var define_import_meta_env_default$2 = { BASE_URL: "https://file-wallet.com/", MODE: "production", DEV: false, PROD: true, SSR: false };
 const createStoreImpl = (createState) => {
   let state;
   const listeners = /* @__PURE__ */ new Set();
@@ -9028,7 +9029,7 @@ const createStoreImpl = (createState) => {
     return () => listeners.delete(listener);
   };
   const destroy = () => {
-    if (({ "BASE_URL": "https://file-wallet.com/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") {
+    if ((define_import_meta_env_default$2 ? "production" : void 0) !== "production") {
       console.warn(
         "[DEPRECATED] The `destroy` method will be unsupported in a future version. Instead use unsubscribe function returned by subscribe. Everything will be garbage-collected if store is garbage-collected."
       );
@@ -9156,6 +9157,7 @@ withSelector_production_min.useSyncExternalStoreWithSelector = function(a, b, e2
 }
 var withSelectorExports = withSelector.exports;
 const useSyncExternalStoreExports = /* @__PURE__ */ getDefaultExportFromCjs(withSelectorExports);
+var define_import_meta_env_default$1 = { BASE_URL: "https://file-wallet.com/", MODE: "production", DEV: false, PROD: true, SSR: false };
 const { useSyncExternalStoreWithSelector } = useSyncExternalStoreExports;
 function useStore(api, selector = api.getState, equalityFn) {
   const slice = useSyncExternalStoreWithSelector(
@@ -9169,7 +9171,7 @@ function useStore(api, selector = api.getState, equalityFn) {
   return slice;
 }
 const createImpl = (createState) => {
-  if (({ "BASE_URL": "https://file-wallet.com/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && typeof createState !== "function") {
+  if ((define_import_meta_env_default$1 ? "production" : void 0) !== "production" && typeof createState !== "function") {
     console.warn(
       "[DEPRECATED] Passing a vanilla store will be unsupported in a future version. Instead use `import { useStore } from 'zustand'`."
     );
@@ -9180,6 +9182,7 @@ const createImpl = (createState) => {
   return useBoundStore;
 };
 const create = (createState) => createState ? createImpl(createState) : createImpl;
+var define_import_meta_env_default = { BASE_URL: "https://file-wallet.com/", MODE: "production", DEV: false, PROD: true, SSR: false };
 function createJSONStorage(getStorage, options) {
   let storage;
   try {
@@ -9194,7 +9197,7 @@ function createJSONStorage(getStorage, options) {
         if (str2 === null) {
           return null;
         }
-        return JSON.parse(str2, options == null ? void 0 : options.reviver);
+        return JSON.parse(str2, void 0);
       };
       const str = (_a = storage.getItem(name)) != null ? _a : null;
       if (str instanceof Promise) {
@@ -9204,7 +9207,7 @@ function createJSONStorage(getStorage, options) {
     },
     setItem: (name, newValue) => storage.setItem(
       name,
-      JSON.stringify(newValue, options == null ? void 0 : options.replacer)
+      JSON.stringify(newValue, void 0)
     ),
     removeItem: (name) => storage.removeItem(name)
   };
@@ -9498,7 +9501,7 @@ const newImpl = (config, baseOptions) => (set, get, api) => {
 };
 const persistImpl = (config, baseOptions) => {
   if ("getStorage" in baseOptions || "serialize" in baseOptions || "deserialize" in baseOptions) {
-    if (({ "BASE_URL": "https://file-wallet.com/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") {
+    if ((define_import_meta_env_default ? "production" : void 0) !== "production") {
       console.warn(
         "[DEPRECATED] `getStorage`, `serialize` and `deserialize` options are deprecated. Use `storage` option instead."
       );
@@ -9678,7 +9681,7 @@ const useInfoPopupStore = create((set) => ({
   },
   closePopup: () => set({ isOpen: false })
 }));
-const container$f = "_container_e9pko_3";
+const container$g = "_container_e9pko_3";
 const text$4 = "_text_e9pko_21";
 const clickText = "_clickText_e9pko_33";
 const icons = "_icons_e9pko_45";
@@ -9687,7 +9690,7 @@ const FooterCSS = {
   "light-theme": "_light-theme_e9pko_1",
   "sr-only": "_sr-only_e9pko_1",
   "x-btn": "_x-btn_e9pko_1",
-  container: container$f,
+  container: container$g,
   text: text$4,
   clickText,
   icons
@@ -9728,9 +9731,10 @@ const Footer = () => {
           {
             href: "https://github.com/AmphibianDev/file-wallet/releases",
             target: "_blank",
-            rel: "noreferrer",
+            rel: "noopener external",
             className: FooterCSS.clickText,
-            children: "v0.4.1-alpha"
+            "aria-label": "GitHub latest release",
+            children: "v0.5.0-alpha"
           }
         )
       ] })
@@ -9741,7 +9745,7 @@ const Footer = () => {
         {
           href: "https://x.com/AmphibianDev",
           target: "_blank",
-          rel: "noreferrer",
+          rel: "noopener external",
           "aria-label": "X Social Page",
           children: /* @__PURE__ */ jsxRuntimeExports.jsx(RiTwitterXLine, {})
         }
@@ -9808,11 +9812,11 @@ var classnames = { exports: {} };
 })(classnames);
 var classnamesExports = classnames.exports;
 const classNames = /* @__PURE__ */ getDefaultExportFromCjs(classnamesExports);
-const container$e = "_container_k6evz_1";
+const container$f = "_container_k6evz_1";
 const input = "_input_k6evz_7";
 const switchIcon = "_switchIcon_k6evz_26";
 const InputFieldCSS = {
-  container: container$e,
+  container: container$f,
   input,
   switchIcon
 };
@@ -9991,7 +9995,7 @@ const Modal = ({ children, open, onClose }) => {
         close();
       },
       className: classNames(ModalCSS.panel, {
-        [ModalCSS.closing || ""]: closing2
+        [ModalCSS.closing]: closing2
       }),
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -10048,13 +10052,13 @@ const useCryptoStore = create((set) => ({
     set({ bip39Info: null });
   }
 }));
-const container$d = "_container_1bhwt_1";
+const container$e = "_container_1bhwt_1";
 const list = "_list_1bhwt_9";
 const item = "_item_1bhwt_19";
 const itemText = "_itemText_1bhwt_40";
 const icon = "_icon_1bhwt_48";
 const CryptoListCSS = {
-  container: container$d,
+  container: container$e,
   list,
   item,
   itemText,
@@ -10162,11 +10166,11 @@ const ListItem = ({ parentRef, label: label2, selected, onClick }) => {
     }
   );
 };
-const container$c = "_container_11yl0_1";
+const container$d = "_container_11yl0_1";
 const image = "_image_11yl0_13";
 const text$3 = "_text_11yl0_30";
 const CryptoBtnCSS = {
-  container: container$c,
+  container: container$d,
   image,
   text: text$3
 };
@@ -11711,12 +11715,12 @@ function reducer(state, action) {
 }
 function noop() {
 }
-const container$b = "_container_42qo5_1";
+const container$c = "_container_42qo5_1";
 const accept = "_accept_42qo5_22";
 const reject = "_reject_42qo5_26";
 const thumb = "_thumb_42qo5_31";
 const DropZoneCSS = {
-  container: container$b,
+  container: container$c,
   accept,
   reject,
   thumb
@@ -11775,9 +11779,9 @@ const DropZone = ({ file, onChange }) => {
     minSize: 5e4
   });
   const dropzoneClasses = classNames({
-    [DropZoneCSS.container || ""]: true,
-    [DropZoneCSS.accept || ""]: isDragAccept,
-    [DropZoneCSS.reject || ""]: isDragReject
+    [DropZoneCSS.container]: true,
+    [DropZoneCSS.accept]: isDragAccept,
+    [DropZoneCSS.reject]: isDragReject
   });
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { ...getRootProps(), className: dropzoneClasses, role: "button", children: [
     file === null ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
@@ -11797,9 +11801,9 @@ const DropZone = ({ file, onChange }) => {
     /* @__PURE__ */ jsxRuntimeExports.jsx("input", { ...getInputProps() })
   ] });
 };
-const container$a = "_container_riskf_1";
+const container$b = "_container_riskf_1";
 const TextZoneCSS = {
-  container: container$a
+  container: container$b
 };
 const TextZone = ({ value, onChange }) => {
   const ref = reactExports.useRef(null);
@@ -11829,7 +11833,7 @@ const leftTab = "_leftTab_m7kg9_56";
 const rightTab = "_rightTab_m7kg9_68";
 const interactiveTab = "_interactiveTab_m7kg9_80";
 const staticTab = "_staticTab_m7kg9_88";
-const container$9 = "_container_m7kg9_102";
+const container$a = "_container_m7kg9_102";
 const randomBtn = "_randomBtn_m7kg9_132";
 const InputSectionCSS = {
   "dark-theme": "_dark-theme_m7kg9_1",
@@ -11842,7 +11846,7 @@ const InputSectionCSS = {
   rightTab,
   interactiveTab,
   staticTab,
-  container: container$9,
+  container: container$a,
   randomBtn
 };
 const InputSection = ({ className }) => {
@@ -11992,7 +11996,7 @@ const useQRCodeModalStore = create((set) => ({
   },
   closeQRCodeModal: () => set({ isOpen: false })
 }));
-const container$8 = "_container_hic01_1";
+const container$9 = "_container_hic01_1";
 const label$1 = "_label_hic01_13";
 const xmr = "_xmr_hic01_29";
 const bip = "_bip_hic01_35";
@@ -12001,7 +12005,7 @@ const text$2 = "_text_hic01_79";
 const buttons$1 = "_buttons_hic01_88";
 const btn = "_btn_hic01_100";
 const MnemonicFiledCSS = {
-  container: container$8,
+  container: container$9,
   label: label$1,
   "switch": "_switch_hic01_19",
   xmr,
@@ -12089,13 +12093,13 @@ const MnemonicFiled = ({ bip39, xmr: xmr2 }) => {
     ] })
   ] });
 };
-const container$7 = "_container_y4b36_1";
+const container$8 = "_container_y4b36_1";
 const label = "_label_y4b36_6";
 const box = "_box_y4b36_12";
 const text$1 = "_text_y4b36_24";
 const buttons = "_buttons_y4b36_32";
 const OutputFiledCSS = {
-  container: container$7,
+  container: container$8,
   label,
   box,
   text: text$1,
@@ -12149,7 +12153,7 @@ const OutputFiled = ({ text: text2, label: label2 }) => {
     ] })
   ] });
 };
-const container$6 = "_container_18c9r_3";
+const container$7 = "_container_18c9r_3";
 const middle = "_middle_18c9r_23";
 const downArrow = "_downArrow_18c9r_35";
 const advanceContainer = "_advanceContainer_18c9r_40";
@@ -12158,7 +12162,7 @@ const OutputSectionCSS = {
   "light-theme": "_light-theme_18c9r_1",
   "sr-only": "_sr-only_18c9r_1",
   "x-btn": "_x-btn_18c9r_1",
-  container: container$6,
+  container: container$7,
   middle,
   downArrow,
   advanceContainer
@@ -12236,12 +12240,12 @@ const OutputSection = ({ className }) => {
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { tabIndex: -1, className: OutputSectionCSS.container, children: bip39Info === null ? waitingJSX : bip39Info.errorMessage ? errorJSX(bip39Info.errorMessage) : outJSX(bip39Info) })
   ] });
 };
-const container$5 = "_container_1acw6_1";
+const container$6 = "_container_1acw6_1";
 const leftSide = "_leftSide_1acw6_11";
 const iconContainer = "_iconContainer_1acw6_16";
 const text = "_text_1acw6_45";
 const WarningAsideCSS = {
-  container: container$5,
+  container: container$6,
   leftSide,
   iconContainer,
   text
@@ -12274,14 +12278,14 @@ const WarningAside = () => {
     )
   ] }) : null;
 };
-const container$4 = "_container_l27ya_3";
+const container$5 = "_container_l27ya_3";
 const mainContainer = "_mainContainer_l27ya_9";
 const HomeCSS = {
   "dark-theme": "_dark-theme_l27ya_1",
   "light-theme": "_light-theme_l27ya_1",
   "sr-only": "_sr-only_l27ya_1",
   "x-btn": "_x-btn_l27ya_1",
-  container: container$4,
+  container: container$5,
   mainContainer
 };
 const Home = () => {
@@ -12293,11 +12297,11 @@ const Home = () => {
     ] })
   ] });
 };
-const container$3 = "_container_1jaw4_1";
+const container$4 = "_container_1jaw4_1";
 const header = "_header_1jaw4_6";
 const content = "_content_1jaw4_31";
 const AccordionCSS = {
-  container: container$3,
+  container: container$4,
   header,
   content
 };
@@ -12377,9 +12381,9 @@ const Accordion = ({ title: title2, children }) => {
     )
   ] });
 };
-const container$2 = "_container_abcbs_1";
+const container$3 = "_container_abcbs_1";
 const FAQCSS = {
-  container: container$2
+  container: container$3
 };
 const FAQ = () => {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: FAQCSS.container, children: [
@@ -12469,36 +12473,23 @@ const FAQ = () => {
       ] }) })
     ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Accordion, { title: "How to Run It Offline?", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Currently, there isn't a standalone .html file, so you'll need to compile it." }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("ol", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
-          "1. Go to",
-          " ",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "https://github.com/AmphibianDev/file-wallet/releases", children: "releases" }),
-          " ",
-          "and download ",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("code", { children: "Source Code (zip)" }),
-          " from the latest version and extract it."
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
-          "2. Open a terminal within the extracted folder and run those in order:",
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("ol", { style: { marginLeft: "2rem" }, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
-              "1. ",
-              /* @__PURE__ */ jsxRuntimeExports.jsx("code", { children: "npm install" })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
-              "2. ",
-              /* @__PURE__ */ jsxRuntimeExports.jsx("code", { children: "npm run build" })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
-              "3. ",
-              /* @__PURE__ */ jsxRuntimeExports.jsx("code", { children: "npm run preview" })
-            ] })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "3. Open the localhost link shown in the console." })
-      ] })
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+        "It couldn't be any simpler. Just go to",
+        " ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "a",
+          {
+            href: "https://github.com/AmphibianDev/file-wallet/releases",
+            target: "_blank",
+            rel: "noopener external",
+            "aria-label": "GitHub latest release",
+            children: "releases"
+          }
+        ),
+        " ",
+        "and download the file-wallet.html from the latest release. Now, you only need to open it with any browser you like (double click it)."
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "I recommend storing the exact version you used on your PC for safekeeping." })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Accordion, { title: "Is The Code Open-Source?", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
       "Yes. Transparency and the community are essential. If you're technically inclined, or just curious, you're welcome to check out the source code on",
@@ -12578,7 +12569,7 @@ const InfoPopup = () => {
     "div",
     {
       className: classNames(InfoPopupCSS.popupContainer, {
-        [InfoPopupCSS.popupClose || ""]: closing2
+        [InfoPopupCSS.popupClose]: closing2
       }),
       children: [
         Icon && /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { style: { fill: iconColor } }),
@@ -13402,11 +13393,11 @@ const QRCodeModal = () => {
     )
   ] });
 };
-const container$1 = "_container_q8r4m_1";
+const container$2 = "_container_q8r4m_1";
 const pulsatingCube = "_pulsatingCube_q8r4m_21";
 const pulsate = "_pulsate_q8r4m_1";
 const LoadingScreenCSS = {
-  container: container$1,
+  container: container$2,
   pulsatingCube,
   pulsate
 };
@@ -13499,16 +13490,39 @@ function ScriptLoader({ onLoaded }) {
   }, []);
   return null;
 }
-const container = "_container_1n717_3";
+const container$1 = "_container_1n717_3";
 const AppCSS = {
   "dark-theme": "_dark-theme_1n717_1",
   "light-theme": "_light-theme_1n717_1",
   "sr-only": "_sr-only_1n717_1",
   "x-btn": "_x-btn_1n717_1",
-  container
+  container: container$1
+};
+const container = "_container_xl5kx_1";
+const fadeIn = "_fadeIn_xl5kx_1";
+const WinnerIconCSS = {
+  container,
+  fadeIn
+};
+const WinnerIcon = () => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "a",
+    {
+      className: WinnerIconCSS.container,
+      href: "https://devpost.com/software/file-wallet-com-deterministic-wallet-generator",
+      target: "_blank",
+      rel: "noopener external",
+      "aria-label": "HackaTRON S6 Winner",
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 64 64", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M61.55,19.28c-3-2.77-7.15-7-10.53-10l-.2-.14a3.82,3.82,0,0,0-1.11-.62l0,0C41.56,7,3.63-.09,2.89,0a1.4,1.4,0,0,0-.58.22L2.12.37a2.23,2.23,0,0,0-.52.84l-.05.13v.71l0,.11C5.82,14.05,22.68,53,26,62.14c.2.62.58,1.8,1.29,1.86h.16c.38,0,2-2.14,2-2.14S58.41,26.74,61.34,23a9.46,9.46,0,0,0,1-1.48A2.41,2.41,0,0,0,61.55,19.28ZM36.88,23.37,49.24,13.12l7.25,6.68Zm-4.8-.67L10.8,5.26l34.43,6.35ZM34,27.27l21.78-3.51-24.9,30ZM7.91,7,30.3,26,27.06,53.78Z" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Winner" })
+      ]
+    }
+  );
 };
 function App() {
-  const [isLoaded, setIsLoaded] = reactExports.useState(false);
+  const isSingleFileBuild = false;
+  const [isLoaded, setIsLoaded] = reactExports.useState(isSingleFileBuild);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(ScriptLoader, { onLoaded: () => setIsLoaded(true) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingScreen, { isDone: isLoaded }),
@@ -13520,12 +13534,11 @@ function App() {
         /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Home, {}) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/faq", element: /* @__PURE__ */ jsxRuntimeExports.jsx(FAQ, {}) })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(WinnerIcon, {})
     ] })
   ] });
 }
-const index = "";
-const reset = "";
 client.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(HashRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) })
 );
