@@ -11,6 +11,7 @@ import LoadingScreen from './components/LoadingScreen';
 import ScriptLoader from './components/ScriptLoader';
 
 import AppCSS from './App.module.css';
+import WinnerIcon from './components/WinnerIcon';
 
 function App() {
   const isSingleFileBuild = import.meta.env.MODE === 'singleFile';
@@ -33,6 +34,7 @@ function App() {
             <Route path="/faq" element={<FAQ />} />
           </Routes>
           <Footer />
+          <WinnerIcon />
         </div>
       )}
     </div>

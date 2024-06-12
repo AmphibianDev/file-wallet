@@ -43,8 +43,9 @@ const Footer = () => {
           <a
             href="https://github.com/AmphibianDev/file-wallet/releases"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener external"
             className={FooterCSS.clickText}
+            aria-label="GitHub latest release"
           >
             v0.4.1-alpha
           </a>
@@ -54,7 +55,7 @@ const Footer = () => {
         <a
           href="https://x.com/AmphibianDev"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener external"
           aria-label="X Social Page"
         >
           <RiTwitterXLine />
