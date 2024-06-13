@@ -43,11 +43,10 @@ I recommend storing the exact version you used on your PC for safekeeping.
 
 ## What still needs to be done
 
-- Add tests.
-- Organize the file structure.
+- Add E2E tests using Cypress.
 - ~~Make a standalone `.html` file.~~
 - Add a loading indicator during wallet generation.
-- Find a better way to handle the JS code from [iancoleman's bip39](https://github.com/iancoleman/bip39).
+- Find a better way to handle the JS code from [iancoleman's bip39](https://github.com/iancoleman/bip39). Maybe worth making an npm package.
 - ~~Implement a light theme option.~~
 - ~~Add Monero support based on [bip39-coinomi](https://github.com/Coinomi/bip39-coinomi).~~
 - ~~Enhance accessibility following WAI-ARIA standards.~~
@@ -68,6 +67,19 @@ If you believe in the idea behind File-Wallet and feel like you can help make it
 5. Ensure your PR has a description that clearly explains the intention and the changes made.
 
 **Note**: This is my first Website and my first GitHub project. Your patience and constructive feedback are appreciated.
+
+## Rewards for Contributions
+
+Thanks to the Tron community for awarding me 4th place at their Hackathon: HackaTRON S6. I have decided to put a portion of the prize, amounting to $4000, as rewards for contributions to the project. Payments will be made in the cryptocurrency of your choice, and the prize amounts will be decided by me, AmphibianDev, through a fair process based on the impact of your contributions to the project.
+
+#### Rough Guidelines for Prize Amounts:
+
+- **Minor Bugs:** $50 - $100
+- **Major Bugs:** $200 - $500
+- **Critical Vulnerabilities:** $1000 - $2000
+- **Code Improvements and Features:** $100 - $500
+
+**Note**: Don't forget, I am new to everything (GitHub, Git, Web Development, Hackathons, Rewards, etc.) I am learning on the way, please be patient with me. "When you start to walk on the way, the way appears"
 
 ## Disclaimer
 
