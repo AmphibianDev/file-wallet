@@ -45,7 +45,7 @@ I recommend storing the exact version you used on your PC for safekeeping.
 
 - Add E2E tests using Cypress.
 - ~~Make a standalone `.html` file.~~
-- Add a loading indicator during wallet generation.
+- ~~Add a loading indicator during wallet generation.~~
 - Find a better way to handle the JS code from [iancoleman's bip39](https://github.com/iancoleman/bip39). Maybe worth making an npm package.
 - ~~Implement a light theme option.~~
 - ~~Add Monero support based on [bip39-coinomi](https://github.com/Coinomi/bip39-coinomi).~~
@@ -70,13 +70,13 @@ If you believe in the idea behind File-Wallet and feel like you can help make it
 
 ## Rewards for Contributions
 
-Thanks to the Tron community for awarding me 4th place at their Hackathon: HackaTRON S6. I have decided to put a portion of the prize, amounting to $4000, as rewards for contributions to the project. Payments will be made in the cryptocurrency of your choice, and the prize amounts will be decided by me, AmphibianDev, through a fair process based on the impact of your contributions to the project.
+I am grateful to the Tron community for awarding me 4th place at HackaTRON S6. I have allocated $4,000 of the prize as rewards for contributions to the project. Rewards will be distributed in the cryptocurrency of your choice, with amounts determined by the impact of your contribution. Payments will be fairly decided by me, AmphibianDev.
 
 #### Rough Guidelines for Prize Amounts:
 
 - **Minor Bugs:** $50 - $100
 - **Major Bugs:** $200 - $500
-- **Critical Vulnerabilities:** $1000 - $2000
+- **Critical Vulnerabilities:** $1,000 - $3,000
 - **Code Improvements and Features:** $100 - $500
 
 **Note**: Don't forget, I am new to everything (GitHub, Git, Web Development, Hackathons, Rewards, etc.) I am learning on the way, please be patient with me. "When you start to walk on the way, the way appears"
