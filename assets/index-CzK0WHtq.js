@@ -9734,7 +9734,7 @@ const Footer = () => {
             rel: "noopener external",
             className: FooterCSS.clickText,
             "aria-label": "GitHub latest release",
-            children: "v0.5.0-alpha"
+            children: "v0.6.0-alpha"
           }
         )
       ] })
@@ -10020,13 +10020,15 @@ async function generateFromString(str) {
 const useCryptoStore = create((set) => ({
   cryptoName: "BTC - Bitcoin",
   bip39Info: null,
+  loading: false,
   setCrypto: (cryptoName) => {
     window.setCrypto(cryptoName);
     set({ cryptoName, bip39Info: null });
   },
   bipFromFile: (fileDataURL, password) => {
+    set({ loading: true });
     generateFromString(fileDataURL + password).then((bip39Info) => {
-      set({ bip39Info });
+      set({ bip39Info, loading: false });
     }).catch((err) => {
       console.log(err);
     });
@@ -10036,6 +10038,7 @@ const useCryptoStore = create((set) => ({
     set({ bip39Info });
   },
   bipRandom: () => {
+    set({ loading: true });
     const array = new Uint32Array(100);
     crypto.getRandomValues(array);
     let randomStr = Math.random().toString().slice(2);
@@ -10043,7 +10046,7 @@ const useCryptoStore = create((set) => ({
       randomStr += num;
     }
     generateFromString(randomStr).then((bip39Info) => {
-      set({ bip39Info });
+      set({ bip39Info, loading: false });
     }).catch((err) => {
       console.log(err);
     });
@@ -12153,22 +12156,26 @@ const OutputFiled = ({ text: text2, label: label2 }) => {
     ] })
   ] });
 };
-const container$7 = "_container_18c9r_3";
-const middle = "_middle_18c9r_23";
-const downArrow = "_downArrow_18c9r_35";
-const advanceContainer = "_advanceContainer_18c9r_40";
+const container$7 = "_container_19hzl_3";
+const middle = "_middle_19hzl_23";
+const downArrow = "_downArrow_19hzl_35";
+const advanceContainer = "_advanceContainer_19hzl_40";
+const loader = "_loader_19hzl_49";
+const spin = "_spin_19hzl_1";
 const OutputSectionCSS = {
-  "dark-theme": "_dark-theme_18c9r_1",
-  "light-theme": "_light-theme_18c9r_1",
-  "sr-only": "_sr-only_18c9r_1",
-  "x-btn": "_x-btn_18c9r_1",
+  "dark-theme": "_dark-theme_19hzl_1",
+  "light-theme": "_light-theme_19hzl_1",
+  "sr-only": "_sr-only_19hzl_1",
+  "x-btn": "_x-btn_19hzl_1",
   container: container$7,
   middle,
   downArrow,
-  advanceContainer
+  advanceContainer,
+  loader,
+  spin
 };
 const OutputSection = ({ className }) => {
-  const { bip39Info } = useCryptoStore();
+  const { bip39Info, loading } = useCryptoStore();
   const waitingJSX = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: OutputSectionCSS.middle, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
     "Waiting For",
     /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
@@ -12225,6 +12232,16 @@ const OutputSection = ({ className }) => {
       ] })
     ] });
   };
+  const renderLogic = () => {
+    if (loading)
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: OutputSectionCSS.loader });
+    if (bip39Info) {
+      if (bip39Info.errorMessage)
+        return errorJSX(bip39Info.errorMessage);
+      return outJSX(bip39Info);
+    }
+    return waitingJSX;
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       "div",
@@ -12237,7 +12254,7 @@ const OutputSection = ({ className }) => {
         children: /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { children: "Output" })
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { tabIndex: -1, className: OutputSectionCSS.container, children: bip39Info === null ? waitingJSX : bip39Info.errorMessage ? errorJSX(bip39Info.errorMessage) : outJSX(bip39Info) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { tabIndex: -1, className: OutputSectionCSS.container, children: renderLogic() })
   ] });
 };
 const container$6 = "_container_1acw6_1";
