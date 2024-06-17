@@ -10,7 +10,7 @@ import InputSectionCSS from './InputSection.module.css';
 import OutputSectionCSS from './OutputSection.module.css';
 
 const OutputSection = ({ className }: { className?: string }) => {
-  const { bip39Info } = useCryptoStore();
+  const { bip39Info, loading } = useCryptoStore();
 
   const waitingJSX = (
     <div className={OutputSectionCSS.middle}>
@@ -68,6 +68,17 @@ const OutputSection = ({ className }: { className?: string }) => {
     );
   };
 
+  const renderLogic = () => {
+    if (loading) return <div className={OutputSectionCSS.loader}></div>;
+
+    if (bip39Info) {
+      if (bip39Info.errorMessage) return errorJSX(bip39Info.errorMessage);
+      return outJSX(bip39Info);
+    }
+
+    return waitingJSX;
+  };
+
   return (
     <section className={className}>
       <div
@@ -80,11 +91,7 @@ const OutputSection = ({ className }: { className?: string }) => {
         <h2>Output</h2>
       </div>
       <div tabIndex={-1} className={OutputSectionCSS.container}>
-        {bip39Info === null
-          ? waitingJSX
-          : bip39Info.errorMessage
-          ? errorJSX(bip39Info.errorMessage)
-          : outJSX(bip39Info)}
+        {renderLogic()}
       </div>
     </section>
   );

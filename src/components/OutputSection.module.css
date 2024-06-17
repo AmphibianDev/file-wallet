@@ -45,3 +45,22 @@
   align-items: center;
   gap: var(--a300);
 }
+
+.loader {
+  margin: auto;
+
+  height: 4rem;
+  width: 4rem;
+  border: 6px solid var(--color-text);
+
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
